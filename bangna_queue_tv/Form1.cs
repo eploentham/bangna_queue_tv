@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bangna_queue_tv.control;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +13,18 @@ namespace bangna_queue_tv
 {
     public partial class Form1 : Form
     {
+        BangnaQueueControl bqc;
+
         Timer timer1;
         ConnectDB conn;
         DataTable dt = new DataTable();
-        public Form1()
+        Font fEdit, fEditB;
+        public Form1(BangnaQueueControl bqc)
         {
             InitializeComponent();
-            conn = new ConnectDB();
+            this.bqc = bqc;
+
+            conn = bqc.conn;
             timer1 = new Timer();
             timer1.Tick += new EventHandler(OnTimedEvent);
             timer1.Interval = 1000;
@@ -63,6 +69,7 @@ namespace bangna_queue_tv
             dgv1.ColumnHeadersVisible = false;
 
             dgv1.ColumnCount = 2;
+            //dgv1.Font 
 
             dgv1.RowCount = int.Parse(comboBox1.Text);
             dgv1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

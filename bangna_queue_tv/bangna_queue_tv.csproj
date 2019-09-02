@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\MySql.Data.dll</HintPath>
@@ -51,6 +54,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="control\BangnaQueueControl.cs" />
+    <Compile Include="gui\FrmQueueConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmQueueConfig.Designer.cs">
+      <DependentUpon>FrmQueueConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmQueueNext.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmQueueNext.Designer.cs">
+      <DependentUpon>FrmQueueNext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="obgdb\BangnaQueueDB.cs" />
+    <Compile Include="obgdb\CompanyDB.cs" />
+    <Compile Include="obgdb\BQueueDB.cs" />
+    <Compile Include="obgdb\QueueDB.cs" />
+    <Compile Include="obgdb\StaffDB.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="obgdb\ConnectDB.cs" />
     <Compile Include="Form1.cs">
@@ -65,9 +86,14 @@
     <Compile Include="gui\FrmQueueAdd.Designer.cs">
       <DependentUpon>FrmQueueAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="object1\Company.cs" />
     <Compile Include="object1\IniFile.cs" />
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LogWriter.cs" />
+    <Compile Include="object1\Persistent.cs" />
+    <Compile Include="object1\BQueue.cs" />
+    <Compile Include="object1\Queue.cs" />
+    <Compile Include="object1\Staff.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -75,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueAdd.resx">
       <DependentUpon>FrmQueueAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmQueueConfig.resx">
+      <DependentUpon>FrmQueueConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmQueueNext.resx">
+      <DependentUpon>FrmQueueNext.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +121,7 @@
     <None Include="bangna_queue_tv.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,5 +135,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

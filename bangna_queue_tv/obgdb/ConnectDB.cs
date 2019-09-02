@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using bangna_queue_tv.object1;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,6 +10,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_queue_tv
 {
@@ -22,7 +24,9 @@ namespace bangna_queue_tv
         public int _rowsAffected = 0;
         public SqlInt32 _errorCode = 0;
         public Boolean _isDisposed = false;
-        public MySqlConnection conn, connMainHIS1;
+        public MySqlConnection connIm, connEx, conn;
+        public MySqlConnection connNoClose;
+
         private String hostname = "";
         private IniFile iniFile;
         public String hostDB = "", databaseNameMainHIS1 = "";
@@ -37,25 +41,32 @@ namespace bangna_queue_tv
         public String isBranch = "";
         private LogWriter lw;
         public String pathLabEx = "";
+        public Staff user;
 
         public String pathSSO = "";
-        public ConnectDB()
+        public ConnectDB(InitConfig initc)
         {
             iniFile = new IniFile("bangna_queue_tv.ini");
 
-            hostDB = iniFile.Read("database_name");
-            hostName = iniFile.Read("host_name");
-            userDB = iniFile.Read("user_db");            
-            passwordDB = iniFile.Read("password_db");
             conn = new MySqlConnection();
+            connIm = new MySqlConnection();
+            connEx = new MySqlConnection();
+            connNoClose = new MySqlConnection();
 
-            conn.ConnectionString = "Server=" + this.hostName + ";Database=" + hostDB + ";Uid=" + userDB + ";Pwd=" + passwordDB + ";port = 3306;Connection Timeout = 300;default command timeout=0;";
+            conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB +
+                ";port = " + initc.portDB + "; Connection Timeout = 300;default command timeout=0; CharSet=utf8;SslMode=none; convert zero datetime=True; ";
+            connNoClose.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB +
+                ";port = " + initc.portDB + "; Connection Timeout = 300;default command timeout=0; CharSet=utf8;SslMode=none; convert zero datetime=True; ";
+            connIm.ConnectionString = "Server=" + initc.hostDBIm + ";Database=" + initc.nameDBIm + ";Uid=" + initc.userDBIm + ";Pwd=" + initc.passDBIm +
+                ";port = " + initc.portDBIm + "; Connection Timeout = 300;default command timeout=0; CharSet=utf8;SslMode=none; convert zero datetime=True; ";
+            connEx.ConnectionString = "Server=" + initc.hostDBEx + ";Database=" + initc.nameDBEx + ";Uid=" + initc.userDBEx + ";Pwd=" + initc.passDBEx +
+                ";port = " + initc.portDBEx + "; Connection Timeout = 300;default command timeout=0; CharSet=utf8;SslMode=none; convert zero datetime=True; ";
+            user = new Staff();
 
         }
         
         public String GetConfig(String key)
         {
-
             AppSettingsReader _configReader = new AppSettingsReader();
             // Set connection string of the sqlconnection object
             return _configReader.GetValue(key, "".GetType()).ToString();
@@ -88,8 +99,71 @@ namespace bangna_queue_tv
             
             return toReturn;
         }
-        
-        
+        public DataTable selectData(MySqlConnection con, String sql)
+        {
+            DataTable toReturn = new DataTable();
+
+            MySqlCommand comMainhis = new MySqlCommand();
+            comMainhis.CommandText = sql;
+            comMainhis.CommandType = CommandType.Text;
+            comMainhis.Connection = con;
+            MySqlDataAdapter adapMainhis = new MySqlDataAdapter(comMainhis);
+            try
+            {
+                con.Open();
+                adapMainhis.Fill(toReturn);
+                //return toReturn;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Message" + ex.Message + "\n" + sql, "Error");
+                if (con.State == ConnectionState.Open)
+                {
+                    //con.Close();
+                }
+                throw new Exception(ex.Message, ex);
+            }
+            finally
+            {
+                con.Close();
+                comMainhis.Dispose();
+                adapMainhis.Dispose();
+            }
+            return toReturn;
+        }
+        public String ExecuteNonQuery(MySqlConnection con, String sql)
+        {
+            String toReturn = "";
+
+            MySqlCommand com = new MySqlCommand();
+            com.CommandText = sql;
+            com.CommandType = CommandType.Text;
+            com.Connection = con;
+            try
+            {
+                con.Open();
+                _rowsAffected = com.ExecuteNonQuery();
+                //_rowsAffected = (int)com.ExecuteScalar();
+                toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
+                if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
+                {
+                    toReturn = _rowsAffected.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ExecuteNonQuery::Error occured.", ex);
+                toReturn = ex.Message;
+            }
+            finally
+            {
+                //_mainConnection.Close();
+                con.Close();
+                com.Dispose();
+            }
+
+            return toReturn;
+        }
         public String ExecuteNonQuery(String sql)
         {
             String toReturn = "";
