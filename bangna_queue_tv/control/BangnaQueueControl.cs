@@ -91,6 +91,8 @@ namespace bangna_queue_tv.control
             iniC.printerQueue = iniF.getIni("app", "printerQueue");
             iniC.queuefixid = iniF.getIni("app", "queuefixid");
             iniC.FrmQueueShow = iniF.getIni("app", "FrmQueueShow");
+            iniC.printerQueueFontSize = iniF.getIni("app", "printerQueueFontSize");
+            iniC.printerQueueFontName = iniF.getIni("app", "printerQueueFontName");
 
             iniC.sticker_donor_width = iniF.getIni("sticker_donor", "width");
             iniC.sticker_donor_height = iniF.getIni("sticker_donor", "height");

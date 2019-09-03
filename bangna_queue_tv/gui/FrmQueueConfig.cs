@@ -90,7 +90,14 @@ namespace bangna_queue_tv.gui
             date = dt.Year + "-" + dt.ToString("MM-dd");
             dt1 = bqc.bquDB.bqueDB.selectBQueDate(date);
             int i = 0;
-            dgv1.RowCount = dt1.Rows.Count;
+            if (dt1.Rows.Count >= 1)
+            {
+                dgv1.RowCount = dt1.Rows.Count;
+            }
+            else
+            {
+                dgv1.RowCount = 1;
+            }
             foreach (DataRow row in dt1.Rows)
             {
                 

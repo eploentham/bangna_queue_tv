@@ -35,13 +35,13 @@ namespace bangna_queue_tv
             }
             BangnaQueueControl bqc = new BangnaQueueControl();
             //Application.Run(new Form1());
-            if (bqc.iniC.FrmQueueShow.Equals(""))
+            if (bqc.iniC.FrmQueueShow.Equals("1"))
             {
-                Application.Run(new FrmQueueAdd(bqc));
+                Application.Run(new FrmQueueNext(bqc));                
             }
             else
             {
-                Application.Run(new FrmQueueNext(bqc));
+                Application.Run(new FrmQueueAdd(bqc));
             }
         }
     }

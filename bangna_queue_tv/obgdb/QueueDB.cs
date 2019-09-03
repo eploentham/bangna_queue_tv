@@ -158,6 +158,26 @@ namespace bangna_queue_tv.obgdb
 
             return stf2;
         }
+        public String updateQue(String queid, String que1)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;            
+            sql = "Update " + que.table + " Set " +
+                " " + que.queue + "='"+ que1 + "' " +
+                "Where " + que.pkField + "='" + queid + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);                
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
         public String insertQueue(Queue p, String userId)
         {
             String re = "";

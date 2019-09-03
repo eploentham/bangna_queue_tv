@@ -78,6 +78,32 @@ namespace bangna_queue_tv.obgdb
             lStf = new List<Staff>();
             ldtr = new List<Staff>();
         }
+        public void getlStfBQue(String date)
+        {
+            //lDept = new List<Position>();
+
+            ldtr.Clear();
+            DataTable dt = new DataTable();
+            dt = selectAllBQue(date);
+            foreach (DataRow row in dt.Rows)
+            {
+                Staff stf1 = new Staff();
+                stf1.staff_id = row[stf.staff_id].ToString();
+                stf1.staff_code = row[stf.staff_code].ToString();
+                stf1.staff_fname_t = row[stf.staff_fname_t].ToString();
+                stf1.staff_lname_t = row[stf.staff_lname_t].ToString();
+                stf1.staff_fname_e = row[stf.staff_fname_e].ToString();
+                stf1.staff_lname_e = row[stf.staff_lname_e].ToString();
+                stf1.prefix = row[stf.prefix].ToString();
+                //cus1.date_modi = row[dept.date_modi].ToString();
+                //cus1.date_cancel = row[dept.date_cancel].ToString();
+                //cus1.user_create = row[dept.user_create].ToString();
+                //cus1.user_modi = row[dept.user_modi].ToString();
+                //cus1.user_cancel = row[dept.user_cancel].ToString();
+                //cus1.active = row[dept.active].ToString();
+                ldtr.Add(stf1);
+            }
+        }
         public void getlStf()
         {
             //lDept = new List<Position>();
@@ -418,6 +444,17 @@ namespace bangna_queue_tv.obgdb
 
             return dt;
         }
+        public DataTable selectAllBQue(String date)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select cop.*  " +
+                "From " + stf.table + " cop " +
+                "Inner Join b_queue bque on cop."+stf.staff_id +" = bque.staff_id " +
+                "Where cop." + stf.active + " ='1' and bque.queue_date = '"+date+"'";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectAll()
         {
             DataTable dt = new DataTable();
@@ -743,6 +780,31 @@ namespace bangna_queue_tv.obgdb
             item.Text = "";
             c.Items.Add(item);
             foreach (Staff cus1 in lStf)
+            {
+                item = new ComboBoxItem();
+                item.Value = cus1.staff_id;
+                item.Text = cus1.prefix + " " + cus1.staff_fname_t + " " + cus1.staff_lname_t;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+        }
+        public void setCboStaffBQue(ComboBox c, String selected, String date)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectWard();
+            int i = 0;
+            if (ldtr.Count <= 0) getlStfBQue(date);
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (Staff cus1 in ldtr)
             {
                 item = new ComboBoxItem();
                 item.Value = cus1.staff_id;

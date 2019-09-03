@@ -25,6 +25,7 @@ namespace bangna_queue_tv.gui
         }
         private void initConfig()
         {
+            
             bqc.bquDB.stfDB.setCboStaff(cboStf, bqc.iniC.queuefixid);
 
             setControl();
@@ -37,6 +38,7 @@ namespace bangna_queue_tv.gui
         {
             //throw new NotImplementedException();
             Queue que = new Queue();
+            BQueue bque1 = new BQueue();
             String stfid = "", queid = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
             if (stfid.Equals(""))
@@ -49,7 +51,10 @@ namespace bangna_queue_tv.gui
             
             long chk = 0;
             que = bqc.bquDB.queDB.updateStatusQue(stfid, date);
+            String quecurr = bqc.bquDB.bqueDB.updateQueueCurrent(stfid, date, que.queue);
+            bque1 = bqc.bquDB.bqueDB.selectByPk1(date, stfid);
             lbQueCurr.Text = que.queue;
+            lbQueFinish.Text = bque1.queue;
         }
 
         private void CboStf_SelectedValueChanged(object sender, EventArgs e)

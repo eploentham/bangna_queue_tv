@@ -153,6 +153,28 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
+        public String updateQueueCurrent(String bqueue_id, String quedate, String quecurr)
+        {
+            String re = "", max = "";
+            String sql = "";
+            int chk = 0;
+            
+            sql = "Update " + bque.table + " Set " +
+                " " + bque.queue_current + "='" + quecurr + "' " +
+                "Where " + bque.staff_id + "='" + bqueue_id + "' and "+bque.queue_date+"='"+ quedate + "'"
+                ;
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
         public String selectBQueIdByStfQueDate(String stfid, String date)
         {
             String re = "";
@@ -165,7 +187,7 @@ namespace bangna_queue_tv.obgdb
             dt = conn.selectData(conn.conn, sql);
             if(dt.Rows.Count > 0)
             {
-                re = dt.Rows[0]["b_queue_id"].ToString();
+                re = dt.Rows[0]["b_queue_id"].ToString()+"@"+ dt.Rows[0]["queue_current"].ToString();
             }
             return re;
         }

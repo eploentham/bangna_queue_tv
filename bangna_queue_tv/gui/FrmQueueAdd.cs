@@ -19,7 +19,7 @@ namespace bangna_queue_tv.gui
         int cntclick = 0;
         String datestart = "", dateend = "";
         BQueue bque;
-
+        Font fEditPrintQue;
         public FrmQueueAdd(BangnaQueueControl bqc)
         {
             InitializeComponent();
@@ -28,8 +28,10 @@ namespace bangna_queue_tv.gui
         }
         private void initConfig()
         {
-            bqc.bquDB.stfDB.setCboStaff(cboStf, bqc.iniC.queuefixid);
+            fEditPrintQue = new Font(bqc.iniC.printerQueueFontName, int.Parse(bqc.iniC.printerQueueFontSize), FontStyle.Regular);
 
+            bqc.bquDB.stfDB.setCboStaffBQue(cboStf, bqc.iniC.queuefixid, System.DateTime.Now.ToString("yyyy-MM-dd"));
+            
             setControl();
 
             label1.Click += Label1_Click;
@@ -102,6 +104,12 @@ namespace bangna_queue_tv.gui
             }
             String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
             bqueid = bqc.bquDB.bqueDB.selectBQueIdByStfQueDate(stfid, date);
+            String[] bqueid1 = bqueid.Split('@');
+            //String bqueid1 = "", quecurr = "";
+            if (bqueid1.Length > 1)
+            {
+
+            }
             Queue que = new Queue();
             que.queue_id = "";
             que.staff_id = stfid;
@@ -112,19 +120,22 @@ namespace bangna_queue_tv.gui
             que.staff_name = "";
             que.date_begin = "";
             que.date_finish = "";
+            que.queue = "";
             long chk = 0;
             String re = bqc.bquDB.queDB.insertQueue(que, "");
             if(long.TryParse(re, out chk))
             {
                 int chk1 = 0;
                 String re1 = "";
-                re1 = bqc.bquDB.bqueDB.updateQueueMax(bqueid);
+                re1 = bqc.bquDB.bqueDB.updateQueueMax(bqueid1[0]);
                 if (int.TryParse(re1, out chk1))
                 {
                     if (chk1 > 0)
                     {
-                        printQueue();
+                        String re2 = bqc.bquDB.queDB.updateQue(re, re1);
+                        lbQueCurr.Text = bqueid1[1];
                         lbQue.Text = chk1.ToString();
+                        printQueue();
                     }
                 }
             }
@@ -170,6 +181,7 @@ namespace bangna_queue_tv.gui
             //gets the text from the textbox
             String stringToPrint = "";
             string printText = "";
+            float yPos = 0, gap = 6;
             //String RECEIPT = Environment.CurrentDirectory + "\\comprovante.txt";
             //if (File.Exists(RECEIPT))
             //{
@@ -180,15 +192,20 @@ namespace bangna_queue_tv.gui
             //    sr.Close();
             //    fs.Close();
             //}
-            String date = "";
-            date = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            String date = "",year="", hhmmss="";
+            year = (DateTime.Now.Year+543).ToString();
+            hhmmss = DateTime.Now.ToString("hh:mm:ss");
+            date = DateTime.Now.ToString("dd/MM/")+ year+" "+ hhmmss;
             
             //stringToPrint = mposC.mposDB.copDB.genQueue1Doc() + Environment.NewLine;
             stringToPrint += "เวลา " + date + Environment.NewLine;
-            //stringToPrint += "" + textBox1.Text + Environment.NewLine;
-            //stringToPrint += "" + txtTopUp1.Text + Environment.NewLine;
-            //stringToPrint += "" + txtTopUp2.Text + Environment.NewLine;
-            //stringToPrint += "" + txtTopUp3.Text + Environment.NewLine;
+            stringToPrint += Environment.NewLine;
+            stringToPrint += "คิว " + cboStf.Text + Environment.NewLine;
+            stringToPrint += Environment.NewLine;
+            stringToPrint += "คิวปัจจุบัน " + lbQueCurr.Text + Environment.NewLine;
+            stringToPrint += Environment.NewLine;
+            stringToPrint += "คิวที่ " + Environment.NewLine;
+            stringToPrint += Environment.NewLine;
             //stringToPrint += "โต๊ะ   " + txtDesk.Text + Environment.NewLine;
             //Makes the file to print and sets the look of it
             //int i = 1;
@@ -252,6 +269,15 @@ namespace bangna_queue_tv.gui
             //stringToPrint += Environment.NewLine;
             //stringToPrint += "         จำนวนเงิน " + amt1.ToString("0.00") + Environment.NewLine;
             g.DrawString(stringToPrint, new Font("arial", 16), Brush, 10, 10);
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            float marginR = e.MarginBounds.Right;
+            float avg = marginR / 2;
+            Size proposedSize = new Size(100, 100);
+            Size textSize = TextRenderer.MeasureText(lbQue.Text, fEditPrintQue, proposedSize, TextFormatFlags.RightToLeft);
+            //textSize = TextRenderer.MeasureText(lbQue.Text, fEditPrintQue, proposedSize, TextFormatFlags.RightToLeft);
+            //yPos = topMargin + (count * fEdit.GetHeight(e.Graphics) + gap);
+            yPos = 200;
+            e.Graphics.DrawString(lbQue.Text, fEditPrintQue, Brushes.Black, avg - (textSize.Width / 2) + 50, yPos, flags);
 
         }
         private void FrmQueueAdd_Load(object sender, EventArgs e)
