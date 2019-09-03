@@ -37,10 +37,12 @@ namespace bangna_queue_tv
             //Application.Run(new Form1());
             if (bqc.iniC.FrmQueueShow.Equals("1"))
             {
+                //MessageBox.Show("11111", "");
                 Application.Run(new FrmQueueNext(bqc));                
             }
             else
             {
+                //MessageBox.Show("222222", "");
                 Application.Run(new FrmQueueAdd(bqc));
             }
         }

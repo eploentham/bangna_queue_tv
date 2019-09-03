@@ -23,14 +23,16 @@ namespace bangna_queue_tv.gui
         public FrmQueueAdd(BangnaQueueControl bqc)
         {
             InitializeComponent();
+            //MessageBox.Show("33333", "");
             this.bqc = bqc;
             initConfig();
         }
         private void initConfig()
         {
             fEditPrintQue = new Font(bqc.iniC.printerQueueFontName, int.Parse(bqc.iniC.printerQueueFontSize), FontStyle.Regular);
-
-            bqc.bquDB.stfDB.setCboStaffBQue(cboStf, bqc.iniC.queuefixid, System.DateTime.Now.ToString("yyyy-MM-dd"));
+            String date = "";
+            date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
+            bqc.bquDB.stfDB.setCboStaffBQue(cboStf, bqc.iniC.queuefixid, date);
             
             setControl();
 
@@ -70,7 +72,9 @@ namespace bangna_queue_tv.gui
             }
             if (cntclick >= 5)
             {
-                dateend = System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                String date = "";
+                date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd") +" "+ System.DateTime.Now.ToString("hh:mm:ss");
+                dateend = date;
                 DateTime dtstart = new DateTime();
                 DateTime dtend = new DateTime();
                 DateTime dtcompare = new DateTime();
@@ -163,7 +167,15 @@ namespace bangna_queue_tv.gui
         {
             PrintDocument document = new PrintDocument();
             //MessageBox.Show("ord1.printer_name "+ ord1.printer_name, "");
-            document.PrinterSettings.PrinterName = bqc.iniC.printerQueue;
+            try
+            {
+                document.PrinterSettings.PrinterName = bqc.iniC.printerQueue;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("error "+ex.Message, "");
+            }
+            
             document.PrintPage += new PrintPageEventHandler(printDocument1_PrintQueue);
             //This is where you set the printer in your case you could use "EPSON USB"
             //or whatever it is called on your machine, by Default it will choose the default printer

@@ -452,7 +452,7 @@ namespace bangna_queue_tv.obgdb
                 "Inner Join b_queue bque on cop."+stf.staff_id +" = bque.staff_id " +
                 "Where cop." + stf.active + " ='1' and bque.queue_date = '"+date+"'";
             dt = conn.selectData(conn.conn, sql);
-
+            new LogWriter(" selectAllBQue sql " + sql);
             return dt;
         }
         public DataTable selectAll()
