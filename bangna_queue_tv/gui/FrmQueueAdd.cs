@@ -294,14 +294,14 @@ namespace bangna_queue_tv.gui
         }
         private void FrmQueueAdd_Load(object sender, EventArgs e)
         {
-            int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;
-            int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
-            int top = 0, left = 0;
-            top = (screenHeight / 2) - (screenHeight - panel1.Height) + 130;
-            //top = (screenHeight / 2) + 30;
-            left = (screenWidth / 2) - 400;
-            panel1.Top = top;
-            panel1.Left = left;
+            //int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            //int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
+            //int top = 0, left = 0;
+            //top = (screenHeight / 2) - (screenHeight - panel1.Height) + 130;
+            ////top = (screenHeight / 2) + 30;
+            //left = (screenWidth / 2) - 400;
+            //panel1.Top = top;
+            //panel1.Left = left;
         }
     }
 }

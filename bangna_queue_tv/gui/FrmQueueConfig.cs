@@ -47,18 +47,18 @@ namespace bangna_queue_tv.gui
             DateTime dt = new DateTime();
             if(!int.TryParse(txtQue.Text, out que))
             {
-                MessageBox.Show("", "");
+                MessageBox.Show("txtQue.Text " + txtQue.Text, "");
                 return;
             }
             stfid = bqc.getIdCombo(cboStf,cboStf.Text);
             if (stfid.Equals(""))
             {
-                MessageBox.Show("", "");
+                MessageBox.Show("stfid " + stfid, "");
                 return;
             }
             if(!DateTime.TryParse(txtQueDate.Text, out dt))
             {
-                MessageBox.Show("", "");
+                MessageBox.Show("txtQueDate.Text " + txtQueDate.Text, "");
                 return;
             }
             BQueue bque = new BQueue();
