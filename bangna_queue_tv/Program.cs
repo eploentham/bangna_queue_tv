@@ -43,7 +43,7 @@ namespace bangna_queue_tv
             else
             {
                 //MessageBox.Show("222222", "");
-                Application.Run(new FrmQueueAdd(bqc));
+                Application.Run(new FrmQueueAdd1(bqc));
             }
         }
     }
