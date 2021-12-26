@@ -61,15 +61,15 @@ namespace bangna_queue_tv.gui
                 MessageBox.Show("txtQueDate.Text " + txtQueDate.Text, "");
                 return;
             }
-            BQueue bque = new BQueue();
-            bque.queue_id = "";
+            BQueueDate bque = new BQueueDate();
+            bque.b_queue_id = "";
             bque.staff_id = stfid;
             bque.queue_date = dt.Year+"-"+dt.ToString("MM-dd");
             bque.queue_current = "0";
             bque.queue = que.ToString();
             String bquid = "";
             bquid = bqc.bquDB.bqueDB.selectBQueIdByStfQueDate(stfid, bque.queue_date);
-            bque.queue_id = bquid;
+            bque.b_queue_id = bquid;
             String re = bqc.bquDB.bqueDB.insertBQueue(bque, "");
             if(int.TryParse(re, out chk))
             {

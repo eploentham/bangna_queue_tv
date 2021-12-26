@@ -103,7 +103,7 @@
     </Compile>
     <Compile Include="obgdb\BangnaQueueDB.cs" />
     <Compile Include="obgdb\CompanyDB.cs" />
-    <Compile Include="obgdb\BQueueDB.cs" />
+    <Compile Include="obgdb\BQueueDateDB.cs" />
     <Compile Include="obgdb\QueueDB.cs" />
     <Compile Include="obgdb\StaffDB.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LogWriter.cs" />
     <Compile Include="object1\Persistent.cs" />
-    <Compile Include="object1\BQueue.cs" />
+    <Compile Include="object1\BQueueDate.cs" />
     <Compile Include="object1\Queue.cs" />
     <Compile Include="object1\Staff.cs" />
     <Compile Include="Program.cs" />

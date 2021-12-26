@@ -7,20 +7,20 @@ using System.Text;
 
 namespace bangna_queue_tv.obgdb
 {
-    public class BQueueDB
+    public class BQueueDateDB
     {
-        public BQueue bque;
+        public BQueueDate bque;
         ConnectDB conn;
 
-        public BQueueDB(ConnectDB c)
+        public BQueueDateDB(ConnectDB c)
         {
             conn = c;
             initConfig();
         }
         private void initConfig()
         {
-            bque = new BQueue();
-            bque.queue_id = "b_queue_id";
+            bque = new BQueueDate();
+            bque.b_queue_id = "b_queue_id";
             bque.staff_id = "staff_id";
             bque.queue_date = "queue_date";
             bque.queue_current = "queue_current";
@@ -30,7 +30,7 @@ namespace bangna_queue_tv.obgdb
             bque.pkField = "b_queue_id";
             
         }
-        private void chkNull(BQueue p)
+        private void chkNull(BQueueDate p)
         {
             long chk = 0;
 
@@ -50,7 +50,7 @@ namespace bangna_queue_tv.obgdb
             p.staff_id = long.TryParse(p.staff_id, out chk) ? chk.ToString() : "0";
             
         }
-        public String insert(BQueue p, String userId)
+        public String insert(BQueueDate p, String userId)
         {
             String re = "";
             String sql = "";
@@ -78,7 +78,7 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public String update(BQueue p, String userId)
+        public String update(BQueueDate p, String userId)
         {
             String re = "";
             String sql = "";
@@ -90,7 +90,7 @@ namespace bangna_queue_tv.obgdb
                 //"," + bque.queue_current + "='" + p.queue_current + "' " +
                 "," + bque.queue + "='" + p.queue + "' " +
                 "," + bque.staff_id + "='" + p.staff_id.Replace("'", "''") + "' " +
-                "Where " + bque.pkField + "='" + p.queue_id + "'"
+                "Where " + bque.pkField + "='" + p.b_queue_id + "'"
                 ;
 
             try
@@ -104,11 +104,11 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public String insertBQueue(BQueue p, String userId)
+        public String insertBQueue(BQueueDate p, String userId)
         {
             String re = "";
 
-            if (p.queue_id.Equals(""))
+            if (p.b_queue_id.Equals(""))
             {
                 re = insert(p, "");
             }
@@ -203,9 +203,9 @@ namespace bangna_queue_tv.obgdb
 
             return dt;
         }
-        public BQueue selectByPk1(String date, String stfid)
+        public BQueueDate selectByPk1(String date, String stfid)
         {
-            BQueue stf1 = new BQueue();
+            BQueueDate stf1 = new BQueueDate();
             DataTable dt = new DataTable();
             String sql = "select bque.*, concat(stf.prefix, ' ', stf.staff_fname_t, ' ' , stf.staff_lname_t) as name   " +
                 "From " + bque.table + " bque " +
@@ -219,7 +219,7 @@ namespace bangna_queue_tv.obgdb
         {
             String re = "0";
             int chk = 0;
-            BQueue stf1 = new BQueue();
+            BQueueDate stf1 = new BQueueDate();
             DataTable dt = new DataTable();
             String sql = "select bque.*   " +
                 "From " + bque.table + " bque " +
@@ -233,12 +233,12 @@ namespace bangna_queue_tv.obgdb
             }
             return re;
         }
-        public BQueue setBQueue(DataTable dt)
+        public BQueueDate setBQueue(DataTable dt)
         {
-            BQueue stf1 = new BQueue();
+            BQueueDate stf1 = new BQueueDate();
             if (dt.Rows.Count > 0)
             {
-                stf1.queue_id = dt.Rows[0][bque.queue_id].ToString();
+                stf1.b_queue_id = dt.Rows[0][bque.b_queue_id].ToString();
                 stf1.queue_date = dt.Rows[0][bque.queue_date].ToString();
                 stf1.queue_current = dt.Rows[0][bque.queue_current].ToString();
                 stf1.queue = dt.Rows[0][bque.queue].ToString();
@@ -251,9 +251,9 @@ namespace bangna_queue_tv.obgdb
             }
             return stf1;
         }
-        private BQueue setBQueue1(BQueue stf1)
+        private BQueueDate setBQueue1(BQueueDate stf1)
         {
-            stf1.queue_id = "";
+            stf1.b_queue_id = "";
             stf1.queue_date = "";
             stf1.queue_current = "";
             stf1.queue = "";

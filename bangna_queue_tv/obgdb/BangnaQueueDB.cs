@@ -9,7 +9,7 @@ namespace bangna_queue_tv.obgdb
     {
         ConnectDB conn;
 
-        public BQueueDB bqueDB;
+        public BQueueDateDB bqueDB;
         public QueueDB queDB;
         public StaffDB stfDB;
 
@@ -21,7 +21,7 @@ namespace bangna_queue_tv.obgdb
         private void initConfig()
         {
             stfDB = new StaffDB(conn);
-            bqueDB = new BQueueDB(conn);
+            bqueDB = new BQueueDateDB(conn);
             queDB = new QueueDB(conn);
         }
     }

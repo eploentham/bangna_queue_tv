@@ -18,7 +18,7 @@ namespace bangna_queue_tv.gui
         BangnaQueueControl bqc;
         int cntclick = 0;
         String datestart = "", dateend = "";
-        BQueue bque;
+        BQueueDate bque;
         Font fEditPrintQue;
         public FrmQueueAdd(BangnaQueueControl bqc)
         {
@@ -43,7 +43,7 @@ namespace bangna_queue_tv.gui
         private void setControl()
         {
             String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
-            bque = new BQueue();
+            bque = new BQueueDate();
 
             String stfid = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
