@@ -118,7 +118,7 @@ namespace bangna_queue_tv
                 foreach(DataRow row in dt.Rows)
                 {
                     String que = "";
-                    sql = "Select * From t_queue Where staff_id = '"+ row["staff_id"].ToString() + "' and status_queue = '1' Order By queue_id asc limit 1";
+                    sql = "Select * From t_queue Where staff_id = '"+ row["staff_id"].ToString() + "' and status_queue = '1' Order By t_queue_id asc limit 1";
                     DataTable dt1 = conn.selectData(sql);
                     if (dt1.Rows.Count > 0)
                     {

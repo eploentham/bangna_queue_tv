@@ -1,10 +1,12 @@
 ﻿using bangna_queue_tv.control;
+using bangna_queue_tv.Properties;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,63 +14,86 @@ using System.Windows.Forms;
 
 namespace bangna_queue_tv.gui
 {
-    public class FrmQueueAdd1:Form
+    public class FrmQueueDate:Form
     {
         BangnaQueueControl bqc;
-        Font fEdit, fEditB;
-
         Panel pn1;
+        Font fEdit, fEditB;
         C1FlexGrid grfQue;
         C1SuperTooltip stt, sttHnOld;
         C1SuperErrorProvider sep;
         C1ThemeController theme1;
         C1StatusBar sB1;
         RibbonLabel lbStatus;
+        RibbonButton btnStatus;
 
-        int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId = 4;
-        public FrmQueueAdd1(BangnaQueueControl bqc)
+        Bitmap img;
+        Image image1;
+        Color color;
+        int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId=4;
+        public FrmQueueDate(BangnaQueueControl bqc)
         {
             this.bqc = bqc;
             initConfig();
         }
         private void initConfig()
         {
-            fEdit = new Font(bqc.iniC.grdViewFontName, bqc.grdViewFontSize, FontStyle.Regular);
-            fEditB = new Font(bqc.iniC.grdViewFontName, bqc.grdViewFontSize, FontStyle.Bold);
-            theme1 = new C1ThemeController();
             InitializeComponent();
+            this.Size = new System.Drawing.Size(1224, 768);
+            fEdit = new Font(bqc.iniC.grdViewFontName, bqc.grdViewFontSize, FontStyle.Regular);
+            theme1 = new C1ThemeController();
 
+            this.Text = "Run-time Controls";
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.StartPosition = FormStartPosition.CenterParent;
+            //this.StartPosition = FormStartPosition.CenterParent;
             pn1 = new Panel();
             pn1.Dock = DockStyle.Fill;
             this.Controls.Add(pn1);
-
+            
             sB1 = new C1StatusBar();
             sB1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             sB1.Location = new System.Drawing.Point(0, 428);
             sB1.Name = "c1StatusBar1";
             sB1.Size = new System.Drawing.Size(800, 22);
             lbStatus = new RibbonLabel();
+            btnStatus = new RibbonButton();
             sB1.LeftPaneItems.Add(lbStatus);
+            sB1.RightPaneItems.Add(btnStatus);
             lbStatus.Text = "";
+            btnStatus.Text = "config";
+            btnStatus.SmallImage = Resources.setting1;
 
             initGrfQue();
-            setGrfQueue();
-            this.WindowState = FormWindowState.Normal;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            setGrfImg();
+
             this.StartPosition = FormStartPosition.CenterScreen;
+            btnStatus.Click += BtnStatus_Click;
         }
+
         private void InitializeComponent()
         {
             this.SuspendLayout();
             // 
-            // FrmQueueAdd1
+            // FrmQueueDate
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "FrmQueueAdd1";
-            this.Load += new System.EventHandler(this.FrmQueueAdd1_Load);
+            this.Name = "FrmQueueDate";
+            this.Load += new System.EventHandler(this.FrmQueueDate_Load);
             this.ResumeLayout(false);
 
         }
+
+        
+
+        private void BtnStatus_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //MessageBox.Show("aaaaa", "");
+            FrmConfig frm = new FrmConfig(bqc);
+            frm.ShowDialog(this);
+        }
+
         private void initGrfQue()
         {
             grfQue = new C1FlexGrid();
@@ -77,7 +102,7 @@ namespace bangna_queue_tv.gui
             grfQue.Location = new System.Drawing.Point(0, 0);
 
             theme1.SetTheme(sB1, "Office2016DarkGray");
-
+            
             //FilterRow fr = new FilterRow(grfExpn);
 
             //grfVs.AfterRowColChange += GrfImg_AfterRowColChange;
@@ -95,20 +120,14 @@ namespace bangna_queue_tv.gui
             theme1.SetTheme(grfQue, "Office2016DarkGray");
 
         }
-
-        private void GrfQue_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-
-        }
-        private void setGrfQueue()
+        private void setGrfImg()
         {
             //grfQue.Clear();
             grfQue.DataSource = null;
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
             grfQue.Cols.Count = 5;
-
+            
             grfQue.Cols[colRowNo].Width = 250;
             grfQue.Cols[colQueName].Width = 100;
             grfQue.Cols[colQueNum].Width = 100;
@@ -125,7 +144,7 @@ namespace bangna_queue_tv.gui
             grfQue.Rows[0].Visible = false;
             grfQue.Cols[0].Visible = false;
 
-
+            
             //grfImg.Cols[colPathPic].Visible = false;
             grfQue.Cols[colRowNo].AllowEditing = false;
             grfQue.Cols[colQueName].AllowEditing = false;
@@ -137,7 +156,12 @@ namespace bangna_queue_tv.gui
             //theme1.SetTheme(grfQue, "Office2016Colorful");
 
         }
-        private void FrmQueueAdd1_Load(object sender, EventArgs e)
+        private void GrfQue_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+        private void FrmQueueDate_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;

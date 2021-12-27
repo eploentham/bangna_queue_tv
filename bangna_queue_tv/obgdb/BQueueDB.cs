@@ -7,35 +7,42 @@ using System.Text;
 
 namespace bangna_queue_tv.obgdb
 {
-    public class QueueDB
+    public class BQueueDB
     {
-        public Queue que;
+        public BQueue que;
         ConnectDB conn;
-
-        public QueueDB(ConnectDB c)
+        public BQueueDB(ConnectDB c)
         {
             conn = c;
             initConfig();
         }
         private void initConfig()
         {
-            que = new Queue();
-            que.queue_id = "queue_id";
-            que.staff_id = "staff_id";
-            que.queue_date = "queue_date";
-            que.row_1 = "row_1";
+            que = new BQueue();
+            que.b_queue_id = "b_queue_id";
+            que.queue_code = "queue_code";
+            que.queue_name = "queue_name";
+            //que.staff_id = "staff_id";
+            //que.queue_date = "queue_date";
+            //que.row_1 = "row_1";
             que.active = "active";
-            que.status_queue = "status_queue";
-            que.staff_name = "staff_name";
-            que.date_begin = "date_begin";
-            que.date_finish = "date_finish";
-            que.queue = "queue";
+            que.date_create = "date_creat";
+            que.date_modi = "date_modi";
+            que.date_cancel = "date_cancel";
+            que.user_create = "user_create";
+            que.user_modi = "user_modi";
+            que.user_cancel = "user_cancel";
+            //que.status_queue = "status_queue";
+            //que.staff_name = "staff_name";
+            //que.date_begin = "date_begin";
+            //que.date_finish = "date_finish";
+            //que.queue = "queue";
 
-            que.table = "t_queue";
-            que.pkField = "queue_id";
+            que.table = "b_queue";
+            que.pkField = "b_queue_id";
 
         }
-        private void chkNull(Queue p)
+        private void chkNull(BQueue p)
         {
             long chk = 0;
 
@@ -47,7 +54,8 @@ namespace bangna_queue_tv.obgdb
             //p.prefix_id = int.TryParse(p.prefix_id, out chk) ? chk.ToString() : "0";
             //p.posi_id = int.TryParse(p.posi_id, out chk) ? chk.ToString() : "0";
             //p.posi_id = int.TryParse(p.posi_id, out chk) ? chk.ToString() : "0";
-
+            p.queue_code = p.queue_code == null ? "" : p.queue_code;
+            p.queue_name = p.queue_name == null ? "" : p.queue_name;
             p.queue_date = p.queue_date == null ? "" : p.queue_date;
             p.row_1 = p.row_1 == null ? "" : p.row_1;
             p.active = p.active == null ? "" : p.active;
@@ -60,7 +68,7 @@ namespace bangna_queue_tv.obgdb
             p.staff_id = long.TryParse(p.staff_id, out chk) ? chk.ToString() : "0";
 
         }
-        public String insert(Queue p, String userId)
+        public String insert(BQueue p, String userId)
         {
             String re = "";
             String sql = "";
@@ -71,15 +79,17 @@ namespace bangna_queue_tv.obgdb
             chkNull(p);
 
             sql = "Insert Into " + que.table + " set " +
-                " " + que.queue_date + "= now() " +
-                "," + que.row_1 + "='" + p.row_1 + "' " +
-                "," + que.active + "='1' " +
-                "," + que.staff_id + "='" + p.staff_id.Replace("'", "''") + "' " +
-                "," + que.status_queue + "='1' " +
-                "," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
-                "," + que.date_begin + "= now() " +
-                "," + que.date_finish + "='" + p.date_finish.Replace("'", "''") + "' " +
-                "," + que.queue + "='" + p.queue.Replace("'", "''") + "' " +
+                //" " + que.queue_date + "= now() " +
+                //" " + que.row_1 + "='" + p.row_1 + "' " +
+                " " + que.active + "='1' " +
+                //"," + que.staff_id + "='" + p.staff_id.Replace("'", "''") + "' " +
+                //"," + que.status_queue + "='1' " +
+                //"," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
+                "," + que.date_create + "= now() " +
+                "," + que.user_create + "='" + userId.Replace("'", "''") + "' " +
+                //"," + que.queue + "='" + p.queue.Replace("'", "''") + "' " +
+                "," + que.queue_code + "='" + p.queue_code.Replace("'", "''") + "' " +
+                "," + que.queue_name + "='" + p.queue_name.Replace("'", "''") + "' " +
                 "";
             try
             {
@@ -92,7 +102,7 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public String update(Queue p, String userId)
+        public String update(BQueue p, String userId)
         {
             String re = "";
             String sql = "";
@@ -101,13 +111,15 @@ namespace bangna_queue_tv.obgdb
             chkNull(p);
             sql = "Update " + que.table + " Set " +
                 " " + que.queue_date + "='" + p.queue_date + "' " +
-                "," + que.row_1 + "='" + p.row_1 + "' " +
+                //"," + que.row_1 + "='" + p.row_1 + "' " +
                 "," + que.active + "='" + p.active + "' " +
-                "," + que.staff_id + "='" + p.staff_id.Replace("'", "''") + "' " +
-                "," + que.status_queue + "='" + p.status_queue.Replace("'", "''") + "' " +
-                "," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
-                "," + que.date_begin + "='" + p.date_begin.Replace("'", "''") + "' " +
-                "," + que.date_finish + "='" + p.date_finish.Replace("'", "''") + "' " +
+                "," + que.date_modi + "=now() " +
+                "," + que.user_modi + "='" + userId.Replace("'", "''") + "' " +
+                //"," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
+                //"," + que.date_begin + "='" + p.date_begin.Replace("'", "''") + "' " +
+                //"," + que.date_finish + "='" + p.date_finish.Replace("'", "''") + "' " +
+                "," + que.queue_code + "='" + p.queue_code.Replace("'", "''") + "' " +
+                "," + que.queue_name + "='" + p.queue_name.Replace("'", "''") + "' " +
                 "Where " + que.pkField + "='" + p.staff_id + "'"
                 ;
 
@@ -122,13 +134,13 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public Queue updateStatusQue(String stfid, String date)
+        public BQueue updateStatusQue(String stfid, String date)
         {
             String re = "";
             String sql = "";
             int chk = 0;
-            Queue stf1 = new Queue();
-            Queue stf2 = new Queue();
+            BQueue stf1 = new BQueue();
+            BQueue stf2 = new BQueue();
             stf1 = selectQueByStfQueDate(stfid, date);
             sql = "Update " + que.table + " Set " +
                 //" " + que.queue_date + "='" + p.queue_date + "' " +
@@ -139,7 +151,7 @@ namespace bangna_queue_tv.obgdb
                 //"," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
                 //"," + que.date_begin + "='" + p.date_begin.Replace("'", "''") + "' " +
                 "," + que.date_finish + "= now() " +
-                "Where " + que.pkField + "='" + stf1.queue_id + "'"
+                "Where " + que.pkField + "='" + stf1.b_queue_id + "'"
                 ;
 
             try
@@ -178,11 +190,11 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public String insertQueue(Queue p, String userId)
+        public String insertQueue(BQueue p, String userId)
         {
             String re = "";
 
-            if (p.queue_id.Equals(""))
+            if (p.b_queue_id.Equals(""))
             {
                 re = insert(p, "");
             }
@@ -193,35 +205,42 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public Queue selectQueByStfQueDate(String stfid, String date)
+        public BQueue selectQueByStfQueDate(String stfid, String date)
         {
-            Queue stf1 = new Queue();
+            BQueue stf1 = new BQueue();
             String re = "";
             DataTable dt = new DataTable();
             String sql = "select que.*   " +
                 "From " + que.table + " que " +
                 " " +
                 "Where  que.queue_date >= '" + date + " 00:00:00' and que.queue_date <= '"+date+" 23:59:59' and que.staff_id = '" + stfid + "' and que."+que.status_queue+"='1' " +
-                "Order By que."+que.queue_id+" asc";
+                "Order By que."+que.b_queue_id+" asc";
             dt = conn.selectData(conn.conn, sql);
             stf1 = setQueue(dt);
             return stf1;
         }
-        public Queue setQueue(DataTable dt)
+        public BQueue setQueue(DataTable dt)
         {
-            Queue stf1 = new Queue();
+            BQueue stf1 = new BQueue();
             if (dt.Rows.Count > 0)
             {
-                stf1.queue_id = dt.Rows[0][que.queue_id].ToString();
-                stf1.staff_id = dt.Rows[0][que.staff_id].ToString();
-                stf1.queue_date = dt.Rows[0][que.queue_date].ToString();
-                stf1.row_1 = dt.Rows[0][que.row_1].ToString();
+                stf1.b_queue_id = dt.Rows[0][que.b_queue_id].ToString();
+                //stf1.staff_id = dt.Rows[0][que.staff_id].ToString();
+                stf1.queue_code = dt.Rows[0][que.queue_code].ToString();
+                stf1.queue_name = dt.Rows[0][que.queue_name].ToString();
+                stf1.date_create = dt.Rows[0][que.date_create].ToString();
+                stf1.date_modi = dt.Rows[0][que.date_modi].ToString();
+                stf1.date_cancel = dt.Rows[0][que.date_cancel].ToString();
+                stf1.user_create = dt.Rows[0][que.user_create].ToString();
+                stf1.user_modi = dt.Rows[0][que.user_modi].ToString();
+                stf1.user_cancel = dt.Rows[0][que.user_cancel].ToString();
+                //stf1.row_1 = dt.Rows[0][que.row_1].ToString();
                 stf1.active = dt.Rows[0][que.active].ToString();
-                stf1.status_queue = dt.Rows[0][que.status_queue].ToString();
-                stf1.staff_name = dt.Rows[0][que.staff_name].ToString();
-                stf1.date_begin = dt.Rows[0][que.date_begin].ToString();
-                stf1.date_finish = dt.Rows[0][que.date_finish].ToString();
-                stf1.queue = dt.Rows[0][que.queue].ToString();
+                //stf1.status_queue = dt.Rows[0][que.status_queue].ToString();
+                //stf1.staff_name = dt.Rows[0][que.staff_name].ToString();
+                //stf1.date_begin = dt.Rows[0][que.date_begin].ToString();
+                //stf1.date_finish = dt.Rows[0][que.date_finish].ToString();
+                //stf1.queue = dt.Rows[0][que.queue].ToString();
 
             }
             else
@@ -230,18 +249,18 @@ namespace bangna_queue_tv.obgdb
             }
             return stf1;
         }
-        private Queue setQueue1(Queue stf1)
+        private BQueue setQueue1(BQueue stf1)
         {
-            stf1.queue_id = "";
-            stf1.staff_id = "";
-            stf1.queue_date = "";
-            stf1.row_1 = "";
+            stf1.b_queue_id = "";
+            stf1.queue_code = "";
+            stf1.queue_name = "";
+            stf1.date_create = "";
             stf1.active = "";
-            stf1.status_queue = "";
-            stf1.staff_name = "";
-            stf1.date_begin = "";
-            stf1.date_finish = "";
-            stf1.queue = "";
+            stf1.date_modi = "";
+            stf1.date_cancel = "";
+            stf1.user_create = "";
+            stf1.user_modi = "";
+            stf1.user_cancel = "";
             return stf1;
         }
     }

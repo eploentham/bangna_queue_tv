@@ -31,7 +31,8 @@ namespace bangna_queue_tv.gui
         private void BtnQueAdd_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            FrmQueueAdd1 frm = new FrmQueueAdd1(bqc);
+            frm.ShowDialog(this);
         }
 
         private void FrmConfig_Load(object sender, EventArgs e)

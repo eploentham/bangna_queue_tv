@@ -89,6 +89,9 @@
     <Compile Include="gui\FrmQueueAdd1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmQueueDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmQueueConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,8 +107,9 @@
     <Compile Include="obgdb\BangnaQueueDB.cs" />
     <Compile Include="obgdb\CompanyDB.cs" />
     <Compile Include="obgdb\BQueueDateDB.cs" />
-    <Compile Include="obgdb\QueueDB.cs" />
+    <Compile Include="obgdb\BQueueDB.cs" />
     <Compile Include="obgdb\StaffDB.cs" />
+    <Compile Include="obgdb\TQueueDB.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="obgdb\ConnectDB.cs" />
     <Compile Include="gui\Form1.cs">
@@ -126,8 +130,9 @@
     <Compile Include="object1\LogWriter.cs" />
     <Compile Include="object1\Persistent.cs" />
     <Compile Include="object1\BQueueDate.cs" />
-    <Compile Include="object1\Queue.cs" />
+    <Compile Include="object1\BQueue.cs" />
     <Compile Include="object1\Staff.cs" />
+    <Compile Include="object1\TQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="gui\Form1.resx">
@@ -142,8 +147,14 @@
     <EmbeddedResource Include="gui\FrmQueueAdd.resx">
       <DependentUpon>FrmQueueAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmQueueAdd1.resx">
+      <DependentUpon>FrmQueueAdd1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueConfig.resx">
       <DependentUpon>FrmQueueConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmQueueDate.resx">
+      <DependentUpon>FrmQueueDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueNext.resx">
       <DependentUpon>FrmQueueNext.cs</DependentUpon>

@@ -37,7 +37,7 @@ namespace bangna_queue_tv.gui
         private void BtnQueNext_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            Queue que = new Queue();
+            BQueue que = new BQueue();
             BQueueDate bque1 = new BQueueDate();
             String stfid = "", queid = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
