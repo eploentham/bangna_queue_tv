@@ -26,6 +26,14 @@ namespace bangna_queue_tv.gui
             fEditB = new Font(bqc.iniC.grdViewFontName, bqc.grdViewFontSize, FontStyle.Bold);
 
             btnQueAdd.Click += BtnQueAdd_Click;
+            btnQueToday.Click += BtnQueToday_Click;
+        }
+
+        private void BtnQueToday_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmQueueToday frm = new FrmQueueToday(bqc);
+            frm.ShowDialog(this);
         }
 
         private void BtnQueAdd_Click(object sender, EventArgs e)

@@ -51,10 +51,10 @@ namespace bangna_queue_tv.gui
             
             long chk = 0;
             que = bqc.bquDB.queDB.updateStatusQue(stfid, date);
-            String quecurr = bqc.bquDB.bqueDB.updateQueueCurrent(stfid, date, que.queue);
-            bque1 = bqc.bquDB.bqueDB.selectByPk1(date, stfid);
+            String quecurr = bqc.bquDB.queDateDB.updateQueueCurrent(stfid, date, que.queue);
+            bque1 = bqc.bquDB.queDateDB.selectByPk1(date, stfid);
             lbQueCurr.Text = que.queue;
-            lbQueFinish.Text = bque1.queue;
+            //lbQueFinish.Text = bque1.queue;
         }
 
         private void CboStf_SelectedValueChanged(object sender, EventArgs e)
@@ -70,9 +70,9 @@ namespace bangna_queue_tv.gui
 
             String stfid = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
-            bque = bqc.bquDB.bqueDB.selectByPk1(date, stfid);
+            bque = bqc.bquDB.queDateDB.selectByPk1(date, stfid);
             lbQueCurr.Text = bque.queue_current;
-            lbQueFinish.Text = bque.queue;
+            //lbQueFinish.Text = bque.queue;
         }
         private void FrmQueueNext_Load(object sender, EventArgs e)
         {

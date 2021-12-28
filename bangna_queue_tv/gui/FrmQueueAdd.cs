@@ -47,9 +47,9 @@ namespace bangna_queue_tv.gui
 
             String stfid = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
-            bque = bqc.bquDB.bqueDB.selectByPk1(date, stfid);
+            bque = bqc.bquDB.queDateDB.selectByPk1(date, stfid);
             lbQueCurr.Text = bque.queue_current;
-            lbQue.Text = bque.queue;
+            //lbQue.Text = bque.queue;
         }
         private void CboStf_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -107,7 +107,7 @@ namespace bangna_queue_tv.gui
                 return;
             }
             String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
-            bqueid = bqc.bquDB.bqueDB.selectBQueIdByStfQueDate(stfid, date);
+            bqueid = bqc.bquDB.queDateDB.selectBQueIdByStfQueDate(stfid, date);
             String[] bqueid1 = bqueid.Split('@');
             //String bqueid1 = "", quecurr = "";
             if (bqueid1.Length > 1)
@@ -131,7 +131,7 @@ namespace bangna_queue_tv.gui
             {
                 int chk1 = 0;
                 String re1 = "";
-                re1 = bqc.bquDB.bqueDB.updateQueueMax(bqueid1[0]);
+                re1 = bqc.bquDB.queDateDB.updateQueueMax(bqueid1[0]);
                 if (int.TryParse(re1, out chk1))
                 {
                     if (chk1 > 0)

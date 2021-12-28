@@ -104,6 +104,12 @@
     <Compile Include="gui\FrmQueueNext.Designer.cs">
       <DependentUpon>FrmQueueNext.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmQueueToday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmQueueToday.Designer.cs">
+      <DependentUpon>FrmQueueToday.cs</DependentUpon>
+    </Compile>
     <Compile Include="obgdb\BangnaQueueDB.cs" />
     <Compile Include="obgdb\CompanyDB.cs" />
     <Compile Include="obgdb\BQueueDateDB.cs" />
@@ -159,6 +165,9 @@
     <EmbeddedResource Include="gui\FrmQueueNext.resx">
       <DependentUpon>FrmQueueNext.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmQueueToday.resx">
+      <DependentUpon>FrmQueueToday.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -210,6 +219,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\setting1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control-point_1.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control-point_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control-point_1_40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4223171.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4223171_40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus_40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_true.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus-transparent_40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteRows_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IncreaseIndent_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

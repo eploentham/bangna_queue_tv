@@ -30,23 +30,23 @@ namespace bangna_queue_tv.gui
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnQueAdd = new C1.Win.C1Input.C1Button();
-            this.c1Button2 = new C1.Win.C1Input.C1Button();
-            this.c1Button3 = new C1.Win.C1Input.C1Button();
-            this.c1Button4 = new C1.Win.C1Input.C1Button();
-            this.c1Button5 = new C1.Win.C1Input.C1Button();
-            this.c1Button6 = new C1.Win.C1Input.C1Button();
-            this.c1Button7 = new C1.Win.C1Input.C1Button();
             this.c1Button8 = new C1.Win.C1Input.C1Button();
+            this.c1Button7 = new C1.Win.C1Input.C1Button();
+            this.c1Button6 = new C1.Win.C1Input.C1Button();
+            this.c1Button5 = new C1.Win.C1Input.C1Button();
+            this.c1Button4 = new C1.Win.C1Input.C1Button();
+            this.c1Button3 = new C1.Win.C1Input.C1Button();
+            this.btnQueToday = new C1.Win.C1Input.C1Button();
+            this.btnQueAdd = new C1.Win.C1Input.C1Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueToday)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -57,66 +57,21 @@ namespace bangna_queue_tv.gui
             this.panel1.Controls.Add(this.c1Button5);
             this.panel1.Controls.Add(this.c1Button4);
             this.panel1.Controls.Add(this.c1Button3);
-            this.panel1.Controls.Add(this.c1Button2);
+            this.panel1.Controls.Add(this.btnQueToday);
             this.panel1.Controls.Add(this.btnQueAdd);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(566, 203);
             this.panel1.TabIndex = 0;
             // 
-            // btnQueAdd
+            // c1Button8
             // 
-            this.btnQueAdd.Location = new System.Drawing.Point(13, 13);
-            this.btnQueAdd.Name = "btnQueAdd";
-            this.btnQueAdd.Size = new System.Drawing.Size(130, 85);
-            this.btnQueAdd.TabIndex = 0;
-            this.btnQueAdd.Text = "เพิ่ม/แก้ไข คิว";
-            this.btnQueAdd.UseVisualStyleBackColor = true;
-            // 
-            // c1Button2
-            // 
-            this.c1Button2.Location = new System.Drawing.Point(149, 13);
-            this.c1Button2.Name = "c1Button2";
-            this.c1Button2.Size = new System.Drawing.Size(130, 85);
-            this.c1Button2.TabIndex = 1;
-            this.c1Button2.Text = "c1Button2";
-            this.c1Button2.UseVisualStyleBackColor = true;
-            // 
-            // c1Button3
-            // 
-            this.c1Button3.Location = new System.Drawing.Point(285, 13);
-            this.c1Button3.Name = "c1Button3";
-            this.c1Button3.Size = new System.Drawing.Size(130, 85);
-            this.c1Button3.TabIndex = 2;
-            this.c1Button3.Text = "c1Button3";
-            this.c1Button3.UseVisualStyleBackColor = true;
-            // 
-            // c1Button4
-            // 
-            this.c1Button4.Location = new System.Drawing.Point(421, 13);
-            this.c1Button4.Name = "c1Button4";
-            this.c1Button4.Size = new System.Drawing.Size(130, 85);
-            this.c1Button4.TabIndex = 3;
-            this.c1Button4.Text = "c1Button4";
-            this.c1Button4.UseVisualStyleBackColor = true;
-            // 
-            // c1Button5
-            // 
-            this.c1Button5.Location = new System.Drawing.Point(13, 104);
-            this.c1Button5.Name = "c1Button5";
-            this.c1Button5.Size = new System.Drawing.Size(130, 85);
-            this.c1Button5.TabIndex = 4;
-            this.c1Button5.Text = "c1Button5";
-            this.c1Button5.UseVisualStyleBackColor = true;
-            // 
-            // c1Button6
-            // 
-            this.c1Button6.Location = new System.Drawing.Point(149, 104);
-            this.c1Button6.Name = "c1Button6";
-            this.c1Button6.Size = new System.Drawing.Size(130, 85);
-            this.c1Button6.TabIndex = 5;
-            this.c1Button6.Text = "c1Button6";
-            this.c1Button6.UseVisualStyleBackColor = true;
+            this.c1Button8.Location = new System.Drawing.Point(421, 104);
+            this.c1Button8.Name = "c1Button8";
+            this.c1Button8.Size = new System.Drawing.Size(130, 85);
+            this.c1Button8.TabIndex = 7;
+            this.c1Button8.Text = "c1Button8";
+            this.c1Button8.UseVisualStyleBackColor = true;
             // 
             // c1Button7
             // 
@@ -127,14 +82,67 @@ namespace bangna_queue_tv.gui
             this.c1Button7.Text = "c1Button7";
             this.c1Button7.UseVisualStyleBackColor = true;
             // 
-            // c1Button8
+            // c1Button6
             // 
-            this.c1Button8.Location = new System.Drawing.Point(421, 104);
-            this.c1Button8.Name = "c1Button8";
-            this.c1Button8.Size = new System.Drawing.Size(130, 85);
-            this.c1Button8.TabIndex = 7;
-            this.c1Button8.Text = "c1Button8";
-            this.c1Button8.UseVisualStyleBackColor = true;
+            this.c1Button6.Location = new System.Drawing.Point(149, 104);
+            this.c1Button6.Name = "c1Button6";
+            this.c1Button6.Size = new System.Drawing.Size(130, 85);
+            this.c1Button6.TabIndex = 5;
+            this.c1Button6.Text = "c1Button6";
+            this.c1Button6.UseVisualStyleBackColor = true;
+            // 
+            // c1Button5
+            // 
+            this.c1Button5.Location = new System.Drawing.Point(13, 104);
+            this.c1Button5.Name = "c1Button5";
+            this.c1Button5.Size = new System.Drawing.Size(130, 85);
+            this.c1Button5.TabIndex = 4;
+            this.c1Button5.Text = "c1Button5";
+            this.c1Button5.UseVisualStyleBackColor = true;
+            // 
+            // c1Button4
+            // 
+            this.c1Button4.Location = new System.Drawing.Point(435, 14);
+            this.c1Button4.Name = "c1Button4";
+            this.c1Button4.Size = new System.Drawing.Size(130, 85);
+            this.c1Button4.TabIndex = 3;
+            this.c1Button4.Text = "c1Button4";
+            this.c1Button4.UseVisualStyleBackColor = true;
+            // 
+            // c1Button3
+            // 
+            this.c1Button3.Location = new System.Drawing.Point(299, 13);
+            this.c1Button3.Name = "c1Button3";
+            this.c1Button3.Size = new System.Drawing.Size(130, 85);
+            this.c1Button3.TabIndex = 2;
+            this.c1Button3.Text = "c1Button3";
+            this.c1Button3.UseVisualStyleBackColor = true;
+            // 
+            // btnQueToday
+            // 
+            this.btnQueToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnQueToday.Image = global::bangna_queue_tv.Properties.Resources._4223171_40;
+            this.btnQueToday.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnQueToday.Location = new System.Drawing.Point(163, 13);
+            this.btnQueToday.Name = "btnQueToday";
+            this.btnQueToday.Size = new System.Drawing.Size(130, 85);
+            this.btnQueToday.TabIndex = 1;
+            this.btnQueToday.Text = "คิว วันนี้";
+            this.btnQueToday.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQueToday.UseVisualStyleBackColor = true;
+            // 
+            // btnQueAdd
+            // 
+            this.btnQueAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnQueAdd.Image = global::bangna_queue_tv.Properties.Resources.control_point_1_40;
+            this.btnQueAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnQueAdd.Location = new System.Drawing.Point(13, 13);
+            this.btnQueAdd.Name = "btnQueAdd";
+            this.btnQueAdd.Size = new System.Drawing.Size(144, 85);
+            this.btnQueAdd.TabIndex = 0;
+            this.btnQueAdd.Text = "เพิ่ม/แก้ไข คิว";
+            this.btnQueAdd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQueAdd.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -147,14 +155,14 @@ namespace bangna_queue_tv.gui
             this.Text = "FrmConfig";
             this.Load += new System.EventHandler(this.FrmConfig_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueToday)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -169,6 +177,6 @@ namespace bangna_queue_tv.gui
         private C1.Win.C1Input.C1Button c1Button5;
         private C1.Win.C1Input.C1Button c1Button4;
         private C1.Win.C1Input.C1Button c1Button3;
-        private C1.Win.C1Input.C1Button c1Button2;
+        private C1.Win.C1Input.C1Button btnQueToday;
     }
 }

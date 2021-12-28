@@ -19,14 +19,14 @@ namespace bangna_queue_tv.obgdb
         private void initConfig()
         {
             que = new BQueue();
-            que.b_queue_id = "b_queue_id";
+            que.b_queue_id = "queue_id";
             que.queue_code = "queue_code";
             que.queue_name = "queue_name";
             //que.staff_id = "staff_id";
             //que.queue_date = "queue_date";
             //que.row_1 = "row_1";
             que.active = "active";
-            que.date_create = "date_creat";
+            que.date_create = "date_create";
             que.date_modi = "date_modi";
             que.date_cancel = "date_cancel";
             que.user_create = "user_create";
@@ -39,7 +39,7 @@ namespace bangna_queue_tv.obgdb
             //que.queue = "queue";
 
             que.table = "b_queue";
-            que.pkField = "b_queue_id";
+            que.pkField = "queue_id";
 
         }
         private void chkNull(BQueue p)
@@ -204,6 +204,44 @@ namespace bangna_queue_tv.obgdb
             }
 
             return re;
+        }
+        public BQueue selectByPk(String queid)
+        {
+            BQueue stf1 = new BQueue();
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select que.*   " +
+                "From " + que.table + " que " +
+                " " +
+                "Where  que.queue_id = '" + queid + "' " +
+                "Order By que." + que.b_queue_id + " asc";
+            dt = conn.selectData(conn.conn, sql);
+            stf1 = setQueue(dt);
+            return stf1;
+        }
+        public DataTable selectAll()
+        {
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select que.*   " +
+                "From " + que.table + " que " +
+                " " +
+                "Where  que.active = '1' " +
+                "Order By que." + que.b_queue_id + " asc";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
+        public DataTable selectAllNotinToday(String date)
+        {
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select que.*   " +
+                "From " + que.table + " que " +
+                " " +
+                "Where  que.active = '1' and queue_id not in (Select queue_id from b_queue_date where queue_date = '"+ date + "')  " +
+                "Order By que." + que.b_queue_id + " asc";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
         }
         public BQueue selectQueByStfQueDate(String stfid, String date)
         {

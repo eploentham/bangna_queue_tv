@@ -30,9 +30,9 @@ namespace bangna_queue_tv.gui
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            C1.Win.C1Tile.PanelElement panelElement3 = new C1.Win.C1Tile.PanelElement();
-            C1.Win.C1Tile.ImageElement imageElement3 = new C1.Win.C1Tile.ImageElement();
-            C1.Win.C1Tile.TextElement textElement3 = new C1.Win.C1Tile.TextElement();
+            C1.Win.C1Tile.PanelElement panelElement2 = new C1.Win.C1Tile.PanelElement();
+            C1.Win.C1Tile.ImageElement imageElement2 = new C1.Win.C1Tile.ImageElement();
+            C1.Win.C1Tile.TextElement textElement2 = new C1.Win.C1Tile.TextElement();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
@@ -109,6 +109,7 @@ namespace bangna_queue_tv.gui
             // 
             // c1FlexGrid1
             // 
+            this.c1FlexGrid1.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None;
             this.c1FlexGrid1.ColumnInfo = "10,1,0,0,0,95,Columns:";
             this.c1FlexGrid1.Location = new System.Drawing.Point(94, 60);
             this.c1FlexGrid1.Name = "c1FlexGrid1";
@@ -169,6 +170,7 @@ namespace bangna_queue_tv.gui
             // 
             this.c1BarCode1.AdditionalNumber = null;
             this.c1BarCode1.BackColor = System.Drawing.Color.White;
+            this.c1BarCode1.CodeType = C1.BarCode.CodeType.QRCode;
             this.c1BarCode1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.c1BarCode1.ForeColor = System.Drawing.Color.Black;
             this.c1BarCode1.Location = new System.Drawing.Point(44, 40);
@@ -178,7 +180,7 @@ namespace bangna_queue_tv.gui
             this.c1BarCode1.QuietZone.Left = 0D;
             this.c1BarCode1.QuietZone.Right = 0D;
             this.c1BarCode1.QuietZone.Top = 0D;
-            this.c1BarCode1.Size = new System.Drawing.Size(247, 40);
+            this.c1BarCode1.Size = new System.Drawing.Size(151, 150);
             this.c1BarCode1.TabIndex = 0;
             this.c1BarCode1.Text = "c1BarCode1";
             this.c1BarCode1.TextFixedLength = 0;
@@ -199,11 +201,11 @@ namespace bangna_queue_tv.gui
             // 
             // 
             // 
-            panelElement3.Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            panelElement3.Children.Add(imageElement3);
-            panelElement3.Children.Add(textElement3);
-            panelElement3.Margin = new System.Windows.Forms.Padding(10, 6, 10, 6);
-            this.c1TileControl1.DefaultTemplate.Elements.Add(panelElement3);
+            panelElement2.Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            panelElement2.Children.Add(imageElement2);
+            panelElement2.Children.Add(textElement2);
+            panelElement2.Margin = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.c1TileControl1.DefaultTemplate.Elements.Add(panelElement2);
             this.c1TileControl1.Groups.Add(this.group1);
             this.c1TileControl1.Location = new System.Drawing.Point(3, 16);
             this.c1TileControl1.Name = "c1TileControl1";

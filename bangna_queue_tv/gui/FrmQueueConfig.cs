@@ -62,15 +62,15 @@ namespace bangna_queue_tv.gui
                 return;
             }
             BQueueDate bque = new BQueueDate();
-            bque.b_queue_id = "";
-            bque.staff_id = stfid;
+            //bque.b_queue_id = "";
+            //bque.staff_id = stfid;
             bque.queue_date = dt.Year+"-"+dt.ToString("MM-dd");
             bque.queue_current = "0";
-            bque.queue = que.ToString();
+            //bque.queue = que.ToString();
             String bquid = "";
-            bquid = bqc.bquDB.bqueDB.selectBQueIdByStfQueDate(stfid, bque.queue_date);
-            bque.b_queue_id = bquid;
-            String re = bqc.bquDB.bqueDB.insertBQueue(bque, "");
+            bquid = bqc.bquDB.queDateDB.selectBQueIdByStfQueDate(stfid, bque.queue_date);
+            //bque.b_queue_id = bquid;
+            String re = bqc.bquDB.queDateDB.insertBQueue(bque, "");
             if(int.TryParse(re, out chk))
             {
                 initGrd(screenWidth, screenHeight);
@@ -88,7 +88,7 @@ namespace bangna_queue_tv.gui
             }
             DataTable dt1 = new DataTable();
             date = dt.Year + "-" + dt.ToString("MM-dd");
-            dt1 = bqc.bquDB.bqueDB.selectBQueDate(date);
+            dt1 = bqc.bquDB.queDateDB.selectBQueDate(date);
             int i = 0;
             if (dt1.Rows.Count >= 1)
             {

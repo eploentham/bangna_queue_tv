@@ -20,7 +20,7 @@ namespace bangna_queue_tv.control
         public String StartupPath = "";
         public LogWriter logw;
 
-        public int grdViewFontSize = 0;
+        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0;
         public Decimal CreditCharge = 0;
         public Boolean ftpUsePassive = false;
 
@@ -80,6 +80,12 @@ namespace bangna_queue_tv.control
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
 
+            iniC.grdQueFontSize = iniF.getIni("app", "grdQueFontSize");
+            iniC.grdQueFontName = iniF.getIni("app", "grdQueFontName");
+
+            iniC.grdQueTodayFontSize = iniF.getIni("app", "grdQueTodayFontSize");
+            iniC.grdQueTodayFontName = iniF.getIni("app", "grdQueTodayFontName");
+
             iniC.txtFocus = iniF.getIni("app", "txtFocus");
             iniC.grfRowColor = iniF.getIni("app", "grfRowColor");
             iniC.statusAppDonor = iniF.getIni("app", "statusAppDonor");
@@ -130,6 +136,8 @@ namespace bangna_queue_tv.control
             iniC.email_to_sperm_freezing = iniF.getIni("email", "email_to_sperm_freezing");
 
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
+            iniC.grdQueFontName = iniC.grdQueFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdQueFontName;
+            iniC.grdQueTodayFontName = iniC.grdQueTodayFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdQueTodayFontName;
 
             iniC.sticker_donor_width = iniC.sticker_donor_width.Equals("") ? "120" : iniC.sticker_donor_width;
             iniC.sticker_donor_height = iniC.sticker_donor_height.Equals("") ? "90" : iniC.sticker_donor_height;
@@ -167,6 +175,8 @@ namespace bangna_queue_tv.control
             iniC.statusCheckDonor = iniC.statusCheckDonor == null ? "0" : iniC.statusCheckDonor.Equals("") ? "0" : iniC.statusCheckDonor;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
+            int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
+            int.TryParse(iniC.grdQueTodayFontSize, out grdQueTodayFontSize);
             Decimal.TryParse(iniC.creditCharge, out CreditCharge);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
         }
