@@ -30,9 +30,9 @@ namespace bangna_queue_tv.gui
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            C1.Win.C1Tile.PanelElement panelElement2 = new C1.Win.C1Tile.PanelElement();
-            C1.Win.C1Tile.ImageElement imageElement2 = new C1.Win.C1Tile.ImageElement();
-            C1.Win.C1Tile.TextElement textElement2 = new C1.Win.C1Tile.TextElement();
+            C1.Win.C1Tile.PanelElement panelElement1 = new C1.Win.C1Tile.PanelElement();
+            C1.Win.C1Tile.ImageElement imageElement1 = new C1.Win.C1Tile.ImageElement();
+            C1.Win.C1Tile.TextElement textElement1 = new C1.Win.C1Tile.TextElement();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
@@ -201,11 +201,11 @@ namespace bangna_queue_tv.gui
             // 
             // 
             // 
-            panelElement2.Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            panelElement2.Children.Add(imageElement2);
-            panelElement2.Children.Add(textElement2);
-            panelElement2.Margin = new System.Windows.Forms.Padding(10, 6, 10, 6);
-            this.c1TileControl1.DefaultTemplate.Elements.Add(panelElement2);
+            panelElement1.Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            panelElement1.Children.Add(imageElement1);
+            panelElement1.Children.Add(textElement1);
+            panelElement1.Margin = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.c1TileControl1.DefaultTemplate.Elements.Add(panelElement1);
             this.c1TileControl1.Groups.Add(this.group1);
             this.c1TileControl1.Location = new System.Drawing.Point(3, 16);
             this.c1TileControl1.Name = "c1TileControl1";

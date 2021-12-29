@@ -93,7 +93,7 @@ namespace bangna_queue_tv.gui
             quetoday.queue_id = que.b_queue_id;
             quetoday.queue_current = txtQueNum.Text.Trim();
             quetoday.queue_date = date;
-
+            quetoday.queue = txtQueNum.Text.Trim();
             String re = bqc.bquDB.queDateDB.insertBQueue(quetoday, "");
             int chk = 0;
             if(int.TryParse(re, out chk))
@@ -120,7 +120,6 @@ namespace bangna_queue_tv.gui
             pnQue.Controls.Add(grfQue);
 
             theme1.SetTheme(grfQue, "Office2016DarkGray");
-
         }
 
         private void GrfQue_Click(object sender, EventArgs e)

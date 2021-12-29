@@ -110,6 +110,7 @@ namespace bangna_queue_tv
             MySqlDataAdapter adapMainhis = new MySqlDataAdapter(comMainhis);
             try
             {
+                if (con.State == ConnectionState.Open) con.Close();
                 con.Open();
                 adapMainhis.Fill(toReturn);
                 //return toReturn;

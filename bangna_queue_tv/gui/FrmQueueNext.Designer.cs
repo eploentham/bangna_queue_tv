@@ -36,6 +36,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbQueFinish = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.lbTQueId = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button2
@@ -119,11 +120,22 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "คิวสุดท้าย   :";
             // 
+            // lbTQueId
+            // 
+            this.lbTQueId.AutoSize = true;
+            this.lbTQueId.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbTQueId.Location = new System.Drawing.Point(16, 521);
+            this.lbTQueId.Name = "lbTQueId";
+            this.lbTQueId.Size = new System.Drawing.Size(204, 73);
+            this.lbTQueId.TabIndex = 14;
+            this.lbTQueId.Text = "label4";
+            // 
             // FrmQueueNext
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 603);
+            this.Controls.Add(this.lbTQueId);
             this.Controls.Add(this.lbQueFinish);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lbQueCurr);
@@ -149,5 +161,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbQueFinish;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbTQueId;
     }
 }

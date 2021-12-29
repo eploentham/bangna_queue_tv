@@ -14,9 +14,9 @@ namespace bangna_queue_tv.gui
     public partial class FrmQueueNext : Form
     {
         BangnaQueueControl bqc;
-
         String datestart = "", dateend = "";
         BQueueDate bque;
+        TQueue tque;
         public FrmQueueNext(BangnaQueueControl bqc)
         {
             InitializeComponent();
@@ -25,11 +25,9 @@ namespace bangna_queue_tv.gui
         }
         private void initConfig()
         {
-            
-            bqc.bquDB.stfDB.setCboStaff(cboStf, bqc.iniC.queuefixid);
-
+            tque = new TQueue();
+            bqc.bquDB.queDateDB.setCboQueDate(cboStf, bqc.iniC.queuefixid, System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd"));
             setControl();
-
             cboStf.SelectedValueChanged += CboStf_SelectedValueChanged;
             btnQueNext.Click += BtnQueNext_Click;
         }
@@ -48,13 +46,20 @@ namespace bangna_queue_tv.gui
             }
             String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
             //que = bqc.bquDB.queDB.selectQueByStfQueDate(stfid, date);
-            
-            long chk = 0;
-            que = bqc.bquDB.queDB.updateStatusQue(stfid, date);
-            String quecurr = bqc.bquDB.queDateDB.updateQueueCurrent(stfid, date, que.queue);
-            bque1 = bqc.bquDB.queDateDB.selectByPk1(date, stfid);
-            lbQueCurr.Text = que.queue;
+
+            //long chk = 0;
+            //String re = bqc.bquDB.queDateDB.updateQueueCurrent(stfid, date,"");
+            //String quecurr = bqc.bquDB.queDateDB.updateQueueCurrent(stfid, date, que.queue);
+            //bque1 = bqc.bquDB.queDateDB.selectByPk1(date, stfid);
+            //lbQueCurr.Text = que.queue;
             //lbQueFinish.Text = bque1.queue;
+            //เรียกคิว
+            tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
+            tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id);
+            //tque = new TQueue();            
+            lbQueCurr.Text = tque.queue_current;
+            lbTQueId.Text = tque.t_queue_id;
+            
         }
 
         private void CboStf_SelectedValueChanged(object sender, EventArgs e)
@@ -70,9 +75,9 @@ namespace bangna_queue_tv.gui
 
             String stfid = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
-            bque = bqc.bquDB.queDateDB.selectByPk1(date, stfid);
-            lbQueCurr.Text = bque.queue_current;
-            //lbQueFinish.Text = bque.queue;
+            bque = bqc.bquDB.queDateDB.selectByPk1(stfid);
+            lbQueCurr.Text = "";
+            lbQueFinish.Text = "";
         }
         private void FrmQueueNext_Load(object sender, EventArgs e)
         {

@@ -1,4 +1,5 @@
 ﻿using bangna_queue_tv.object1;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,13 +21,13 @@ namespace bangna_queue_tv.obgdb
         {
             tque = new TQueue();
             tque.t_queue_id = "t_queue_id";
-            tque.b_queue_id = "b_queue_id";
+            tque.queue_id = "queue_id";
             tque.queue_date = "queue_date";
             tque.row_1 = "row_1";
             tque.queue_active = "queue_active";
             //que.row_1 = "row_1";
             tque.active = "active";
-            tque.date_create = "date_creat";
+            tque.date_create = "date_create";
             tque.date_modi = "date_modi";
             tque.date_cancel = "date_cancel";
             tque.user_create = "user_create";
@@ -36,7 +37,9 @@ namespace bangna_queue_tv.obgdb
             tque.queue_name = "queue_name";
             tque.date_begin = "date_begin";
             tque.date_finish = "date_finish";
-            //que.queue = "queue";
+            tque.queue = "queue";
+            tque.queue_current = "queue_current";
+            tque.b_queue_date_id = "b_queue_date_id";
 
             tque.table = "t_queue";
             tque.pkField = "t_queue_id";
@@ -65,7 +68,10 @@ namespace bangna_queue_tv.obgdb
             p.date_finish = p.date_finish == null ? "" : p.date_finish;
             //p.queue = p.queue == null ? "" : p.queue;
 
-            p.b_queue_id = long.TryParse(p.b_queue_id, out chk) ? chk.ToString() : "0";
+            p.queue_id = long.TryParse(p.queue_id, out chk) ? chk.ToString() : "0";
+            p.b_queue_date_id = long.TryParse(p.b_queue_date_id, out chk) ? chk.ToString() : "0";
+            p.queue = long.TryParse(p.queue, out chk) ? chk.ToString() : "0";
+            p.queue_current = long.TryParse(p.queue_current, out chk) ? chk.ToString() : "0";
 
         }
         public String insert(TQueue p, String userId)
@@ -95,6 +101,9 @@ namespace bangna_queue_tv.obgdb
                 "," + tque.queue_name + "='" + p.queue_name.Replace("'", "''") + "' " +
                 "," + tque.date_begin + "='" + p.date_begin.Replace("'", "''") + "' " +
                 "," + tque.date_finish + "='" + p.date_finish.Replace("'", "''") + "' " +
+                "," + tque.b_queue_date_id + "='" + p.b_queue_date_id.Replace("'", "''") + "' " +
+                "," + tque.queue + "='" + p.queue.Replace("'", "''") + "' " +
+                "," + tque.queue_current + "='" + p.queue_current.Replace("'", "''") + "' " +
                 "";
             try
             {
@@ -149,7 +158,7 @@ namespace bangna_queue_tv.obgdb
         {
             String re = "";
 
-            if (p.b_queue_id.Equals(""))
+            if (p.queue_id.Equals(""))
             {
                 re = insert(p, "");
             }
@@ -160,13 +169,99 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
+        public TQueue LockQueue(String queue_date_id, String t_que_id_old)
+        {
+            String re = "", sql = "";
+            TQueue stf1 = new TQueue();
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("lock_queue", conn.conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("?t_que_id_old", MySqlDbType.VarChar));
+                //cmd.Parameters.Add(new MySqlParameter("?queue_id1", MySqlDbType.VarChar));
+                //cmd.Parameters.Add(new MySqlParameter("?queue_date1", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?b_queue_date_id1", MySqlDbType.VarChar));
+                //cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
+                cmd.Parameters["?t_que_id_old"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?t_que_id_old"].Value = t_que_id_old;
+                //cmd.Parameters["?queue_id1"].Direction = ParameterDirection.Input;
+                //cmd.Parameters["?queue_id1"].Value = quedate;
+                //cmd.Parameters["?queue_date1"].Direction = ParameterDirection.Input;
+                //cmd.Parameters["?queue_date1"].Value = quedate;
+                cmd.Parameters["?b_queue_date_id1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?b_queue_date_id1"].Value = queue_date_id;
+                //cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
+                conn.conn.Open();
+                cmd.ExecuteNonQuery();
+                //re = ((String)cmd.Parameters["?ret"].Value).ToString();
+                MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adap.Fill(dt);
+                stf1 = setQueue(dt);
+                //stf1 = selectByPk(re);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            finally
+            {
+                conn.conn.Close();
+            }
+            return stf1;
+        }
+        public TQueue selectByPk(String tqueid)
+        {
+            String re = "0";
+            int chk = 0;
+            TQueue stf1 = new TQueue();
+            DataTable dt = new DataTable();
+            String sql = "select tque.*   " +
+                "From " + tque.table + " tque " +
+                "Where  tque." + tque.pkField + " = '" + tqueid + "'  " +
+                "Order By " + tque.pkField + " asc limit 0,1";
+            dt = conn.selectData(conn.conn, sql);
+            stf1 = setQueue(dt);
+
+            return stf1;
+        }
+        public TQueue selectQueNext(String queid, String date)
+        {
+            String re = "0";
+            int chk = 0;
+            TQueue stf1 = new TQueue();
+            DataTable dt = new DataTable();
+            String sql = "select tque.*   " +
+                "From " + tque.table + " tque " +
+                "Where  tque." + tque.pkField + " = '" + queid + "' and tque."+tque.queue_date+" = '"+date+"' " +
+                "Order By " + tque.pkField+" asc limit 1,1";
+            dt = conn.selectData(conn.conn, sql);
+            stf1 = setQueue(dt);
+            
+            return stf1;
+        }
+        public TQueue selectQueNextByQueDateId(String quedateid)
+        {
+            String re = "0";
+            int chk = 0;
+            TQueue stf1 = new TQueue();
+            DataTable dt = new DataTable();
+            String sql = "select tque.*   " +
+                "From " + tque.table + " tque " +
+                "Where  tque." + tque.b_queue_date_id + " = '" + quedateid + "' " +
+                "Order By " + tque.pkField + " asc limit 1,1";
+            dt = conn.selectData(conn.conn, sql);
+            stf1 = setQueue(dt);
+
+            return stf1;
+        }
         public TQueue setQueue(DataTable dt)
         {
             TQueue stf1 = new TQueue();
             if (dt.Rows.Count > 0)
             {
                 stf1.t_queue_id = dt.Rows[0][tque.t_queue_id].ToString();
-                stf1.b_queue_id = dt.Rows[0][tque.b_queue_id].ToString();
+                stf1.queue_id = dt.Rows[0][tque.queue_id].ToString();
                 stf1.queue_date = dt.Rows[0][tque.queue_date].ToString();
                 stf1.row_1 = dt.Rows[0][tque.row_1].ToString();
                 stf1.queue_active = dt.Rows[0][tque.queue_active].ToString();
@@ -181,9 +276,9 @@ namespace bangna_queue_tv.obgdb
                 stf1.queue_name = dt.Rows[0][tque.queue_name].ToString();
                 stf1.date_begin = dt.Rows[0][tque.date_begin].ToString();
                 stf1.date_finish = dt.Rows[0][tque.date_finish].ToString();
-                //stf1.date_finish = dt.Rows[0][que.date_finish].ToString();
-                //stf1.queue = dt.Rows[0][que.queue].ToString();
-
+                stf1.queue_current = dt.Rows[0][tque.queue_current].ToString();
+                stf1.queue = dt.Rows[0][tque.queue].ToString();
+                stf1.b_queue_date_id = dt.Rows[0][tque.b_queue_date_id].ToString();
             }
             else
             {
@@ -194,7 +289,7 @@ namespace bangna_queue_tv.obgdb
         private TQueue setQueue1(TQueue stf1)
         {
             stf1.t_queue_id = "";
-            stf1.b_queue_id = "";
+            stf1.queue_id = "";
             stf1.queue_date = "";
             stf1.queue_name = "";
             stf1.date_create = "";
@@ -209,6 +304,9 @@ namespace bangna_queue_tv.obgdb
             stf1.date_finish = "";
             stf1.queue_active = "";
             stf1.row_1 = "";
+            stf1.queue_current = "";
+            stf1.queue = "";
+            stf1.b_queue_date_id = "";
             return stf1;
         }
     }
