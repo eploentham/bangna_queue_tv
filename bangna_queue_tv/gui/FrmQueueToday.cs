@@ -25,7 +25,7 @@ namespace bangna_queue_tv.gui
         C1ThemeController theme1;
         BQueue que;
 
-        int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId = 4;
+        int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueCode=4, colQuePrefix=5, colQueId = 6;
         int colTodayrowno = 1, colTodayQueName = 2, colTodayqueid = 3, colTodayQuCurr = 4, colTodayId = 5;
 
         Boolean pageLoad = false;
@@ -127,10 +127,12 @@ namespace bangna_queue_tv.gui
         {
             //throw new NotImplementedException();
             if (grfQue.Row <= 0) return;
-            String id = "", name = "", num = "";
+            String id = "", name = "", num = "", code="", prefix="";
             id = grfQue[grfQue.Row, colQueId] != null ? grfQue[grfQue.Row, colQueId].ToString() : "";
             name = grfQue[grfQue.Row, colQueName] != null ? grfQue[grfQue.Row, colQueName].ToString() : "";
             num = grfQue[grfQue.Row, colQueNum] != null ? grfQue[grfQue.Row, colQueNum].ToString() : "";
+            code = grfQue[grfQue.Row, colQueCode] != null ? grfQue[grfQue.Row, colQueCode].ToString() : "";
+            prefix = grfQue[grfQue.Row, colQuePrefix] != null ? grfQue[grfQue.Row, colQuePrefix].ToString() : "";
             if (id.Length <= 0)
             {
                 btnQueAdd.Enabled = false;
@@ -142,6 +144,8 @@ namespace bangna_queue_tv.gui
             que.b_queue_id = id;
             que.queue_name = name;
             que.queue = num;
+            que.queue_prefix = prefix;
+            que.queue_code = code;
             int chk = 0;
             int.TryParse(que.queue, out chk);
             if (chk <= 0)
@@ -151,6 +155,8 @@ namespace bangna_queue_tv.gui
             txtQueId.Value = que.b_queue_id;
             txtQueName.Value = que.queue_name;
             txtQueNum.Value = que.queue;
+            txtQueCode.Value = que.queue_code;
+            txtQuePrefix.Value = que.queue_prefix;
         }
 
         private void setGrfQueue()
@@ -160,7 +166,7 @@ namespace bangna_queue_tv.gui
             grfQue.DataSource = null;
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
-            grfQue.Cols.Count = 5;
+            grfQue.Cols.Count = 7;
 
             grfQue.Cols[colRowNo].Width = 250;
             grfQue.Cols[colQueName].Width = 250;
@@ -173,8 +179,10 @@ namespace bangna_queue_tv.gui
 
             grfQue.Cols[colRowNo].Caption = " ";
             grfQue.Cols[colQueName].Caption = "queue name";
-            grfQue.Cols[colQueNum].Caption = "queue number";
-            grfQue.Cols[colQueId].Caption = "id";            
+            grfQue.Cols[colQueNum].Caption = "queue";
+            grfQue.Cols[colQueId].Caption = "id";
+            grfQue.Cols[colQueCode].Caption = "ตัวย่อ";
+            grfQue.Cols[colQuePrefix].Caption = "Prefix";
 
             DataTable dt = new DataTable();
             DateTime dtToday = new DateTime();
@@ -204,7 +212,8 @@ namespace bangna_queue_tv.gui
                 grfQue[i, colQueName] = drow["queue_name"].ToString();
                 grfQue[i, colQueNum] = drow["queue_code"].ToString();
                 grfQue[i, colQueId] = drow["queue_id"].ToString();
-                
+                grfQue[i, colQueCode] = drow["queue_code"].ToString();
+                grfQue[i, colQuePrefix] = drow["queue_prefix"].ToString();
                 i++;
             }
             //grfQue.Rows[0].Visible = false;
@@ -241,7 +250,6 @@ namespace bangna_queue_tv.gui
             grfQueToday.Cols.Count = 5;
 
             theme1.SetTheme(grfQueToday, "Office2007Blue");
-
         }
 
         private void GrfQueToday_Click(object sender, EventArgs e)
@@ -261,7 +269,8 @@ namespace bangna_queue_tv.gui
             txtQueName.Value = que.queue_name;
             txtQueNum.Value = que.queue;
             txtQueTodayId.Value = todayid;
-
+            txtQueCode.Value = "";
+            txtQuePrefix.Value = "";
             //setGrfQueueToday();
         }
         private void setGrfQueueToday()

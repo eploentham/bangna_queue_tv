@@ -420,9 +420,9 @@ namespace bangna_queue_tv.obgdb
                 stf1.b_queue_date_id = dt.Rows[0][bque.b_queue_date_id].ToString();
                 stf1.queue_date = dt.Rows[0][bque.queue_date].ToString();
                 stf1.queue_current = dt.Rows[0][bque.queue_current].ToString();
-                stf1.queuename1 = dt.Rows[0]["queue_name1"].ToString();
+                stf1.queuename1 = dt.Rows[0]["queue_name"].ToString();
                 stf1.queue_id = dt.Rows[0][bque.queue_id].ToString();
-                stf1.queuename = "";
+                stf1.queuename = dt.Rows[0]["queue_name"].ToString();
                 stf1.queue = "";
             }
             else

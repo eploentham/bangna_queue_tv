@@ -231,7 +231,7 @@ namespace bangna_queue_tv.obgdb
                 cmd.Parameters["?t_que_id"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?t_que_id"].Value = t_que_id;
                 cmd.Parameters["?queue_date_id1"].Direction = ParameterDirection.Input;
-                cmd.Parameters["?queue_date_id1"].Value = t_que_id;
+                cmd.Parameters["?queue_date_id1"].Value = que_date_id;
                 cmd.Parameters["?user_id1"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?user_id1"].Value = user_id;
                 cmd.Parameters["?ret"].Direction = ParameterDirection.Output;

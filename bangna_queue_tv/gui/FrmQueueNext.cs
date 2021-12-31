@@ -122,6 +122,8 @@ namespace bangna_queue_tv.gui
             lbQueFinish.Text = "";
             btnQueVoid.Visible = false;
             setControlQueSend(false);
+            chkQueSend.Checked = false;
+            chkQueVoid.Checked = false;
         }
         private void setControlQueSend(Boolean flag)
         {
