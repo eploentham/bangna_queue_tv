@@ -55,7 +55,7 @@ namespace bangna_queue_tv.gui
             date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
             txtDate.Value = date;
             this.ClientSize = new System.Drawing.Size(1200, 600);
-            txtQueNum.Value = "1";
+            txtQueNum.Value = "0";
             pnQueAdd.SizeRatio = 40;
             pnQueToday.SizeRatio = 30;
             pnQue.SizeRatio = 30;
@@ -66,6 +66,7 @@ namespace bangna_queue_tv.gui
         {
             //throw new NotImplementedException();
             bqc.bquDB.queDateDB.deleteQueToday(txtQueTodayId.Text.Trim());
+            bqc.bquDB.tqueDB.voidQueueByQueDate(txtQueTodayId.Text.Trim(),"");
             clearControl();
             setGrfQueueToday();
             setGrfQueue();
@@ -76,7 +77,7 @@ namespace bangna_queue_tv.gui
             txtQueId.Value = "";
             txtQueTodayId.Value = "";
             txtQueName.Value = "";
-            txtQueNum.Value = "1";
+            txtQueNum.Value = "0";
             
         }
         private void BtnQueAdd_Click(object sender, EventArgs e)
@@ -130,6 +131,14 @@ namespace bangna_queue_tv.gui
             id = grfQue[grfQue.Row, colQueId] != null ? grfQue[grfQue.Row, colQueId].ToString() : "";
             name = grfQue[grfQue.Row, colQueName] != null ? grfQue[grfQue.Row, colQueName].ToString() : "";
             num = grfQue[grfQue.Row, colQueNum] != null ? grfQue[grfQue.Row, colQueNum].ToString() : "";
+            if (id.Length <= 0)
+            {
+                btnQueAdd.Enabled = false;
+            }
+            else
+            {
+                btnQueAdd.Enabled = true;
+            }
             que.b_queue_id = id;
             que.queue_name = name;
             que.queue = num;
@@ -137,7 +146,7 @@ namespace bangna_queue_tv.gui
             int.TryParse(que.queue, out chk);
             if (chk <= 0)
             {
-                que.queue = "1";
+                que.queue = "0";
             }
             txtQueId.Value = que.b_queue_id;
             txtQueName.Value = que.queue_name;

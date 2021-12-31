@@ -31,9 +31,12 @@ namespace bangna_queue_tv.gui
         {
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lbStatus = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbStatus = new C1.Win.C1Ribbon.RibbonLabel();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnQue = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnQueAdd = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtQueTodayId = new C1.Win.C1Input.C1TextBox();
+            this.txtQueId = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtQueNum = new C1.Win.C1Input.C1NumericEdit();
             this.btnQueDel = new C1.Win.C1Input.C1Button();
@@ -43,20 +46,19 @@ namespace bangna_queue_tv.gui
             this.label1 = new System.Windows.Forms.Label();
             this.txtDate = new C1.Win.C1Input.C1DateEdit();
             this.pnQueToday = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.txtQueId = new C1.Win.C1Input.C1TextBox();
-            this.rbStatus = new C1.Win.C1Ribbon.RibbonLabel();
-            this.txtQueTodayId = new C1.Win.C1Input.C1TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             this.pnQueAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQueTodayId)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQueId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQueNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueDel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQueName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQueId)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQueTodayId)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -72,6 +74,11 @@ namespace bangna_queue_tv.gui
             // 
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Text = "Label";
+            // 
+            // rbStatus
+            // 
+            this.rbStatus.Name = "rbStatus";
+            this.rbStatus.Text = "Label";
             // 
             // c1SplitContainer1
             // 
@@ -103,6 +110,8 @@ namespace bangna_queue_tv.gui
             // pnQueAdd
             // 
             this.pnQueAdd.Collapsible = true;
+            this.pnQueAdd.Controls.Add(this.label4);
+            this.pnQueAdd.Controls.Add(this.textBox1);
             this.pnQueAdd.Controls.Add(this.txtQueTodayId);
             this.pnQueAdd.Controls.Add(this.txtQueId);
             this.pnQueAdd.Controls.Add(this.label3);
@@ -121,11 +130,31 @@ namespace bangna_queue_tv.gui
             this.pnQueAdd.TabIndex = 1;
             this.pnQueAdd.Width = 357;
             // 
+            // txtQueTodayId
+            // 
+            this.txtQueTodayId.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtQueTodayId.Location = new System.Drawing.Point(254, 50);
+            this.txtQueTodayId.Name = "txtQueTodayId";
+            this.txtQueTodayId.Size = new System.Drawing.Size(42, 29);
+            this.txtQueTodayId.TabIndex = 9;
+            this.txtQueTodayId.Tag = null;
+            this.txtQueTodayId.Visible = false;
+            // 
+            // txtQueId
+            // 
+            this.txtQueId.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtQueId.Location = new System.Drawing.Point(254, 21);
+            this.txtQueId.Name = "txtQueId";
+            this.txtQueId.Size = new System.Drawing.Size(42, 29);
+            this.txtQueId.TabIndex = 8;
+            this.txtQueId.Tag = null;
+            this.txtQueId.Visible = false;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(3, 151);
+            this.label3.Location = new System.Drawing.Point(3, 186);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 25);
             this.label3.TabIndex = 7;
@@ -136,7 +165,7 @@ namespace bangna_queue_tv.gui
             this.txtQueNum.DataType = typeof(short);
             this.txtQueNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtQueNum.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtQueNum.Location = new System.Drawing.Point(94, 145);
+            this.txtQueNum.Location = new System.Drawing.Point(94, 180);
             this.txtQueNum.Name = "txtQueNum";
             this.txtQueNum.Size = new System.Drawing.Size(121, 33);
             this.txtQueNum.TabIndex = 6;
@@ -231,30 +260,22 @@ namespace bangna_queue_tv.gui
             this.pnQueToday.Text = "Queue Today";
             this.pnQueToday.Width = 296;
             // 
-            // txtQueId
+            // textBox1
             // 
-            this.txtQueId.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtQueId.Location = new System.Drawing.Point(254, 21);
-            this.txtQueId.Name = "txtQueId";
-            this.txtQueId.Size = new System.Drawing.Size(42, 29);
-            this.txtQueId.TabIndex = 8;
-            this.txtQueId.Tag = null;
-            this.txtQueId.Visible = false;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.textBox1.Location = new System.Drawing.Point(68, 135);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 31);
+            this.textBox1.TabIndex = 10;
             // 
-            // rbStatus
+            // label4
             // 
-            this.rbStatus.Name = "rbStatus";
-            this.rbStatus.Text = "Label";
-            // 
-            // txtQueTodayId
-            // 
-            this.txtQueTodayId.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtQueTodayId.Location = new System.Drawing.Point(254, 50);
-            this.txtQueTodayId.Name = "txtQueTodayId";
-            this.txtQueTodayId.Size = new System.Drawing.Size(42, 29);
-            this.txtQueTodayId.TabIndex = 9;
-            this.txtQueTodayId.Tag = null;
-            this.txtQueTodayId.Visible = false;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 147);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "label4";
             // 
             // FrmQueueToday
             // 
@@ -272,13 +293,13 @@ namespace bangna_queue_tv.gui
             this.c1SplitContainer1.ResumeLayout(false);
             this.pnQueAdd.ResumeLayout(false);
             this.pnQueAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQueTodayId)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQueId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQueNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueDel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQueName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQueId)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQueTodayId)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,5 +324,7 @@ namespace bangna_queue_tv.gui
         private C1.Win.C1Input.C1TextBox txtQueId;
         private C1.Win.C1Ribbon.RibbonLabel rbStatus;
         private C1.Win.C1Input.C1TextBox txtQueTodayId;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

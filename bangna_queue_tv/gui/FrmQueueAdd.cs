@@ -116,9 +116,9 @@ namespace bangna_queue_tv.gui
             }
             BQueue que = new BQueue();
             que.b_queue_id = "";
-            que.staff_id = stfid;
+            que.queue_start = stfid;
             que.queue_date = "";
-            que.row_1 = "1";
+            que.queue_prefix = "1";
             que.active = "";
             que.status_queue = "";
             que.staff_name = "";

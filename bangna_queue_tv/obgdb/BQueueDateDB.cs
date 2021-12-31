@@ -123,7 +123,7 @@ namespace bangna_queue_tv.obgdb
         public DataTable selectAll(String date)
         {
             DataTable dt = new DataTable();
-            String sql = "select cop.*,b_queue.queue_name  " +
+            String sql = "select cop.*,concat(b_queue.queue_name,'[', b_queue.queue_prefix,']') as queue_name " +
                 "From " + bque.table + " cop " +
                 "inner join b_queue on b_queue.queue_id = cop.queue_id " +
                 "Where  queue_date = '"+date+"' " +
@@ -165,7 +165,7 @@ namespace bangna_queue_tv.obgdb
             {
                 item = new ComboBoxItem();
                 item.Value = cus1.b_queue_date_id;
-                item.Text = cus1.queuename ;
+                item.Text = cus1.queuename;
                 c.Items.Add(item);
                 if (item.Value.Equals(selected))
                 {
@@ -360,11 +360,12 @@ namespace bangna_queue_tv.obgdb
         public DataTable selectBQueDate1(String date)
         {
             DataTable dt = new DataTable();
-            String sql = "select qued.*, que.queue_name, '' as flag   " +
+            String sql = "select qued.*,que.queue_name,concat(que.queue_name,'[', que.queue_prefix,']') as queue_name1, '' as flag   " +
                 "From " + bque.table + " qued " +
                 "inner Join b_queue que on que.queue_id = qued.queue_id " +
                 " " +
-                "Where  qued.queue_date = '" + date + "' ";
+                "Where  qued.queue_date = '" + date + "' " +
+                "Order By qued.queue_id";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -419,9 +420,10 @@ namespace bangna_queue_tv.obgdb
                 stf1.b_queue_date_id = dt.Rows[0][bque.b_queue_date_id].ToString();
                 stf1.queue_date = dt.Rows[0][bque.queue_date].ToString();
                 stf1.queue_current = dt.Rows[0][bque.queue_current].ToString();
-                //stf1.queue = dt.Rows[0][bque.queue].ToString();
+                stf1.queuename1 = dt.Rows[0]["queue_name1"].ToString();
                 stf1.queue_id = dt.Rows[0][bque.queue_id].ToString();
-                
+                stf1.queuename = "";
+                stf1.queue = "";
             }
             else
             {
@@ -434,8 +436,10 @@ namespace bangna_queue_tv.obgdb
             stf1.b_queue_date_id = "";
             stf1.queue_date = "";
             stf1.queue_current = "";
-            //stf1.queue = "";
+            stf1.queuename = "";
+            stf1.queuename1 = "";
             stf1.queue_id = "";
+            stf1.queue = "";
             return stf1;
         }
     }

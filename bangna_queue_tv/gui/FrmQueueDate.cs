@@ -34,6 +34,7 @@ namespace bangna_queue_tv.gui
         int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId=4;
         int colTodayrowno = 1, colTodayQueName = 2, colTodayqueid = 3,colTodayQue=4, colTodayQuCurr = 5, colTodayId = 6;
         Boolean pageLoad = false;
+        Timer timer;
         public FrmQueueDate(BangnaQueueControl bqc)
         {
             this.bqc = bqc;
@@ -54,7 +55,12 @@ namespace bangna_queue_tv.gui
             pn1 = new Panel();
             pn1.Dock = DockStyle.Fill;
             this.Controls.Add(pn1);
-            
+
+            timer = new Timer();
+            timer.Interval = bqc.timerImgScanNew;
+            timer.Enabled = false;
+            timer.Tick += Timer_Tick;
+
             sB1 = new C1StatusBar();
             sB1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             sB1.Location = new System.Drawing.Point(0, 428);
@@ -73,6 +79,12 @@ namespace bangna_queue_tv.gui
 
             this.StartPosition = FormStartPosition.CenterScreen;
             btnStatus.Click += BtnStatus_Click;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfQueToday1();
         }
 
         private void InitializeComponent()
@@ -291,6 +303,7 @@ namespace bangna_queue_tv.gui
         }
         private void setGrfQueToday1()
         {
+            timer.Enabled = false;
             DataTable dt = new DataTable();
             String date = "";
             date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
@@ -310,10 +323,12 @@ namespace bangna_queue_tv.gui
                 //grfQueToday.Rows[i].HeightDisplay = 1500;
                 i++;
             }
+            timer.Enabled = true;
         }
         private void setGrfQueToday()
         {
             pageLoad = true;
+            timer.Enabled = false;
             grfQueToday.DataSource = null;
             grfQueToday.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
@@ -321,7 +336,7 @@ namespace bangna_queue_tv.gui
             //Screen.PrimaryScreen.WorkingArea;
             
             grfQueToday.Cols[colTodayrowno].Width = 250;
-            grfQueToday.Cols[colTodayQueName].Width = this.Width -220;
+            grfQueToday.Cols[colTodayQueName].Width = this.Width -420;
             grfQueToday.Cols[colTodayQuCurr].Width = 200;//ตอนนี้ ถึงคิว ที่เท่าไร จะได้รู้ว่าต้องรอ อีกกี่คิว
             grfQueToday.Cols[colTodayQue].Width = 200;//คิวที่กดได้ เลขที่คิว
             grfQueToday.Cols[colTodayId].Width = 100;
@@ -372,12 +387,14 @@ namespace bangna_queue_tv.gui
             //grfImg.AutoSizeCols();
             //grfQueToday.AutoSizeRows();
             pageLoad = false;
+            timer.Enabled = true;
         }
         private void FrmQueueDate_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterScreen;
+            timer.Enabled = true;
         }
     }
 }

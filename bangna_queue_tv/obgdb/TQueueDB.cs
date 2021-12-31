@@ -166,7 +166,92 @@ namespace bangna_queue_tv.obgdb
             {
                 re = update(p, "");
             }
+            return re;
+        }
+        public String voidQueue(String tque_id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            
+            sql = "Update " + tque.table + " Set " +
+                " " + tque.active + "='3' " +
+                "," + tque.date_cancel + "=now() " +
+                "," + tque.user_cancel + "='" + userId.Replace("'", "''") + "' " +
+                "Where " + tque.pkField + "='" + tque_id + "'"
+                ;
 
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String voidQueueByQueDate(String que_date_id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + tque.table + " Set " +
+                " " + tque.active + "='3' " +
+                "," + tque.date_cancel + "=now() " +
+                "," + tque.user_cancel + "='" + userId.Replace("'", "''") + "' " +
+                "Where " + tque.b_queue_date_id + "='" + que_date_id + "'"
+                ;
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String FinishAndNewQueue(String t_que_id, String que_date_id, String user_id)
+        {
+            String re = "", sql = "";
+            TQueue stf1 = new TQueue();
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("finishque_newque", conn.conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("?t_que_id", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?user_id1", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?queue_date_id1", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
+                cmd.Parameters["?t_que_id"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?t_que_id"].Value = t_que_id;
+                cmd.Parameters["?queue_date_id1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?queue_date_id1"].Value = t_que_id;
+                cmd.Parameters["?user_id1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?user_id1"].Value = user_id;
+                cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
+                conn.conn.Open();
+                cmd.ExecuteNonQuery();
+                re = ((String)cmd.Parameters["?ret"].Value).ToString();
+                //MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
+                //DataTable dt = new DataTable();
+                //adap.Fill(dt);
+                //stf1 = setQueue(dt);
+                //stf1 = selectByPk(re);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            finally
+            {
+                conn.conn.Close();
+            }
             return re;
         }
         public TQueue LockQueue(String queue_date_id, String t_que_id_old)
@@ -192,7 +277,7 @@ namespace bangna_queue_tv.obgdb
                 cmd.Parameters["?b_queue_date_id1"].Value = queue_date_id;
                 //cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
                 conn.conn.Open();
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 //re = ((String)cmd.Parameters["?ret"].Value).ToString();
                 MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

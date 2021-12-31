@@ -32,8 +32,8 @@ namespace bangna_queue_tv.obgdb
             que.user_create = "user_create";
             que.user_modi = "user_modi";
             que.user_cancel = "user_cancel";
-            //que.status_queue = "status_queue";
-            //que.staff_name = "staff_name";
+            que.queue_prefix = "queue_prefix";
+            que.queue_start = "queue_start";
             //que.date_begin = "date_begin";
             //que.date_finish = "date_finish";
             //que.queue = "queue";
@@ -57,15 +57,16 @@ namespace bangna_queue_tv.obgdb
             p.queue_code = p.queue_code == null ? "" : p.queue_code;
             p.queue_name = p.queue_name == null ? "" : p.queue_name;
             p.queue_date = p.queue_date == null ? "" : p.queue_date;
-            p.row_1 = p.row_1 == null ? "" : p.row_1;
+            p.queue_prefix = p.queue_prefix == null ? "" : p.queue_prefix;
             p.active = p.active == null ? "" : p.active;
             p.status_queue = p.status_queue == null ? "" : p.status_queue;
             p.staff_name = p.staff_name == null ? "" : p.staff_name;
             p.date_begin = p.date_begin == null ? "" : p.date_begin;
             p.date_finish = p.date_finish == null ? "" : p.date_finish;
+            p.queue_start = p.queue_start == null ? "" : p.queue_start;
             p.queue = p.queue == null ? "" : p.queue;
 
-            p.staff_id = long.TryParse(p.staff_id, out chk) ? chk.ToString() : "0";
+            //p.staff_id = long.TryParse(p.staff_id, out chk) ? chk.ToString() : "0";
 
         }
         public String insert(BQueue p, String userId)
@@ -82,12 +83,12 @@ namespace bangna_queue_tv.obgdb
                 //" " + que.queue_date + "= now() " +
                 //" " + que.row_1 + "='" + p.row_1 + "' " +
                 " " + que.active + "='1' " +
-                //"," + que.staff_id + "='" + p.staff_id.Replace("'", "''") + "' " +
+                "," + que.queue_start + "='" + p.queue_start.Replace("'", "''") + "' " +
                 //"," + que.status_queue + "='1' " +
-                //"," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
+                //"," + que.queue_prefix + "='" + p.queue_prefix.Replace("'", "''") + "' " +
                 "," + que.date_create + "= now() " +
                 "," + que.user_create + "='" + userId.Replace("'", "''") + "' " +
-                //"," + que.queue + "='" + p.queue.Replace("'", "''") + "' " +
+                "," + que.queue_prefix + "='" + p.queue_prefix.Replace("'", "''") + "' " +
                 "," + que.queue_code + "='" + p.queue_code.Replace("'", "''") + "' " +
                 "," + que.queue_name + "='" + p.queue_name.Replace("'", "''") + "' " +
                 "";
@@ -110,17 +111,17 @@ namespace bangna_queue_tv.obgdb
 
             chkNull(p);
             sql = "Update " + que.table + " Set " +
-                " " + que.queue_date + "='" + p.queue_date + "' " +
+                //" " + que.queue_date + "='" + p.queue_date + "' " +
                 //"," + que.row_1 + "='" + p.row_1 + "' " +
-                "," + que.active + "='" + p.active + "' " +
-                "," + que.date_modi + "=now() " +
+                //" " + que.active + "='" + p.active + "' " +
+                " " + que.date_modi + "=now() " +
                 "," + que.user_modi + "='" + userId.Replace("'", "''") + "' " +
-                //"," + que.staff_name + "='" + p.staff_name.Replace("'", "''") + "' " +
-                //"," + que.date_begin + "='" + p.date_begin.Replace("'", "''") + "' " +
-                //"," + que.date_finish + "='" + p.date_finish.Replace("'", "''") + "' " +
+                "," + que.queue_prefix + "='" + p.queue_prefix.Replace("'", "''") + "' " +
+                "," + que.queue_start + "='" + p.queue_start.Replace("'", "''") + "' " +
+                //"," + que.queue + "='" + p.queue.Replace("'", "''") + "' " +
                 "," + que.queue_code + "='" + p.queue_code.Replace("'", "''") + "' " +
                 "," + que.queue_name + "='" + p.queue_name.Replace("'", "''") + "' " +
-                "Where " + que.pkField + "='" + p.staff_id + "'"
+                "Where " + que.pkField + "='" + p.b_queue_id + "'"
                 ;
 
             try
@@ -263,7 +264,7 @@ namespace bangna_queue_tv.obgdb
             if (dt.Rows.Count > 0)
             {
                 stf1.b_queue_id = dt.Rows[0][que.b_queue_id].ToString();
-                //stf1.staff_id = dt.Rows[0][que.staff_id].ToString();
+                stf1.queue_start = dt.Rows[0][que.queue_start].ToString();
                 stf1.queue_code = dt.Rows[0][que.queue_code].ToString();
                 stf1.queue_name = dt.Rows[0][que.queue_name].ToString();
                 stf1.date_create = dt.Rows[0][que.date_create].ToString();
@@ -272,14 +273,13 @@ namespace bangna_queue_tv.obgdb
                 stf1.user_create = dt.Rows[0][que.user_create].ToString();
                 stf1.user_modi = dt.Rows[0][que.user_modi].ToString();
                 stf1.user_cancel = dt.Rows[0][que.user_cancel].ToString();
-                //stf1.row_1 = dt.Rows[0][que.row_1].ToString();
+                stf1.queue_prefix = dt.Rows[0][que.queue_prefix].ToString();
                 stf1.active = dt.Rows[0][que.active].ToString();
                 //stf1.status_queue = dt.Rows[0][que.status_queue].ToString();
                 //stf1.staff_name = dt.Rows[0][que.staff_name].ToString();
                 //stf1.date_begin = dt.Rows[0][que.date_begin].ToString();
                 //stf1.date_finish = dt.Rows[0][que.date_finish].ToString();
-                //stf1.queue = dt.Rows[0][que.queue].ToString();
-
+                stf1.queue = dt.Rows[0][que.queue].ToString();
             }
             else
             {
@@ -299,6 +299,9 @@ namespace bangna_queue_tv.obgdb
             stf1.user_create = "";
             stf1.user_modi = "";
             stf1.user_cancel = "";
+            stf1.queue = "";
+            stf1.queue_prefix = "";
+            stf1.queue_start = "";
             return stf1;
         }
     }

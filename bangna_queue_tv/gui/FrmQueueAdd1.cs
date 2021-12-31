@@ -27,7 +27,7 @@ namespace bangna_queue_tv.gui
         C1StatusBar sB1;
         RibbonLabel lbStatus;
 
-        int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId = 4, colQueSave=5;
+        int colRowNo = 1, colQueName = 2, colQuePrefix = 3, colQueCode=4, colQueStart=5, colQueId = 6, colQueSave=7;
         Boolean pageLoad = false;
         public FrmQueueAdd1(BangnaQueueControl bqc)
         {
@@ -96,7 +96,6 @@ namespace bangna_queue_tv.gui
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
             grfQue.ContextMenu = menuGw;
             pn1.Controls.Add(grfQue);
-            
 
             theme1.SetTheme(grfQue, "Office2016DarkGray");
 
@@ -144,13 +143,19 @@ namespace bangna_queue_tv.gui
         {
             Boolean chk = false;
             BQueue que = new BQueue();
-            String id = "", name = "", num = "";
+            String id = "", name = "", num = "", code="", prefix="", start="";
             id = grfQue[grfQue.Row, colQueId] != null ? grfQue[grfQue.Row, colQueId].ToString():"";
             name = grfQue[grfQue.Row, colQueName] != null ? grfQue[grfQue.Row, colQueName].ToString() : "";
-            num = grfQue[grfQue.Row, colQueNum] != null ? grfQue[grfQue.Row, colQueNum].ToString() : "";
+            prefix = grfQue[grfQue.Row, colQuePrefix] != null ? grfQue[grfQue.Row, colQuePrefix].ToString() : "";
+            code = grfQue[grfQue.Row, colQueCode] != null ? grfQue[grfQue.Row, colQueCode].ToString() : "";
+            start = grfQue[grfQue.Row, colQueStart] != null ? grfQue[grfQue.Row, colQueStart].ToString() : "";
+            //start = grfQue[grfQue.Row, colQueStart] != null ? grfQue[grfQue.Row, colQueStart].ToString() : "";
             que.b_queue_id = id;
             que.queue_name = name;
             que.queue = num;
+            que.queue_code = code;
+            que.queue_prefix = prefix;
+            que.queue_start = start;
             String re = bqc.bquDB.queDB.insertQueue(que, "");
             int chk1 = 0;
             if(int.TryParse(re, out chk1))
@@ -166,13 +171,14 @@ namespace bangna_queue_tv.gui
             grfQue.DataSource = null;
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
-            grfQue.Cols.Count = 6;
+            grfQue.Cols.Count = 8;
 
             grfQue.Cols[colRowNo].Width = 250;
             grfQue.Cols[colQueName].Width = 250;
-            grfQue.Cols[colQueNum].Width = 100;
+            grfQue.Cols[colQuePrefix].Width = 100;
             grfQue.Cols[colQueId].Width = 100;
             grfQue.Cols[colQueSave].Width = 80;
+            grfQue.Cols[colQueCode].Width = 100;
             //CellStyle cs = grfQue.Styles.Add("btn");
             //cs.DataType = typeof(Button);
             //grfQue.Cols[colQueSave].Style = cs;
@@ -184,10 +190,11 @@ namespace bangna_queue_tv.gui
 
             grfQue.Cols[colRowNo].Caption = " ";
             grfQue.Cols[colQueName].Caption = "queue name";
-            grfQue.Cols[colQueNum].Caption = "queue number";
+            grfQue.Cols[colQuePrefix].Caption = "prefix";  //ตัวย่อ ชื่อย่อ
             grfQue.Cols[colQueId].Caption = "id";
             grfQue.Cols[colQueSave].Caption = "save";
-
+            grfQue.Cols[colQueCode].Caption = "XXXX";   //XXXX
+            grfQue.Cols[colQueStart].Caption = "คิวเริ่มต้น";   //XXXX
             DataTable dt = new DataTable();
 
             dt = bqc.bquDB.queDB.selectAll();
@@ -200,8 +207,10 @@ namespace bangna_queue_tv.gui
                 grfQue.Rows[i][colRowNo] = i;
                 grfQue[i, 0] = i;
                 grfQue[i, colQueName] = drow["queue_name"].ToString();
-                grfQue[i, colQueNum] = drow["queue_code"].ToString();
+                grfQue[i, colQuePrefix] = drow["queue_prefix"].ToString();
                 grfQue[i, colQueId] = drow["queue_id"].ToString();
+                grfQue[i, colQueCode] = drow["queue_code"].ToString();
+                grfQue[i, colQueStart] = drow["queue_start"].ToString();
                 grfQue[i, colQueSave] = "";
                 i++;
             }
@@ -212,7 +221,8 @@ namespace bangna_queue_tv.gui
             //grfImg.Cols[colPathPic].Visible = false;
             grfQue.Cols[colRowNo].AllowEditing = true;
             grfQue.Cols[colQueName].AllowEditing = true;
-            grfQue.Cols[colQueNum].AllowEditing = true;
+            grfQue.Cols[colQuePrefix].AllowEditing = true;
+            grfQue.Cols[colQueCode].AllowEditing = true;
             grfQue.Cols[colQueId].AllowEditing = false;
             grfQue.Cols[colQueSave].AllowEditing = false;
             //grfImg.AutoSizeCols();
