@@ -56,7 +56,6 @@ namespace bangna_queue_tv.gui
             //throw new NotImplementedException();
             btnQueVoid.Visible = chkQueVoid.Checked;
         }
-
         private void BtnQueSend_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -75,7 +74,6 @@ namespace bangna_queue_tv.gui
                 lbQueSend.Text = "ส่งคิวเรียบร้อย";
             }
         }
-
         private void ChkQueSend_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -85,7 +83,7 @@ namespace bangna_queue_tv.gui
         private void BtnQueNext_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            String stfid = "", queid = "";
+            String stfid = "", queid = "", prefix = "", code = "";
             stfid = bqc.getIdCombo(cboStf, cboStf.Text);
             if (stfid.Equals(""))
             {
@@ -98,10 +96,16 @@ namespace bangna_queue_tv.gui
             //เรียกคิว
             tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
             tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id);
-            //tque = new TQueue();            
-            lbQue.Text = tque.queue;
+            //tque = new TQueue();
+            code = bqc.prefixQue(tque);
+
+            lbQue.Text = code;
             lbQueFinish.Text = tque.queue_current;
             lbTQueId.Text = tque.t_queue_id;
+            lbQueSend.Text = "";
+            chkQueSend.Checked = false;
+            chkQueVoid.Checked = false;
+            cboQueSend.Text = "";
         }
 
         private void CboStf_SelectedValueChanged(object sender, EventArgs e)

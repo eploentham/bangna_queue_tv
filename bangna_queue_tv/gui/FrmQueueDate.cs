@@ -32,7 +32,7 @@ namespace bangna_queue_tv.gui
         Image image1;
         Color color;
         int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId=4;
-        int colTodayrowno = 1, colTodayQueName = 2, colTodayqueid = 3,colTodayQue=4, colTodayQuCurr = 5, colTodayId = 6;
+        int colTodayrowno = 1, colTodayQueName = 2, colTodayqueid = 3,colTodayQue=4, colTodayQuCurr = 5, colTodayId = 6, colTodayQueCode=7, colTodayPrefix=8;
         Boolean pageLoad = false;
         Timer timer;
         public FrmQueueDate(BangnaQueueControl bqc)
@@ -151,13 +151,13 @@ namespace bangna_queue_tv.gui
             date = DateTime.Now.ToString("dd/MM/") + year + " " + hhmmss;
             qurcurr = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
             quename = grfQueToday[grfQueToday.Row, colTodayQueName] != null ? grfQueToday[grfQueToday.Row, colTodayQueName].ToString() : "";
-            que = grfQueToday[grfQueToday.Row, colTodayQue] != null ? grfQueToday[grfQueToday.Row, colTodayQue].ToString() : "";
+            que = grfQueToday[grfQueToday.Row, colTodayQue] != null ? bqc.prefixQue1(grfQueToday[grfQueToday.Row, colTodayQueCode].ToString(), grfQueToday[grfQueToday.Row, colTodayPrefix].ToString(), grfQueToday[grfQueToday.Row, colTodayQue].ToString()) : "";
             //stringToPrint = mposC.mposDB.copDB.genQueue1Doc() + Environment.NewLine;
             stringToPrint += "เวลา " + date + Environment.NewLine;
             stringToPrint += Environment.NewLine;
-            stringToPrint += "คิว " + quename + Environment.NewLine;
-            stringToPrint += Environment.NewLine;
-            stringToPrint += "คิวปัจจุบัน " + qurcurr + Environment.NewLine;
+            //stringToPrint += "คิว " + quename + Environment.NewLine;
+            //stringToPrint += Environment.NewLine;
+            //stringToPrint += "คิวปัจจุบัน " + qurcurr + Environment.NewLine;
             stringToPrint += Environment.NewLine;
             stringToPrint += "คิวที่ " + que + Environment.NewLine;
             stringToPrint += Environment.NewLine;
@@ -277,11 +277,9 @@ namespace bangna_queue_tv.gui
             pn1.Controls.Add(grfQueToday);
             grfQueToday.AllowSorting = AllowSortingEnum.None;
 
-
             this.Controls.Add(sB1);
 
-            theme1.SetTheme(grfQueToday, "Office2007Blue"); 
-
+            theme1.SetTheme(grfQueToday, "Office2007Blue");
         }
 
         private void GrfQueToday_Click(object sender, EventArgs e)
@@ -299,7 +297,7 @@ namespace bangna_queue_tv.gui
             num = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
             String re = bqc.bquDB.queDateDB.QueuetNext(id, date, todayid);
             setGrfQueToday1();
-            //printQueue();
+            printQueue();
         }
         private void setGrfQueToday1()
         {
@@ -318,7 +316,7 @@ namespace bangna_queue_tv.gui
                 grfQueToday[i, colTodayQuCurr] = drow["queue_current"].ToString();
                 grfQueToday[i, colTodayId] = drow["b_queue_date_id"].ToString();
                 grfQueToday[i, colTodayqueid] = drow["queue_id"].ToString();
-                grfQueToday[i, colTodayQue] = drow["queue"].ToString();
+                grfQueToday[i, colTodayQue] = bqc.prefixQue1(drow["queue_code"].ToString(), drow["queue_prefix"].ToString(), drow["queue"].ToString());
                 grfQueToday.Rows[i].Height = 120;
                 //grfQueToday.Rows[i].HeightDisplay = 1500;
                 i++;
@@ -332,7 +330,7 @@ namespace bangna_queue_tv.gui
             grfQueToday.DataSource = null;
             grfQueToday.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
-            grfQueToday.Cols.Count = 7;
+            grfQueToday.Cols.Count = 9;
             //Screen.PrimaryScreen.WorkingArea;
             
             grfQueToday.Cols[colTodayrowno].Width = 250;
@@ -366,7 +364,9 @@ namespace bangna_queue_tv.gui
                 grfQueToday[i, colTodayQuCurr] = drow["queue_current"].ToString();
                 grfQueToday[i, colTodayId] = drow["b_queue_date_id"].ToString();
                 grfQueToday[i, colTodayqueid] = drow["queue_id"].ToString();
-                grfQueToday[i, colTodayQue] = drow["queue"].ToString();
+                grfQueToday[i, colTodayQueCode] = drow["queue_code"].ToString();
+                grfQueToday[i, colTodayPrefix] = drow["queue_prefix"].ToString();
+                grfQueToday[i, colTodayQue] = bqc.prefixQue1(drow["queue_code"].ToString(), drow["queue_prefix"].ToString(), drow["queue"].ToString());
                 grfQueToday.Rows[i].Height = 120;
                 //grfQueToday.Rows[i].HeightDisplay = 1500;
                 i++;
@@ -375,6 +375,8 @@ namespace bangna_queue_tv.gui
             grfQueToday.Cols[colTodayId].Visible = false;
             grfQueToday.Cols[colTodayrowno].Visible = false;
             grfQueToday.Cols[colTodayqueid].Visible = false;
+            grfQueToday.Cols[colTodayQueCode].Visible = false;
+            grfQueToday.Cols[colTodayPrefix].Visible = false;
 
             grfQueToday.Cols[colTodayQue].AllowEditing = false;
             grfQueToday.Cols[colTodayrowno].AllowEditing = false;

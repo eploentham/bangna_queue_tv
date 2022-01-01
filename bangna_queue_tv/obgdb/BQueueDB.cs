@@ -206,6 +206,21 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
+        public BQueue selectByTQueId(String tqueid)
+        {
+            BQueue stf1 = new BQueue();
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select que.*   " +
+                "From " + que.table + " que " +
+                //"inner join b_queue_date qued on qued.queue_id = que.queue_id " +
+                "inner join t_queue tque on tque.queue_id = que.queue_id " +
+                "Where  tque.t_queue_id = '" + tqueid + "' " +
+                "Order By que." + que.b_queue_id + " asc";
+            dt = conn.selectData(conn.conn, sql);
+            stf1 = setQueue(dt);
+            return stf1;
+        }
         public BQueue selectByPk(String queid)
         {
             BQueue stf1 = new BQueue();
@@ -279,7 +294,7 @@ namespace bangna_queue_tv.obgdb
                 //stf1.staff_name = dt.Rows[0][que.staff_name].ToString();
                 //stf1.date_begin = dt.Rows[0][que.date_begin].ToString();
                 //stf1.date_finish = dt.Rows[0][que.date_finish].ToString();
-                stf1.queue = dt.Rows[0][que.queue].ToString();
+                //stf1.queue = dt.Rows[0][que.queue].ToString();
             }
             else
             {

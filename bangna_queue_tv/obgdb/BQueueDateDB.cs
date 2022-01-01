@@ -155,6 +155,7 @@ namespace bangna_queue_tv.obgdb
         {
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectWard();
+            c.Items.Clear();
             int i = 0;
             if (lStf.Count <= 0) getlStf(date);
             item = new ComboBoxItem();
@@ -360,7 +361,7 @@ namespace bangna_queue_tv.obgdb
         public DataTable selectBQueDate1(String date)
         {
             DataTable dt = new DataTable();
-            String sql = "select qued.*,que.queue_name,concat(que.queue_name,'[', que.queue_prefix,']') as queue_name1, '' as flag   " +
+            String sql = "select qued.*,que.queue_name,concat(que.queue_name,'[', que.queue_prefix,']') as queue_name1, '' as flag,que.queue_code,que.queue_prefix   " +
                 "From " + bque.table + " qued " +
                 "inner Join b_queue que on que.queue_id = qued.queue_id " +
                 " " +

@@ -197,5 +197,45 @@ namespace bangna_queue_tv.control
             }
             return re;
         }
+        public BQueue selectBQueueByPk(String tqueid)
+        {
+            TQueue stf1 = new TQueue();
+            BQueue que = new BQueue();
+            stf1 = bquDB.tqueDB.selectByPk(tqueid);
+            que = bquDB.queDB.selectByPk(stf1.queue_id);
+            return que;
+        }
+        public String prefixQue(TQueue tque)
+        {
+            String code = "", prefix = "";
+            BQueue que = new BQueue();
+            que = bquDB.queDB.selectByTQueId(tque.t_queue_id);
+            prefix = que.queue_prefix.Length > 0 ? que.queue_prefix : "";
+            if (que.queue_code.Length > 0)
+            {
+                for (int i = 0; i < que.queue_code.Length; i++)
+                {
+                    code += "0";
+                }
+                code = code + tque.queue;
+                code = code.Substring(tque.queue.Length);
+            }
+            return prefix+code;
+        }
+        public String prefixQue1(String quecode, String prefix, String queue)
+        {
+            String code = "";
+            //prefix = que.queue_prefix.Length > 0 ? que.queue_prefix : "";
+            if (quecode.Length > 0)
+            {
+                for (int i = 0; i < quecode.Length; i++)
+                {
+                    code += "0";
+                }
+                code = code + queue;
+                code = code.Substring(queue.Length);
+            }
+            return prefix+code;
+        }
     }
 }
