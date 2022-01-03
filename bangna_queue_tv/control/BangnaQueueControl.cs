@@ -1,5 +1,6 @@
 ﻿using bangna_queue_tv.obgdb;
 using bangna_queue_tv.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -186,6 +187,22 @@ namespace bangna_queue_tv.control
             int.TryParse(iniC.timerImgScanNew, out timerImgScanNew);
             Decimal.TryParse(iniC.creditCharge, out CreditCharge);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
+        }
+        public String getIdCombo(C1ComboBox c, String data)
+        {
+            String re = "";
+            if (c.Items.Count == 0) return "";
+            c.SelectedIndex = c.SelectedItem == null ? 0 : c.SelectedIndex;
+            foreach (ComboBoxItem item in c.Items)
+            {
+                if (item.Text.Equals(data))
+                {
+                    //c.SelectedItem = item;
+                    re = item.Value;
+                    break;
+                }
+            }
+            return re;
         }
         public String getIdCombo(ComboBox c, String data)
         {

@@ -36,22 +36,47 @@ namespace bangna_queue_tv.gui
         }
         private void initConfig()
         {
+            pageLoad = true;
             tque = new TQueue();
             queCaller = new BQueueCaller();
             theme1 = new C1ThemeController();
             fEdit = new Font(bqc.iniC.grdViewFontName, bqc.grdViewFontSize, FontStyle.Regular);
 
-            bqc.bquDB.queDateDB.setCboQueDate(cboStf, bqc.iniC.queuefixid, System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd"));
+            //bqc.bquDB.queDateDB.setCboQueDate(cboStf, bqc.iniC.queuefixid, System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd"));
+            bqc.bquDB.queDateDB.setCboQueDate1(cboQueDate, bqc.iniC.queuefixid, System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd"));
             setControl();
-            cboStf.SelectedValueChanged += CboStf_SelectedValueChanged;
+            //cboStf.SelectedValueChanged += CboStf_SelectedValueChanged;
+            cboQueDate.SelectedIndexChanged += CboQueDate_SelectedIndexChanged;
             btnQueNext.Click += BtnQueNext_Click;
             chkQueSend.Click += ChkQueSend_Click;
             btnQueSend.Click += BtnQueSend_Click;
             chkQueVoid.Click += ChkQueVoid_Click;
             btnQueVoid.Click += BtnQueVoid_Click;
             btnCaller.Click += BtnCaller_Click;
+
+            setTheme();
+            pageLoad = false;
         }
 
+        private void CboQueDate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            pageLoad = true;
+            setControl();
+            pageLoad = false;
+        }
+
+        private void setTheme()
+        {
+            //theme1.SetTheme(grf, "BeigeOne");
+            theme1.SetTheme(btnQueNext, "BeigeOne");
+            theme1.SetTheme(c1Button1, "BeigeOne");
+            theme1.SetTheme(btnQueSend, "BeigeOne");
+            theme1.SetTheme(c1StatusBar1, "BeigeOne");
+            theme1.SetTheme(cboQueDate, "BeigeOne");
+            theme1.SetTheme(c1CheckBox1, "BeigeOne");
+            theme1.SetTheme(this, "BeigeOne");
+        }
         private void BtnQueVoid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -77,33 +102,46 @@ namespace bangna_queue_tv.gui
         {
             //throw new NotImplementedException();
             String stfid = "", queid = "";
-            stfid = bqc.getIdCombo(cboQueSend, cboQueSend.Text);
-            if (stfid.Equals(""))
+            //stfid = bqc.getIdCombo(cboQueSend, cboQueSend.Text);
+            if (queCaller.queue_call_id.Length <= 0)
+            {
+                MessageBox.Show("ไม่พบ caller", "");
+                return;
+            }
+            if (tque.t_queue_id.Length <= 0)
             {
                 MessageBox.Show("ไม่พบเลขที่คิว", "");
                 return;
             }
             tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
-            String re = bqc.bquDB.tqueDB.FinishAndNewQueue(tque.t_queue_id, stfid, "");
+            String re = bqc.bquDB.tqueDB.FinishAndNewQueue(tque.t_queue_id, stfid, "", queCaller.queue_call_id);
             int chk = 0;
             if (int.TryParse(re, out chk))
             {
                 lbStatus.Text = "ส่งคิวเรียบร้อย";
             }
         }
-
         private void ChkQueSend_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setControlQueSend(chkQueSend.Checked);
         }
-
         private void BtnQueNext_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             String stfid = "", queid = "", prefix = "", code = "";
-            stfid = bqc.getIdCombo(cboStf, cboStf.Text);
-            if (stfid.Equals(""))
+            //stfid = bqc.getIdCombo(cboStf, cboStf.Text);
+            if (queCaller.queue_call_id.Length<=0)
+            {
+                MessageBox.Show("ไม่พบ caller", "");
+                return;
+            }
+            if (tque.t_queue_id == null)
+            {
+                MessageBox.Show("ไม่พบเลขที่คิว", "");
+                return;
+            }
+            if (tque.t_queue_id.Length <= 0)
             {
                 MessageBox.Show("ไม่พบเลขที่คิว", "");
                 return;
@@ -113,7 +151,7 @@ namespace bangna_queue_tv.gui
 
             //เรียกคิว
             tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
-            tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id, "");
+            tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id, queCaller.queue_call_id);
             //tque = new TQueue();
             code = bqc.prefixQue(tque);
 
@@ -125,7 +163,6 @@ namespace bangna_queue_tv.gui
             chkQueVoid.Checked = false;
             cboQueSend.Text = "";
         }
-
         private void CboCaller_SelectedIndexChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -202,7 +239,7 @@ namespace bangna_queue_tv.gui
             bqued = new BQueueDate();
 
             String stfid = "";
-            stfid = bqc.getIdCombo(cboStf, cboStf.Text);
+            stfid = bqc.getIdCombo(cboQueDate, cboQueDate.Text);
             bqued = bqc.bquDB.queDateDB.selectByPk1(stfid);
             lbQue.Text = "";
             lbQueFinish.Text = "";
@@ -225,6 +262,7 @@ namespace bangna_queue_tv.gui
         {
             rbCaller.Text = "";
             lbStatus.Text = "";
+            rbQueueTotal.Text = "";
         }
     }
 }

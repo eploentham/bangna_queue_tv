@@ -42,7 +42,6 @@ namespace bangna_queue_tv.gui
                 chkPrintQue.Checked = true;
             }
         }
-
         private void ChkUnPrintQue_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

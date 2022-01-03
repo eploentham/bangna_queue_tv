@@ -217,7 +217,7 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
-        public String FinishAndNewQueue(String t_que_id, String que_date_id, String user_id)
+        public String FinishAndNewQueue(String t_que_id, String que_date_id, String user_id, String queue_call_id)
         {
             String re = "", sql = "";
             TQueue stf1 = new TQueue();
@@ -228,6 +228,7 @@ namespace bangna_queue_tv.obgdb
                 cmd.Parameters.Add(new MySqlParameter("?t_que_id", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?user_id1", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?queue_date_id1", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?queue_call_id", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
                 cmd.Parameters["?t_que_id"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?t_que_id"].Value = t_que_id;
@@ -235,6 +236,8 @@ namespace bangna_queue_tv.obgdb
                 cmd.Parameters["?queue_date_id1"].Value = que_date_id;
                 cmd.Parameters["?user_id1"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?user_id1"].Value = user_id;
+                cmd.Parameters["?queue_call_id"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?queue_call_id"].Value = queue_call_id;
                 cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
                 conn.conn.Open();
                 cmd.ExecuteNonQuery();
@@ -264,14 +267,14 @@ namespace bangna_queue_tv.obgdb
                 MySqlCommand cmd = new MySqlCommand("lock_queue", conn.conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("?t_que_id_old", MySqlDbType.VarChar));
-                cmd.Parameters.Add(new MySqlParameter("?queue_caller_id", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?queue_call_id", MySqlDbType.VarChar));
                 //cmd.Parameters.Add(new MySqlParameter("?queue_date1", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?b_queue_date_id1", MySqlDbType.VarChar));
                 //cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
                 cmd.Parameters["?t_que_id_old"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?t_que_id_old"].Value = t_que_id_old;
-                cmd.Parameters["?queue_caller_id"].Direction = ParameterDirection.Input;
-                cmd.Parameters["?queue_caller_id"].Value = queue_call_id;
+                cmd.Parameters["?queue_call_id"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?queue_call_id"].Value = queue_call_id;
                 //cmd.Parameters["?queue_date1"].Direction = ParameterDirection.Input;
                 //cmd.Parameters["?queue_date1"].Value = quedate;
                 cmd.Parameters["?b_queue_date_id1"].Direction = ParameterDirection.Input;

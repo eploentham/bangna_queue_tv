@@ -1,4 +1,5 @@
 ﻿using bangna_queue_tv.object1;
+using C1.Win.C1Input;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -149,6 +150,32 @@ namespace bangna_queue_tv.obgdb
                 stf1.queue = row[bque.queue].ToString();
                 stf1.queuename = row["queue_name"].ToString();
                 lStf.Add(stf1);
+            }
+        }
+        public void setCboQueDate1(C1ComboBox c, String selected, String date)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectWard();
+            c.Items.Clear();
+            int i = 0;
+            if (lStf.Count <= 0) getlStf(date);
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (BQueueDate cus1 in lStf)
+            {
+                item = new ComboBoxItem();
+                item.Value = cus1.b_queue_date_id;
+                item.Text = cus1.queuename;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
             }
         }
         public void setCboQueDate(ComboBox c, String selected, String date)
