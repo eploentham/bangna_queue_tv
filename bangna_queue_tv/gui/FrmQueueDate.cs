@@ -80,13 +80,6 @@ namespace bangna_queue_tv.gui
             this.StartPosition = FormStartPosition.CenterScreen;
             btnStatus.Click += BtnStatus_Click;
         }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            setGrfQueToday1();
-        }
-
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -98,6 +91,11 @@ namespace bangna_queue_tv.gui
             this.Load += new System.EventHandler(this.FrmQueueDate_Load);
             this.ResumeLayout(false);
 
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfQueToday1();
         }
         private void BtnStatus_Click(object sender, EventArgs e)
         {
@@ -145,13 +143,16 @@ namespace bangna_queue_tv.gui
             //    sr.Close();
             //    fs.Close();
             //}
-            String date = "", year = "", hhmmss = "", quename="", qurcurr="", que="";
+            String date = "", year = "", hhmmss = "", quename="", qurcurr="", que="", que1="", prefix="", todayque="";
             year = (DateTime.Now.Year + 543).ToString();
             hhmmss = DateTime.Now.ToString("hh:mm:ss");
             date = DateTime.Now.ToString("dd/MM/") + year + " " + hhmmss;
+            que1 = grfQueToday[grfQueToday.Row, colTodayQueCode] != null ? grfQueToday[grfQueToday.Row, colTodayQueCode].ToString() : "";
+            prefix = grfQueToday[grfQueToday.Row, colTodayPrefix] != null ? grfQueToday[grfQueToday.Row, colTodayPrefix].ToString() : "";
+            todayque = grfQueToday[grfQueToday.Row, colTodayQue] != null ? grfQueToday[grfQueToday.Row, colTodayQue].ToString() : "";
             qurcurr = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
             quename = grfQueToday[grfQueToday.Row, colTodayQueName] != null ? grfQueToday[grfQueToday.Row, colTodayQueName].ToString() : "";
-            que = grfQueToday[grfQueToday.Row, colTodayQue] != null ? bqc.prefixQue1(grfQueToday[grfQueToday.Row, colTodayQueCode].ToString(), grfQueToday[grfQueToday.Row, colTodayPrefix].ToString(), grfQueToday[grfQueToday.Row, colTodayQue].ToString()) : "";
+            que = grfQueToday[grfQueToday.Row, colTodayQue] != null ? bqc.prefixQue1(que1, prefix, todayque) : "";
             //stringToPrint = mposC.mposDB.copDB.genQueue1Doc() + Environment.NewLine;
             stringToPrint += "เวลา " + date + Environment.NewLine;
             stringToPrint += Environment.NewLine;

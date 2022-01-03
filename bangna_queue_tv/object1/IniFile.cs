@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace bangna_queue_tv
 {
-    class IniFile
+    public class IniFile
     {
         FileIniDataParser parser;
         IniData data;

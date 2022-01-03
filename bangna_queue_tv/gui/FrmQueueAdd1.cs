@@ -1,5 +1,6 @@
 ﻿using bangna_queue_tv.control;
 using bangna_queue_tv.object1;
+using bangna_queue_tv.Properties;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SuperTooltip;
@@ -26,6 +27,7 @@ namespace bangna_queue_tv.gui
         C1ThemeController theme1;
         C1StatusBar sB1;
         RibbonLabel lbStatus;
+        RibbonButton btnStatus;
 
         int colRowNo = 1, colQueName = 2, colQuePrefix = 3, colQueCode=4, colQueStart=5, colQueId = 6, colQueSave=7;
         Boolean pageLoad = false;
@@ -52,7 +54,13 @@ namespace bangna_queue_tv.gui
             sB1.Name = "c1StatusBar1";
             sB1.Size = new System.Drawing.Size(800, 22);
             lbStatus = new RibbonLabel();
+            btnStatus = new RibbonButton();
             sB1.LeftPaneItems.Add(lbStatus);
+            sB1.RightPaneItems.Add(btnStatus);
+            lbStatus.Text = "";
+            btnStatus.Text = "config";
+            btnStatus.SmallImage = Resources.setting1;
+            btnStatus.Click += BtnStatus_Click;
             this.Controls.Add(sB1);
             lbStatus.Text = "";
             theme1.SetTheme(sB1, "Office2016DarkGray");
@@ -64,6 +72,15 @@ namespace bangna_queue_tv.gui
             this.StartPosition = FormStartPosition.CenterScreen;
             pageLoad = false;
         }
+
+        private void BtnStatus_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            grfQue.Rows.Add();
+            grfQue[grfQue.Row, colQueId] = "";
+            grfQue[grfQue.Row, colQueSave] = "";
+        }
+
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -151,16 +168,20 @@ namespace bangna_queue_tv.gui
             start = grfQue[grfQue.Row, colQueStart] != null ? grfQue[grfQue.Row, colQueStart].ToString() : "";
             //start = grfQue[grfQue.Row, colQueStart] != null ? grfQue[grfQue.Row, colQueStart].ToString() : "";
             que.b_queue_id = id;
-            que.queue_name = name;
+            que.queue_name = name.Trim();
             que.queue = num;
-            que.queue_code = code;
-            que.queue_prefix = prefix;
+            que.queue_code = code.Trim();
+            que.queue_prefix = prefix.Trim();
             que.queue_start = start;
             String re = bqc.bquDB.queDB.insertQueue(que, "");
             int chk1 = 0;
             if(int.TryParse(re, out chk1))
             {
                 chk = true;
+            }
+            else
+            {
+                lbStatus.Text = re;
             }
             return chk;
         }

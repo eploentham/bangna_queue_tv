@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnQueNext = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cboStf = new System.Windows.Forms.ComboBox();
             this.lbQue = new System.Windows.Forms.Label();
@@ -39,39 +37,31 @@
             this.lbTQueId = new System.Windows.Forms.Label();
             this.chkQueSend = new C1.Win.C1Input.C1CheckBox();
             this.cboQueSend = new System.Windows.Forms.ComboBox();
-            this.btnQueSend = new System.Windows.Forms.Button();
-            this.lbQueSend = new System.Windows.Forms.Label();
             this.chkQueVoid = new C1.Win.C1Input.C1CheckBox();
-            this.btnQueVoid = new System.Windows.Forms.Button();
+            this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
+            this.lbStatus = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbCaller = new C1.Win.C1Ribbon.RibbonLabel();
+            this.btnCaller = new C1.Win.C1Ribbon.RibbonButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnQueNext = new C1.Win.C1Input.C1Button();
+            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.btnQueSend = new C1.Win.C1Input.C1Button();
+            this.btnQueVoid = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.chkQueSend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkQueVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueNext)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueSend)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueVoid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button2.Location = new System.Drawing.Point(274, 225);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(188, 86);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "เรียก คิว ซ้ำ";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // btnQueNext
-            // 
-            this.btnQueNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnQueNext.Location = new System.Drawing.Point(20, 225);
-            this.btnQueNext.Name = "btnQueNext";
-            this.btnQueNext.Size = new System.Drawing.Size(188, 86);
-            this.btnQueNext.TabIndex = 4;
-            this.btnQueNext.Text = "เรียก คิว";
-            this.btnQueNext.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(13, 17);
+            this.label3.Location = new System.Drawing.Point(3, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 39);
             this.label3.TabIndex = 9;
@@ -83,7 +73,7 @@
             this.cboStf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboStf.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboStf.FormattingEnabled = true;
-            this.cboStf.Location = new System.Drawing.Point(179, 17);
+            this.cboStf.Location = new System.Drawing.Point(169, 10);
             this.cboStf.Name = "cboStf";
             this.cboStf.Size = new System.Drawing.Size(310, 47);
             this.cboStf.TabIndex = 8;
@@ -92,7 +82,7 @@
             // 
             this.lbQue.AutoSize = true;
             this.lbQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbQue.Location = new System.Drawing.Point(179, 85);
+            this.lbQue.Location = new System.Drawing.Point(169, 78);
             this.lbQue.Name = "lbQue";
             this.lbQue.Size = new System.Drawing.Size(109, 39);
             this.lbQue.TabIndex = 11;
@@ -102,7 +92,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(13, 85);
+            this.label4.Location = new System.Drawing.Point(3, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(152, 37);
             this.label4.TabIndex = 10;
@@ -112,7 +102,7 @@
             // 
             this.lbQueFinish.AutoSize = true;
             this.lbQueFinish.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbQueFinish.Location = new System.Drawing.Point(179, 156);
+            this.lbQueFinish.Location = new System.Drawing.Point(169, 149);
             this.lbQueFinish.Name = "lbQueFinish";
             this.lbQueFinish.Size = new System.Drawing.Size(109, 39);
             this.lbQueFinish.TabIndex = 13;
@@ -122,7 +112,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(13, 156);
+            this.label5.Location = new System.Drawing.Point(3, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(161, 39);
             this.label5.TabIndex = 12;
@@ -132,7 +122,7 @@
             // 
             this.lbTQueId.AutoSize = true;
             this.lbTQueId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbTQueId.Location = new System.Drawing.Point(12, 378);
+            this.lbTQueId.Location = new System.Drawing.Point(2, 371);
             this.lbTQueId.Name = "lbTQueId";
             this.lbTQueId.Size = new System.Drawing.Size(51, 20);
             this.lbTQueId.TabIndex = 14;
@@ -143,7 +133,7 @@
             this.chkQueSend.AutoSize = true;
             this.chkQueSend.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chkQueSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkQueSend.Location = new System.Drawing.Point(17, 328);
+            this.chkQueSend.Location = new System.Drawing.Point(7, 321);
             this.chkQueSend.Name = "chkQueSend";
             this.chkQueSend.Size = new System.Drawing.Size(90, 24);
             this.chkQueSend.TabIndex = 15;
@@ -157,37 +147,17 @@
             this.cboQueSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboQueSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboQueSend.FormattingEnabled = true;
-            this.cboQueSend.Location = new System.Drawing.Point(125, 321);
+            this.cboQueSend.Location = new System.Drawing.Point(115, 314);
             this.cboQueSend.Name = "cboQueSend";
             this.cboQueSend.Size = new System.Drawing.Size(147, 37);
             this.cboQueSend.TabIndex = 16;
-            // 
-            // btnQueSend
-            // 
-            this.btnQueSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnQueSend.Location = new System.Drawing.Point(322, 322);
-            this.btnQueSend.Name = "btnQueSend";
-            this.btnQueSend.Size = new System.Drawing.Size(61, 36);
-            this.btnQueSend.TabIndex = 17;
-            this.btnQueSend.Text = "ส่ง";
-            this.btnQueSend.UseVisualStyleBackColor = true;
-            // 
-            // lbQueSend
-            // 
-            this.lbQueSend.AutoSize = true;
-            this.lbQueSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbQueSend.Location = new System.Drawing.Point(389, 328);
-            this.lbQueSend.Name = "lbQueSend";
-            this.lbQueSend.Size = new System.Drawing.Size(30, 25);
-            this.lbQueSend.TabIndex = 18;
-            this.lbQueSend.Text = "...";
             // 
             // chkQueVoid
             // 
             this.chkQueVoid.AutoSize = true;
             this.chkQueVoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chkQueVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkQueVoid.Location = new System.Drawing.Point(118, 374);
+            this.chkQueVoid.Location = new System.Drawing.Point(108, 367);
             this.chkQueVoid.Name = "chkQueVoid";
             this.chkQueVoid.Size = new System.Drawing.Size(248, 29);
             this.chkQueVoid.TabIndex = 19;
@@ -195,13 +165,90 @@
             this.chkQueVoid.UseVisualStyleBackColor = true;
             this.chkQueVoid.Value = null;
             // 
+            // c1StatusBar1
+            // 
+            this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
+            this.c1StatusBar1.LeftPaneItems.Add(this.lbStatus);
+            this.c1StatusBar1.Location = new System.Drawing.Point(0, 431);
+            this.c1StatusBar1.Name = "c1StatusBar1";
+            this.c1StatusBar1.RightPaneItems.Add(this.rbCaller);
+            this.c1StatusBar1.RightPaneItems.Add(this.btnCaller);
+            this.c1StatusBar1.Size = new System.Drawing.Size(507, 22);
+            // 
+            // lbStatus
+            // 
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Text = "Label";
+            // 
+            // rbCaller
+            // 
+            this.rbCaller.Name = "rbCaller";
+            this.rbCaller.Text = "Label";
+            // 
+            // btnCaller
+            // 
+            this.btnCaller.Name = "btnCaller";
+            this.btnCaller.SmallImage = global::bangna_queue_tv.Properties.Resources.wheel24;
+            this.btnCaller.Text = "caller";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnQueVoid);
+            this.panel1.Controls.Add(this.btnQueSend);
+            this.panel1.Controls.Add(this.c1Button1);
+            this.panel1.Controls.Add(this.btnQueNext);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.chkQueVoid);
+            this.panel1.Controls.Add(this.cboStf);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.lbQue);
+            this.panel1.Controls.Add(this.cboQueSend);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.chkQueSend);
+            this.panel1.Controls.Add(this.lbQueFinish);
+            this.panel1.Controls.Add(this.lbTQueId);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(487, 414);
+            this.panel1.TabIndex = 23;
+            // 
+            // btnQueNext
+            // 
+            this.btnQueNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnQueNext.Location = new System.Drawing.Point(10, 218);
+            this.btnQueNext.Name = "btnQueNext";
+            this.btnQueNext.Size = new System.Drawing.Size(188, 86);
+            this.btnQueNext.TabIndex = 21;
+            this.btnQueNext.Text = "เรียก คิว";
+            this.btnQueNext.UseVisualStyleBackColor = true;
+            // 
+            // c1Button1
+            // 
+            this.c1Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button1.Location = new System.Drawing.Point(291, 218);
+            this.c1Button1.Name = "c1Button1";
+            this.c1Button1.Size = new System.Drawing.Size(188, 86);
+            this.c1Button1.TabIndex = 22;
+            this.c1Button1.Text = "เรียก คิว ซ้ำ";
+            this.c1Button1.UseVisualStyleBackColor = true;
+            // 
+            // btnQueSend
+            // 
+            this.btnQueSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnQueSend.Location = new System.Drawing.Point(362, 314);
+            this.btnQueSend.Name = "btnQueSend";
+            this.btnQueSend.Size = new System.Drawing.Size(61, 36);
+            this.btnQueSend.TabIndex = 23;
+            this.btnQueSend.Text = "ส่ง";
+            this.btnQueSend.UseVisualStyleBackColor = true;
+            // 
             // btnQueVoid
             // 
-            this.btnQueVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnQueVoid.Location = new System.Drawing.Point(372, 365);
+            this.btnQueVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnQueVoid.Location = new System.Drawing.Point(362, 360);
             this.btnQueVoid.Name = "btnQueVoid";
-            this.btnQueVoid.Size = new System.Drawing.Size(118, 47);
-            this.btnQueVoid.TabIndex = 20;
+            this.btnQueVoid.Size = new System.Drawing.Size(118, 36);
+            this.btnQueVoid.TabIndex = 24;
             this.btnQueVoid.Text = "ยกเลิกคิว";
             this.btnQueVoid.UseVisualStyleBackColor = true;
             // 
@@ -209,36 +256,28 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 418);
-            this.Controls.Add(this.btnQueVoid);
-            this.Controls.Add(this.chkQueVoid);
-            this.Controls.Add(this.lbQueSend);
-            this.Controls.Add(this.btnQueSend);
-            this.Controls.Add(this.cboQueSend);
-            this.Controls.Add(this.chkQueSend);
-            this.Controls.Add(this.lbTQueId);
-            this.Controls.Add(this.lbQueFinish);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.lbQue);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cboStf);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.btnQueNext);
+            this.ClientSize = new System.Drawing.Size(507, 453);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmQueueNext";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmQueueNext";
             this.Load += new System.EventHandler(this.FrmQueueNext_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chkQueSend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkQueVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueNext)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueSend)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueVoid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button btnQueNext;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cboStf;
         private System.Windows.Forms.Label lbQue;
@@ -248,9 +287,15 @@
         private System.Windows.Forms.Label lbTQueId;
         private C1.Win.C1Input.C1CheckBox chkQueSend;
         private System.Windows.Forms.ComboBox cboQueSend;
-        private System.Windows.Forms.Button btnQueSend;
-        private System.Windows.Forms.Label lbQueSend;
         private C1.Win.C1Input.C1CheckBox chkQueVoid;
-        private System.Windows.Forms.Button btnQueVoid;
+        private C1.Win.C1Ribbon.C1StatusBar c1StatusBar1;
+        private C1.Win.C1Ribbon.RibbonLabel lbStatus;
+        private C1.Win.C1Ribbon.RibbonLabel rbCaller;
+        private System.Windows.Forms.Panel panel1;
+        private C1.Win.C1Ribbon.RibbonButton btnCaller;
+        private C1.Win.C1Input.C1Button btnQueNext;
+        private C1.Win.C1Input.C1Button c1Button1;
+        private C1.Win.C1Input.C1Button btnQueSend;
+        private C1.Win.C1Input.C1Button btnQueVoid;
     }
 }

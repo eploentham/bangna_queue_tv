@@ -11,7 +11,7 @@ namespace bangna_queue_tv.control
     public class BangnaQueueControl
     {
         public InitConfig iniC;
-        private IniFile iniF;
+        public IniFile iniF;
         public ConnectDB conn;
 
         public Company cop;
@@ -139,6 +139,8 @@ namespace bangna_queue_tv.control
             iniC.grdQueFontName = iniC.grdQueFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdQueFontName;
             iniC.grdQueTodayFontName = iniC.grdQueTodayFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdQueTodayFontName;
 
+            iniC.statusPrintQue = iniF.getIni("app", "statusPrintQue");
+
             iniC.sticker_donor_width = iniC.sticker_donor_width.Equals("") ? "120" : iniC.sticker_donor_width;
             iniC.sticker_donor_height = iniC.sticker_donor_height.Equals("") ? "90" : iniC.sticker_donor_height;
             iniC.sticker_donor_start_y = iniC.sticker_donor_start_y.Equals("") ? "60" : iniC.sticker_donor_start_y;
@@ -152,6 +154,8 @@ namespace bangna_queue_tv.control
             iniC.status_show_border = iniC.status_show_border.Equals("") ? "0" : iniC.status_show_border;
             iniC.barcode_width_minus = iniC.barcode_width_minus.Equals("") ? "0" : iniC.barcode_width_minus;
             iniC.timerlabreqaccept = iniC.timerlabreqaccept.Equals("") ? "120" : iniC.timerlabreqaccept;
+
+            iniC.statusPrintQue = iniC.statusPrintQue.Equals("") ? "0" : iniC.statusPrintQue;
 
             iniC.hostFTP = iniC.hostFTP == null ? "" : iniC.hostFTP;
             iniC.userFTP = iniC.userFTP == null ? "" : iniC.userFTP;

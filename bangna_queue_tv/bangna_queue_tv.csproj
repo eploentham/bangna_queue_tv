@@ -90,6 +90,9 @@
     <Compile Include="gui\FrmQueueAdd1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmQueueCaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmQueueDate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,11 +115,13 @@
       <DependentUpon>FrmQueueToday.cs</DependentUpon>
     </Compile>
     <Compile Include="obgdb\BangnaQueueDB.cs" />
+    <Compile Include="obgdb\BQueueCallerDB.cs" />
     <Compile Include="obgdb\CompanyDB.cs" />
     <Compile Include="obgdb\BQueueDateDB.cs" />
     <Compile Include="obgdb\BQueueDB.cs" />
     <Compile Include="obgdb\StaffDB.cs" />
     <Compile Include="obgdb\TQueueDB.cs" />
+    <Compile Include="object1\BQueueCaller.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="obgdb\ConnectDB.cs" />
     <Compile Include="gui\Form1.cs">
@@ -156,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueAdd1.resx">
       <DependentUpon>FrmQueueAdd1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmQueueCaller.resx">
+      <DependentUpon>FrmQueueCaller.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueConfig.resx">
       <DependentUpon>FrmQueueConfig.cs</DependentUpon>
@@ -256,6 +264,285 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IncreaseIndent_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\organization48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\organization24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\options48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\options24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maintenance48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maintenance24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tests48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\semi-success24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\semi-success48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tests24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\locked48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unlocked24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unlocked48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\locked24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keys48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keys24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\glossary48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\glossary24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-warning48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-accept24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-accept48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-info24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-info48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-warning24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wheel48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wheel24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Male-User-Help48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Male-User-Warning24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Male-User-Warning48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Accept-Male-User24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Accept-Male-User48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add-Male-User24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add-Male-User48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Male-User-Help24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove-Male-User48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove-Male-User24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select-language48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select-language24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\megaphone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microphone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monitor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\signal-receiver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\relationship24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\signal-receiver24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text-message24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TV24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user224.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-blue24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-green24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-orange24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-red24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-yellow24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comment24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\communication24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\megaphone24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microphone24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monitor24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phonebook24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\signal-receiver48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user248.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-blue48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-green48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-orange48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-red48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-yellow48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comment48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\communication48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\emoticons48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\emoticons248.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\megaphone48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microphone48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monitor48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phonebook48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

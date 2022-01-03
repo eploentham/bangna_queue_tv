@@ -27,6 +27,48 @@ namespace bangna_queue_tv.gui
 
             btnQueAdd.Click += BtnQueAdd_Click;
             btnQueToday.Click += BtnQueToday_Click;
+            btnCaller.Click += BtnCaller_Click;
+            chkPrintQue.Click += ChkPrintQue_Click;
+            chkUnPrintQue.Click += ChkUnPrintQue_Click;
+
+            if (bqc.iniC.statusPrintQue.Equals("0"))
+            {
+                chkUnPrintQue.Checked = true;
+                chkPrintQue.Checked = false;
+            }
+            else if (bqc.iniC.statusPrintQue.Equals("1"))
+            {
+                chkUnPrintQue.Checked = false;
+                chkPrintQue.Checked = true;
+            }
+        }
+
+        private void ChkUnPrintQue_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setPrintQue();        }
+
+        private void ChkPrintQue_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setPrintQue();
+        }
+        private void setPrintQue()
+        {
+            if (chkPrintQue.Checked)
+            {
+                bqc.iniF.setIni("app", "statusPrintQue","1");
+            }
+            else if(chkUnPrintQue.Checked)
+            {
+                bqc.iniF.setIni("app", "statusPrintQue", "0");
+            }
+        }
+        private void BtnCaller_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmQueueCaller frm = new FrmQueueCaller(bqc);
+            frm.ShowDialog(this);
         }
 
         private void BtnQueToday_Click(object sender, EventArgs e)

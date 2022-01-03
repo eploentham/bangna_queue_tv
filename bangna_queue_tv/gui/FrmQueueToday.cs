@@ -59,6 +59,8 @@ namespace bangna_queue_tv.gui
             pnQueAdd.SizeRatio = 40;
             pnQueToday.SizeRatio = 30;
             pnQue.SizeRatio = 30;
+            rbStatus.Text = "";
+            lbStatus.Text = "";
             pageLoad = false;
         }
 
