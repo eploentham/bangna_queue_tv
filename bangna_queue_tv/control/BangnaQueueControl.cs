@@ -140,6 +140,7 @@ namespace bangna_queue_tv.control
             iniC.grdQueTodayFontName = iniC.grdQueTodayFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdQueTodayFontName;
 
             iniC.statusPrintQue = iniF.getIni("app", "statusPrintQue");
+            iniC.statusQueueNameHide = iniF.getIni("app", "statusQueueNameHide");
 
             iniC.sticker_donor_width = iniC.sticker_donor_width.Equals("") ? "120" : iniC.sticker_donor_width;
             iniC.sticker_donor_height = iniC.sticker_donor_height.Equals("") ? "90" : iniC.sticker_donor_height;
@@ -156,6 +157,7 @@ namespace bangna_queue_tv.control
             iniC.timerlabreqaccept = iniC.timerlabreqaccept.Equals("") ? "120" : iniC.timerlabreqaccept;
 
             iniC.statusPrintQue = iniC.statusPrintQue.Equals("") ? "0" : iniC.statusPrintQue;
+            iniC.statusQueueNameHide = iniC.statusQueueNameHide.Equals("") ? "1" : iniC.statusQueueNameHide;
 
             iniC.hostFTP = iniC.hostFTP == null ? "" : iniC.hostFTP;
             iniC.userFTP = iniC.userFTP == null ? "" : iniC.userFTP;

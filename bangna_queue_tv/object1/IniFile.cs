@@ -15,6 +15,7 @@ namespace bangna_queue_tv
     {
         FileIniDataParser parser;
         IniData data;
+        String filename = "";
         public IniFile(String filename)
         {
             parser = new FileIniDataParser();
@@ -22,6 +23,7 @@ namespace bangna_queue_tv
             if (File.Exists(filename))
             {
                 data = parser.ReadFile(filename);
+                this.filename = filename;
             }
         }
         public String getIni(String section, String node)
@@ -32,7 +34,7 @@ namespace bangna_queue_tv
         public void setIni(String section, String node, String value)
         {
             data[section][node] = value;
-            parser.WriteFile(section, data);
+            parser.WriteFile(filename, data);
         }
     }
 }

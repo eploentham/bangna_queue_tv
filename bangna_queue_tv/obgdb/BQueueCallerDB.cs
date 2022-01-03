@@ -222,7 +222,7 @@ namespace bangna_queue_tv.obgdb
             String sql = "select que.*   " +
                 "From " + quec.table + " que " +
                 " " +
-                "Where  que.queue_call_name = '" + name + "' " +
+                "Where  que.queue_call_name = '" + name + "' and que.active = '1' " +
                 "Order By que." + quec.queue_call_id + " asc";
             dt = conn.selectData(conn.conn, sql);
             stf1 = setQueueCaller(dt);

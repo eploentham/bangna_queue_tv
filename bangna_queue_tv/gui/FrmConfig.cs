@@ -30,13 +30,13 @@ namespace bangna_queue_tv.gui
             btnCaller.Click += BtnCaller_Click;
             chkPrintQue.Click += ChkPrintQue_Click;
             chkUnPrintQue.Click += ChkUnPrintQue_Click;
-
-            if (bqc.iniC.statusPrintQue.Equals("0"))
+            String statusPrintQue = bqc.iniF.getIni("app", "statusPrintQue");
+            if (statusPrintQue.Equals("0"))
             {
                 chkUnPrintQue.Checked = true;
                 chkPrintQue.Checked = false;
             }
-            else if (bqc.iniC.statusPrintQue.Equals("1"))
+            else if (statusPrintQue.Equals("1"))
             {
                 chkUnPrintQue.Checked = false;
                 chkPrintQue.Checked = true;

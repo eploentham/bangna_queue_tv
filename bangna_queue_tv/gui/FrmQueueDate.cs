@@ -298,7 +298,10 @@ namespace bangna_queue_tv.gui
             num = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
             String re = bqc.bquDB.queDateDB.QueuetNext(id, date, todayid);
             setGrfQueToday1();
-            printQueue();
+            if (bqc.iniC.statusPrintQue.Equals("1"))
+            {
+                printQueue();
+            }
         }
         private void setGrfQueToday1()
         {
@@ -378,6 +381,10 @@ namespace bangna_queue_tv.gui
             grfQueToday.Cols[colTodayqueid].Visible = false;
             grfQueToday.Cols[colTodayQueCode].Visible = false;
             grfQueToday.Cols[colTodayPrefix].Visible = false;
+            if (bqc.iniC.statusQueueNameHide.Equals("1"))
+            {
+                grfQueToday.Cols[colTodayQueName].Visible = false;
+            }
 
             grfQueToday.Cols[colTodayQue].AllowEditing = false;
             grfQueToday.Cols[colTodayrowno].AllowEditing = false;

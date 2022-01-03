@@ -51,6 +51,81 @@ namespace bangna_queue_tv.gui
             btnQueVoid.Click += BtnQueVoid_Click;
             btnCaller.Click += BtnCaller_Click;
         }
+
+        private void BtnQueVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = bqc.bquDB.tqueDB.voidQueue(tque.t_queue_id, "");
+            int chk = 0;
+            if (int.TryParse(re, out chk))
+            {
+                lbStatus.Text = "ยกเลิกคิวเรียบร้อย";
+                tque = new TQueue();
+                lbTQueId.Text = "";
+                lbQue.Text = "";
+                lbQueFinish.Text = "";
+            }
+        }
+
+        private void ChkQueVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            btnQueVoid.Visible = chkQueVoid.Checked;
+        }
+
+        private void BtnQueSend_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String stfid = "", queid = "";
+            stfid = bqc.getIdCombo(cboQueSend, cboQueSend.Text);
+            if (stfid.Equals(""))
+            {
+                MessageBox.Show("ไม่พบเลขที่คิว", "");
+                return;
+            }
+            tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
+            String re = bqc.bquDB.tqueDB.FinishAndNewQueue(tque.t_queue_id, stfid, "");
+            int chk = 0;
+            if (int.TryParse(re, out chk))
+            {
+                lbStatus.Text = "ส่งคิวเรียบร้อย";
+            }
+        }
+
+        private void ChkQueSend_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setControlQueSend(chkQueSend.Checked);
+        }
+
+        private void BtnQueNext_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String stfid = "", queid = "", prefix = "", code = "";
+            stfid = bqc.getIdCombo(cboStf, cboStf.Text);
+            if (stfid.Equals(""))
+            {
+                MessageBox.Show("ไม่พบเลขที่คิว", "");
+                return;
+            }
+            String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
+            //que = bqc.bquDB.queDB.selectQueByStfQueDate(stfid, date);
+
+            //เรียกคิว
+            tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
+            tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id, "");
+            //tque = new TQueue();
+            code = bqc.prefixQue(tque);
+
+            lbQue.Text = code;
+            lbQueFinish.Text = tque.queue_current;
+            lbTQueId.Text = tque.t_queue_id;
+            lbStatus.Text = "";
+            chkQueSend.Checked = false;
+            chkQueVoid.Checked = false;
+            cboQueSend.Text = "";
+        }
+
         private void CboCaller_SelectedIndexChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -105,6 +180,7 @@ namespace bangna_queue_tv.gui
             if(int.TryParse(re, out chk))
             {
                 rbCaller.Text = "caller ["+queCaller.queue_call_name+"]";
+                bqc.iniF.setIni("app", "QueueCaller", queCaller.queue_call_name);
                 grf.Dispose();
                 frmCaller.Dispose();
             }
@@ -114,76 +190,6 @@ namespace bangna_queue_tv.gui
         {
             //throw new NotImplementedException();
             String aaa = "";
-        }
-
-        private void BtnQueVoid_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            String re = bqc.bquDB.tqueDB.voidQueue(tque.t_queue_id, "");
-            int chk = 0;
-            if (int.TryParse(re, out chk))
-            {
-                lbStatus.Text = "ยกเลิกคิวเรียบร้อย";
-                tque = new TQueue();
-                lbTQueId.Text = "";
-                lbQue.Text = "";
-                lbQueFinish.Text = "";
-            }
-        }
-        private void ChkQueVoid_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            btnQueVoid.Visible = chkQueVoid.Checked;
-        }
-        private void BtnQueSend_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            String stfid = "", queid = "";
-            stfid = bqc.getIdCombo(cboQueSend, cboQueSend.Text);
-            if (stfid.Equals(""))
-            {
-                MessageBox.Show("ไม่พบเลขที่คิว", "");
-                return;
-            }
-            tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
-            String re = bqc.bquDB.tqueDB.FinishAndNewQueue(tque.t_queue_id, stfid, "");
-            int chk = 0;
-            if(int.TryParse(re, out chk))
-            {
-                lbStatus.Text = "ส่งคิวเรียบร้อย";
-            }
-        }
-        private void ChkQueSend_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            setControlQueSend(chkQueSend.Checked);
-        }
-        private void BtnQueNext_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            String stfid = "", queid = "", prefix = "", code = "";
-            stfid = bqc.getIdCombo(cboStf, cboStf.Text);
-            if (stfid.Equals(""))
-            {
-                MessageBox.Show("ไม่พบเลขที่คิว", "");
-                return;
-            }
-            String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
-            //que = bqc.bquDB.queDB.selectQueByStfQueDate(stfid, date);
-
-            //เรียกคิว
-            tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
-            tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id,"");
-            //tque = new TQueue();
-            code = bqc.prefixQue(tque);
-
-            lbQue.Text = code;
-            lbQueFinish.Text = tque.queue_current;
-            lbTQueId.Text = tque.t_queue_id;
-            lbStatus.Text = "";
-            chkQueSend.Checked = false;
-            chkQueVoid.Checked = false;
-            cboQueSend.Text = "";
         }
         private void CboStf_SelectedValueChanged(object sender, EventArgs e)
         {

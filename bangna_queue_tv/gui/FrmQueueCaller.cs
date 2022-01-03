@@ -77,9 +77,11 @@ namespace bangna_queue_tv.gui
         private void BtnStatus_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            pageLoad = true;
             grfQueCaller.Rows.Add();
             grfQueCaller[grfQueCaller.Row, colId] = "";
             grfQueCaller[grfQueCaller.Row, colSave] = "";
+            pageLoad = false;
         }
 
         private void InitializeComponent()
@@ -107,7 +109,7 @@ namespace bangna_queue_tv.gui
 
             //grfVs.AfterRowColChange += GrfImg_AfterRowColChange;
             //grfVs.MouseDown += GrfImg_MouseDown;
-            grfQueCaller.Click += GrfQueToday_Click;
+            grfQueCaller.Click += GrfQueCaller_Click;
             grfQueCaller.CellChanged += GrfQueCaller_CellChanged;
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
             ContextMenu menuGw = new ContextMenu();
@@ -145,11 +147,11 @@ namespace bangna_queue_tv.gui
         {
             //throw new NotImplementedException();
             if (pageLoad) return;
-            grfQueCaller[e.Row, colSave] = "SAVE";
             if (e.Row == (grfQueCaller.Rows.Count - 1))
             {
                 grfQueCaller.Rows.Add();
                 grfQueCaller[e.Row, colId] = "";
+                grfQueCaller[e.Row, colSave] = "";
             }
             if(e.Col == colName)
             {
@@ -163,16 +165,22 @@ namespace bangna_queue_tv.gui
                     MessageBox.Show("ชื่อ ซ้ำ", "");
                     grfQueCaller[e.Row, colName] = "";
                     lbStatus.Text = "ชื่อ ซ้ำ";
+                    return;
                 }
             }
+            grfQueCaller.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml(bqc.iniC.grfRowColor);
+            grfQueCaller[e.Row, colSave] = "SAVE";
         }
 
-        private void GrfQueToday_Click(object sender, EventArgs e)
+        private void GrfQueCaller_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             if (grfQueCaller.Row <= 0) return;
             if (grfQueCaller.Col <= 0) return;
-            saveQueueCaller();
+            if (grfQueCaller.Col == colSave)
+            {
+                saveQueueCaller();
+            }
         }
         private Boolean saveQueueCaller()
         {
@@ -192,6 +200,8 @@ namespace bangna_queue_tv.gui
             {
                 chk = true;
                 lbStatus.Text = "บันทึกเรียบร้อย";
+                grfQueCaller[grfQueCaller.Row, colSave] = "";
+                grfQueCaller.Rows[grfQueCaller.Row].StyleNew.BackColor = Color.White;
             }
             else
             {
@@ -230,7 +240,7 @@ namespace bangna_queue_tv.gui
             {
                 grfQueCaller[i, 0] = i;
                 grfQueCaller[i, colName] = drow["queue_call_name"].ToString();
-                grfQueCaller[i, colSave] = "SAVE";
+                grfQueCaller[i, colSave] = "";
                 grfQueCaller[i, colId] = drow["queue_call_id"].ToString();
                 i++;
             }
