@@ -267,14 +267,14 @@ namespace bangna_queue_tv.obgdb
                 MySqlCommand cmd = new MySqlCommand("lock_queue", conn.conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("?t_que_id_old", MySqlDbType.VarChar));
-                cmd.Parameters.Add(new MySqlParameter("?queue_call_id", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?queue_caller_id1", MySqlDbType.VarChar));
                 //cmd.Parameters.Add(new MySqlParameter("?queue_date1", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?b_queue_date_id1", MySqlDbType.VarChar));
                 //cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
                 cmd.Parameters["?t_que_id_old"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?t_que_id_old"].Value = t_que_id_old;
-                cmd.Parameters["?queue_call_id"].Direction = ParameterDirection.Input;
-                cmd.Parameters["?queue_call_id"].Value = queue_call_id;
+                cmd.Parameters["?queue_caller_id1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?queue_caller_id1"].Value = queue_call_id;
                 //cmd.Parameters["?queue_date1"].Direction = ParameterDirection.Input;
                 //cmd.Parameters["?queue_date1"].Value = quedate;
                 cmd.Parameters["?b_queue_date_id1"].Direction = ParameterDirection.Input;
@@ -292,6 +292,9 @@ namespace bangna_queue_tv.obgdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("TQueueDB LockQueue " + sql);
+                stf1.t_queue_id = "-1";
+                stf1.queue_name = sql;
             }
             finally
             {

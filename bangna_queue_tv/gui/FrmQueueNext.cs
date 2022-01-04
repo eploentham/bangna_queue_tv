@@ -131,21 +131,27 @@ namespace bangna_queue_tv.gui
             //throw new NotImplementedException();
             String stfid = "", queid = "", prefix = "", code = "";
             //stfid = bqc.getIdCombo(cboStf, cboStf.Text);
+
             if (queCaller.queue_call_id.Length<=0)
             {
                 MessageBox.Show("ไม่พบ caller", "");
                 return;
             }
-            if (tque.t_queue_id == null)
+            if (queCaller.queue_call_id == null)
             {
-                MessageBox.Show("ไม่พบเลขที่คิว", "");
+                MessageBox.Show("ไม่พบ caller", "");
                 return;
             }
-            if (tque.t_queue_id.Length <= 0)
-            {
-                MessageBox.Show("ไม่พบเลขที่คิว", "");
-                return;
-            }
+            //if (tque.t_queue_id == null)
+            //{
+            //    MessageBox.Show("ไม่พบเลขที่คิว", "");
+            //    return;
+            //}
+            //if (tque.t_queue_id.Length <= 0)
+            //{
+            //    MessageBox.Show("ไม่พบเลขที่คิว", "");
+            //    return;
+            //}
             String date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
             //que = bqc.bquDB.queDB.selectQueByStfQueDate(stfid, date);
 
@@ -153,12 +159,20 @@ namespace bangna_queue_tv.gui
             tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
             tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id, queCaller.queue_call_id);
             //tque = new TQueue();
+            if (tque.t_queue_id.Equals("-1"))
+            {
+                lbStatus.Text = tque.queue_name;
+            }
+            else if (tque.t_queue_id.Length>3)
+            {
+                lbStatus.Text = "OK";
+            }
             code = bqc.prefixQue(tque);
 
             lbQue.Text = code;
             lbQueFinish.Text = tque.queue_current;
             lbTQueId.Text = tque.t_queue_id;
-            lbStatus.Text = "";
+            //lbStatus.Text = "";
             chkQueSend.Checked = false;
             chkQueVoid.Checked = false;
             cboQueSend.Text = "";

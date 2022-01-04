@@ -30,6 +30,8 @@ namespace bangna_queue_tv.gui
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkUnPrintQue = new System.Windows.Forms.RadioButton();
+            this.chkPrintQue = new System.Windows.Forms.RadioButton();
             this.c1Button8 = new C1.Win.C1Input.C1Button();
             this.c1Button7 = new C1.Win.C1Input.C1Button();
             this.c1Button6 = new C1.Win.C1Input.C1Button();
@@ -37,8 +39,6 @@ namespace bangna_queue_tv.gui
             this.btnCaller = new C1.Win.C1Input.C1Button();
             this.btnQueToday = new C1.Win.C1Input.C1Button();
             this.btnQueAdd = new C1.Win.C1Input.C1Button();
-            this.chkPrintQue = new System.Windows.Forms.RadioButton();
-            this.chkUnPrintQue = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).BeginInit();
@@ -65,6 +65,30 @@ namespace bangna_queue_tv.gui
             this.panel1.Size = new System.Drawing.Size(566, 229);
             this.panel1.TabIndex = 0;
             // 
+            // chkUnPrintQue
+            // 
+            this.chkUnPrintQue.AutoSize = true;
+            this.chkUnPrintQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkUnPrintQue.Location = new System.Drawing.Point(194, 196);
+            this.chkUnPrintQue.Name = "chkUnPrintQue";
+            this.chkUnPrintQue.Size = new System.Drawing.Size(184, 28);
+            this.chkUnPrintQue.TabIndex = 9;
+            this.chkUnPrintQue.TabStop = true;
+            this.chkUnPrintQue.Text = "ไม่ต้องการ พิมพ์ใบนัด";
+            this.chkUnPrintQue.UseVisualStyleBackColor = true;
+            // 
+            // chkPrintQue
+            // 
+            this.chkPrintQue.AutoSize = true;
+            this.chkPrintQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkPrintQue.Location = new System.Drawing.Point(13, 196);
+            this.chkPrintQue.Name = "chkPrintQue";
+            this.chkPrintQue.Size = new System.Drawing.Size(159, 28);
+            this.chkPrintQue.TabIndex = 8;
+            this.chkPrintQue.TabStop = true;
+            this.chkPrintQue.Text = "ต้องการพิมพ์ใบนัด";
+            this.chkPrintQue.UseVisualStyleBackColor = true;
+            // 
             // c1Button8
             // 
             this.c1Button8.Location = new System.Drawing.Point(421, 104);
@@ -82,6 +106,7 @@ namespace bangna_queue_tv.gui
             this.c1Button7.TabIndex = 6;
             this.c1Button7.Text = "c1Button7";
             this.c1Button7.UseVisualStyleBackColor = true;
+            this.c1Button7.Click += new System.EventHandler(this.c1Button7_Click);
             // 
             // c1Button6
             // 
@@ -91,6 +116,7 @@ namespace bangna_queue_tv.gui
             this.c1Button6.TabIndex = 5;
             this.c1Button6.Text = "c1Button6";
             this.c1Button6.UseVisualStyleBackColor = true;
+            this.c1Button6.Click += new System.EventHandler(this.c1Button6_Click);
             // 
             // c1Button5
             // 
@@ -139,30 +165,6 @@ namespace bangna_queue_tv.gui
             this.btnQueAdd.Text = "เพิ่ม/แก้ไข คิว";
             this.btnQueAdd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnQueAdd.UseVisualStyleBackColor = true;
-            // 
-            // chkPrintQue
-            // 
-            this.chkPrintQue.AutoSize = true;
-            this.chkPrintQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkPrintQue.Location = new System.Drawing.Point(13, 196);
-            this.chkPrintQue.Name = "chkPrintQue";
-            this.chkPrintQue.Size = new System.Drawing.Size(159, 28);
-            this.chkPrintQue.TabIndex = 8;
-            this.chkPrintQue.TabStop = true;
-            this.chkPrintQue.Text = "ต้องการพิมพ์ใบนัด";
-            this.chkPrintQue.UseVisualStyleBackColor = true;
-            // 
-            // chkUnPrintQue
-            // 
-            this.chkUnPrintQue.AutoSize = true;
-            this.chkUnPrintQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkUnPrintQue.Location = new System.Drawing.Point(194, 196);
-            this.chkUnPrintQue.Name = "chkUnPrintQue";
-            this.chkUnPrintQue.Size = new System.Drawing.Size(184, 28);
-            this.chkUnPrintQue.TabIndex = 9;
-            this.chkUnPrintQue.TabStop = true;
-            this.chkUnPrintQue.Text = "ไม่ต้องการ พิมพ์ใบนัด";
-            this.chkUnPrintQue.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
