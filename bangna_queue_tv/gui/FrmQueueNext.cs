@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -134,22 +135,38 @@ namespace bangna_queue_tv.gui
         }
         private void playSound()
         {
+            lbStatus.Text = "play sound";
+            String prefix = bqc.bquDB.queDB.getQuePrefixById(bqued.queue_id);
             String pathfile = "";
             pathfile = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             string tmpFilename = pathfile + "\\sound\\sample.mp3";
             arrPlay.Clear();
             tmpFilename = pathfile + "\\sound\\invite_number.mp3";
             arrPlay.Add(tmpFilename);
-            tmpFilename = pathfile + "\\sound\\a.mp3";
-            arrPlay.Add(tmpFilename);
-            tmpFilename = pathfile + "\\sound\\0.mp3";
-            arrPlay.Add(tmpFilename);
-            tmpFilename = pathfile + "\\sound\\0.mp3";
-            arrPlay.Add(tmpFilename);
-            tmpFilename = pathfile + "\\sound\\0.mp3";
-            arrPlay.Add(tmpFilename);
-            tmpFilename = pathfile + "\\sound\\1.mp3";
-            arrPlay.Add(tmpFilename);
+            if (prefix.Length > 0)
+            {
+                tmpFilename = pathfile + "\\sound\\"+prefix.ToLower()+".mp3";
+                arrPlay.Add(tmpFilename);
+            }
+            if (tque.queue.Length > 0)
+            {
+                tmpFilename = pathfile + "\\sound\\0.mp3";
+                String code = "", code1="";
+                int chk = 0;
+                code = bqc.bquDB.queDB.getQueCodeById(bqued.queue_id);
+                for(int i = 0; i < (code.Length - tque.queue.Length); i++)
+                {
+                    //code += "0";
+                    arrPlay.Add(tmpFilename);
+                }
+                //code1 = code + tque.queue;
+                if (int.TryParse(tque.queue,out chk))
+                {
+                    tmpFilename = pathfile + "\\sound\\"+ tque.queue + ".mp3";
+                    arrPlay.Add(tmpFilename);
+                }
+            }            
+            //arrPlay.Add(tmpFilename);
             tmpFilename = pathfile + "\\sound\\at_slot.mp3";
             arrPlay.Add(tmpFilename);
 
@@ -157,7 +174,11 @@ namespace bangna_queue_tv.gui
             arrPlay.Add(tmpFilename);
             tmpFilename = pathfile + "\\sound\\ka.mp3";
             arrPlay.Add(tmpFilename);
-            bqc.CombineFile(arrPlay, pathfile + "\\sound\\soundattend.mp3");
+            if (!Directory.Exists(pathfile+"\\temp"))
+            {
+                Directory.CreateDirectory(pathfile + "\\temp");
+            }
+            bqc.CombineFile(arrPlay, pathfile + "\\temp\\soundattend"+tque.t_queue_id+".mp3");
 
             if (outputDevice == null)
             {
@@ -166,7 +187,7 @@ namespace bangna_queue_tv.gui
             }
             if (audioFile == null)
             {
-                audioFile = new AudioFileReader(pathfile + "\\sound\\soundattend.mp3");
+                audioFile = new AudioFileReader(pathfile + "\\temp\\soundattend" + tque.t_queue_id + ".mp3");
                 outputDevice.Init(audioFile);
             }
             outputDevice.Play();
@@ -179,6 +200,7 @@ namespace bangna_queue_tv.gui
             outputDevice = null;
             audioFile.Dispose();
             audioFile = null;
+            lbStatus.Text = "";
         }
 
         private void BtnQueNext_Click(object sender, EventArgs e)
@@ -231,6 +253,7 @@ namespace bangna_queue_tv.gui
             chkQueSend.Checked = false;
             chkQueVoid.Checked = false;
             cboQueSend.Text = "";
+            playSound();
         }
         private void CboCaller_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -332,6 +355,21 @@ namespace bangna_queue_tv.gui
             rbCaller.Text = "";
             lbStatus.Text = "";
             rbQueueTotal.Text = "";
+            String pathfile = "";
+            pathfile = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            if (!Directory.Exists(pathfile + "\\temp"))
+            {
+                Directory.CreateDirectory(pathfile + "\\temp");
+            }
+            else
+            {
+                System.IO.DirectoryInfo di = new DirectoryInfo(pathfile + "\\temp");
+
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+            }
         }
     }
 }

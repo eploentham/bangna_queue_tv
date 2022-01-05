@@ -121,6 +121,11 @@ namespace bangna_queue_tv.gui
             //This is where you set the printer in your case you could use "EPSON USB"
             //or whatever it is called on your machine, by Default it will choose the default printer
             //document.PrinterSettings.PrinterName = mposC.iniC.printerBill;
+            int copy = 0;
+            if(int.TryParse(bqc.iniC.printQueueCount, out copy))
+            {
+                document.PrinterSettings.Copies = (short)copy;
+            }
             document.Print();
             Application.DoEvents();
         }

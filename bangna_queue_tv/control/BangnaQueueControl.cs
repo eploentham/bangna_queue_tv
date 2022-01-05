@@ -143,6 +143,7 @@ namespace bangna_queue_tv.control
 
             iniC.statusPrintQue = iniF.getIni("app", "statusPrintQue");
             iniC.statusQueueNameHide = iniF.getIni("app", "statusQueueNameHide");
+            iniC.printQueueCount = iniF.getIni("app", "printQueueCount");
 
             iniC.sticker_donor_width = iniC.sticker_donor_width.Equals("") ? "120" : iniC.sticker_donor_width;
             iniC.sticker_donor_height = iniC.sticker_donor_height.Equals("") ? "90" : iniC.sticker_donor_height;
@@ -181,6 +182,7 @@ namespace bangna_queue_tv.control
             iniC.usePassiveFTP = iniC.usePassiveFTP == null ? "false" : iniC.usePassiveFTP.Equals("") ? "false" : iniC.usePassiveFTP;
             iniC.service_point_id = iniC.service_point_id == null ? "2120000002" : iniC.service_point_id.Equals("") ? "2120000002" : iniC.service_point_id;
             iniC.statusCheckDonor = iniC.statusCheckDonor == null ? "0" : iniC.statusCheckDonor.Equals("") ? "0" : iniC.statusCheckDonor;
+            iniC.printQueueCount = iniC.printQueueCount == null ? "1" : iniC.printQueueCount.Equals("") ? "1" : iniC.printQueueCount;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
@@ -263,18 +265,26 @@ namespace bangna_queue_tv.control
         }
         public void CombineFile(List<String> mp3Files, string mp3OuputFile)
         {
-            if (File.Exists(mp3OuputFile))
+            try
             {
-                File.Delete(mp3OuputFile);
+                if (File.Exists(mp3OuputFile))
+                {
+                    File.Delete(mp3OuputFile);
+                }
+                using (var w = new BinaryWriter(File.Create(mp3OuputFile)))
+                {
+                    new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
+                    //foreach(String file in mp3Files)
+                    //{
+                    //    w.Write(File.ReadAllBytes(file));
+                    //}
+                }
             }
-            using (var w = new BinaryWriter(File.Create(mp3OuputFile)))
+            catch(Exception ex)
             {
-                new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
-                //foreach(String file in mp3Files)
-                //{
-                //    w.Write(File.ReadAllBytes(file));
-                //}
+
             }
+            
         }
         public MemoryStream CombineFileStrean(List<String> mp3Files)
         {

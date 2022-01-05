@@ -150,6 +150,7 @@
     <Compile Include="obgdb\BQueueDateDB.cs" />
     <Compile Include="obgdb\BQueueDB.cs" />
     <Compile Include="obgdb\StaffDB.cs" />
+    <Compile Include="obgdb\TCallDB.cs" />
     <Compile Include="obgdb\TQueueDB.cs" />
     <Compile Include="object1\BQueueCaller.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="object1\BQueueDate.cs" />
     <Compile Include="object1\BQueue.cs" />
     <Compile Include="object1\Staff.cs" />
+    <Compile Include="object1\TCall.cs" />
     <Compile Include="object1\TQueue.cs" />
     <Compile Include="object1\WaveIO.cs" />
     <Compile Include="Program.cs" />

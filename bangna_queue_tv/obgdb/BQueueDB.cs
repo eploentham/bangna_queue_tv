@@ -11,6 +11,7 @@ namespace bangna_queue_tv.obgdb
     {
         public BQueue que;
         ConnectDB conn;
+        public List<BQueue> lStf;
         public BQueueDB(ConnectDB c)
         {
             conn = c;
@@ -40,7 +41,7 @@ namespace bangna_queue_tv.obgdb
 
             que.table = "b_queue";
             que.pkField = "queue_id";
-
+            lStf = new List<BQueue>();
         }
         private void chkNull(BQueue p)
         {
@@ -272,6 +273,47 @@ namespace bangna_queue_tv.obgdb
             dt = conn.selectData(conn.conn, sql);
             stf1 = setQueue(dt);
             return stf1;
+        }
+        public void getlStf()
+        {
+            //lDept = new List<Position>();
+            lStf.Clear();
+            DataTable dt = new DataTable();
+            dt = selectAll();
+            foreach (DataRow row in dt.Rows)
+            {
+                BQueue stf1 = new BQueue();
+                stf1.b_queue_id = row[que.b_queue_id].ToString();
+                stf1.queue_name = row[que.queue_name].ToString();
+                stf1.queue_prefix = row[que.queue_prefix].ToString();
+                stf1.queue_code = row[que.queue_code].ToString();
+                stf1.queue_start = row[que.queue_start].ToString();
+                lStf.Add(stf1);
+            }
+        }
+        public String getQueCodeById(String id)
+        {
+            String prefix = "";
+            foreach (BQueue row in lStf)
+            {
+                if (row.b_queue_id.Equals(id))
+                {
+                    prefix = row.queue_code;
+                }
+            }
+            return prefix;
+        }
+        public String getQuePrefixById(String id)
+        {
+            String prefix = "";
+            foreach (BQueue row in lStf)
+            {
+                if (row.b_queue_id.Equals(id))
+                {
+                    prefix = row.queue_prefix;
+                }
+            }
+            return prefix;
         }
         public BQueue setQueue(DataTable dt)
         {
