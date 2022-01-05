@@ -97,6 +97,7 @@ namespace bangna_queue_tv.gui
             this.c1Button8.TabIndex = 7;
             this.c1Button8.Text = "c1Button8";
             this.c1Button8.UseVisualStyleBackColor = true;
+            this.c1Button8.Click += new System.EventHandler(this.c1Button8_Click);
             // 
             // c1Button7
             // 

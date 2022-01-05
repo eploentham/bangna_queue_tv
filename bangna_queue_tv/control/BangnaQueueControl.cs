@@ -3,6 +3,7 @@ using bangna_queue_tv.object1;
 using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -259,6 +260,30 @@ namespace bangna_queue_tv.control
                 code = code.Substring(queue.Length);
             }
             return prefix+code;
+        }
+        public void CombineFile(List<String> mp3Files, string mp3OuputFile)
+        {
+            if (File.Exists(mp3OuputFile))
+            {
+                File.Delete(mp3OuputFile);
+            }
+            using (var w = new BinaryWriter(File.Create(mp3OuputFile)))
+            {
+                new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
+                //foreach(String file in mp3Files)
+                //{
+                //    w.Write(File.ReadAllBytes(file));
+                //}
+            }
+        }
+        public MemoryStream CombineFileStrean(List<String> mp3Files)
+        {
+            MemoryStream steram=new MemoryStream();
+            using (var w = new BinaryWriter(steram))
+            {
+                new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
+            }
+            return steram;
         }
     }
 }

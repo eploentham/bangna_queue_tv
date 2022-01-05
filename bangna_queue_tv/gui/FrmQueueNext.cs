@@ -2,6 +2,7 @@
 using bangna_queue_tv.object1;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Themes;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,9 @@ namespace bangna_queue_tv.gui
         Form frmCaller;
 
         C1ThemeController theme1;
+        WaveOutEvent outputDevice;
+        AudioFileReader audioFile;
+        List<String> arrPlay = new List<string>();
         public FrmQueueNext(BangnaQueueControl bqc)
         {
             InitializeComponent();
@@ -69,13 +73,15 @@ namespace bangna_queue_tv.gui
         private void setTheme()
         {
             //theme1.SetTheme(grf, "BeigeOne");
-            theme1.SetTheme(btnQueNext, "BeigeOne");
-            theme1.SetTheme(c1Button1, "BeigeOne");
-            theme1.SetTheme(btnQueSend, "BeigeOne");
-            theme1.SetTheme(c1StatusBar1, "BeigeOne");
-            theme1.SetTheme(cboQueDate, "BeigeOne");
-            theme1.SetTheme(c1CheckBox1, "BeigeOne");
-            theme1.SetTheme(this, "BeigeOne");
+            theme1.SetTheme(btnQueNext, bqc.iniC.themeDonor);
+            theme1.SetTheme(c1Button1, bqc.iniC.themeDonor);
+            theme1.SetTheme(btnQueSend, bqc.iniC.themeDonor);
+            theme1.SetTheme(c1StatusBar1, bqc.iniC.themeDonor);
+            theme1.SetTheme(cboQueDate, bqc.iniC.themeDonor);
+            theme1.SetTheme(chkQueVoid, bqc.iniC.themeDonor);
+            theme1.SetTheme(btnQueVoid, bqc.iniC.themeDonor);
+            theme1.SetTheme(chkQueSend, bqc.iniC.themeDonor);
+            theme1.SetTheme(this, bqc.iniC.themeDonor);
         }
         private void BtnQueVoid_Click(object sender, EventArgs e)
         {
@@ -126,6 +132,55 @@ namespace bangna_queue_tv.gui
             //throw new NotImplementedException();
             setControlQueSend(chkQueSend.Checked);
         }
+        private void playSound()
+        {
+            String pathfile = "";
+            pathfile = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            string tmpFilename = pathfile + "\\sound\\sample.mp3";
+            arrPlay.Clear();
+            tmpFilename = pathfile + "\\sound\\invite_number.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\a.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\1.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\at_slot.mp3";
+            arrPlay.Add(tmpFilename);
+
+            tmpFilename = pathfile + "\\sound\\"+ queCaller .queue_call_name+ ".mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\ka.mp3";
+            arrPlay.Add(tmpFilename);
+            bqc.CombineFile(arrPlay, pathfile + "\\sound\\soundattend.mp3");
+
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(pathfile + "\\sound\\soundattend.mp3");
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Play();
+        }
+
+        private void OutputDevice_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            outputDevice.Dispose();
+            outputDevice = null;
+            audioFile.Dispose();
+            audioFile = null;
+        }
+
         private void BtnQueNext_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -157,7 +212,7 @@ namespace bangna_queue_tv.gui
 
             //เรียกคิว
             tque.t_queue_id = tque.t_queue_id == null ? "" : tque.t_queue_id;
-            tque = bqc.bquDB.tqueDB.LockQueue(stfid, tque.t_queue_id, queCaller.queue_call_id);
+            tque = bqc.bquDB.tqueDB.LockQueue(bqued.b_queue_date_id, tque.t_queue_id, queCaller.queue_call_id);
             //tque = new TQueue();
             if (tque.t_queue_id.Equals("-1"))
             {

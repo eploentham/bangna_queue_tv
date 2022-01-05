@@ -39,27 +39,25 @@
             this.chkQueVoid = new C1.Win.C1Input.C1CheckBox();
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lbStatus = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbTheme = new C1.Win.C1Ribbon.RibbonComboBox();
+            this.rbQueueTotal = new C1.Win.C1Ribbon.RibbonLabel();
             this.rbCaller = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnCaller = new C1.Win.C1Ribbon.RibbonButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboQueDate = new C1.Win.C1Input.C1ComboBox();
             this.btnQueVoid = new C1.Win.C1Input.C1Button();
             this.btnQueSend = new C1.Win.C1Input.C1Button();
             this.c1Button1 = new C1.Win.C1Input.C1Button();
             this.btnQueNext = new C1.Win.C1Input.C1Button();
-            this.cboQueDate = new C1.Win.C1Input.C1ComboBox();
-            this.rbQueueTotal = new C1.Win.C1Ribbon.RibbonLabel();
-            this.rbTheme = new C1.Win.C1Ribbon.RibbonComboBox();
-            this.c1CheckBox1 = new C1.Win.C1Input.C1CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.chkQueSend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkQueVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboQueDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueSend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueNext)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboQueDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1CheckBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -177,6 +175,16 @@
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Text = "Label";
             // 
+            // rbTheme
+            // 
+            this.rbTheme.Label = "theme";
+            this.rbTheme.Name = "rbTheme";
+            // 
+            // rbQueueTotal
+            // 
+            this.rbQueueTotal.Name = "rbQueueTotal";
+            this.rbQueueTotal.Text = "Label";
+            // 
             // rbCaller
             // 
             this.rbCaller.Name = "rbCaller";
@@ -190,7 +198,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.c1CheckBox1);
             this.panel1.Controls.Add(this.cboQueDate);
             this.panel1.Controls.Add(this.btnQueVoid);
             this.panel1.Controls.Add(this.btnQueSend);
@@ -209,6 +216,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(487, 414);
             this.panel1.TabIndex = 23;
+            // 
+            // cboQueDate
+            // 
+            this.cboQueDate.AllowSpinLoop = false;
+            this.cboQueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboQueDate.GapHeight = 0;
+            this.cboQueDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboQueDate.ItemsDisplayMember = "";
+            this.cboQueDate.ItemsValueMember = "";
+            this.cboQueDate.Location = new System.Drawing.Point(176, 16);
+            this.cboQueDate.Name = "cboQueDate";
+            this.cboQueDate.Size = new System.Drawing.Size(261, 42);
+            this.cboQueDate.TabIndex = 26;
+            this.cboQueDate.Tag = null;
             // 
             // btnQueVoid
             // 
@@ -250,42 +271,6 @@
             this.btnQueNext.Text = "เรียก คิว";
             this.btnQueNext.UseVisualStyleBackColor = true;
             // 
-            // cboQueDate
-            // 
-            this.cboQueDate.AllowSpinLoop = false;
-            this.cboQueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboQueDate.GapHeight = 0;
-            this.cboQueDate.ImagePadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.cboQueDate.ItemsDisplayMember = "";
-            this.cboQueDate.ItemsValueMember = "";
-            this.cboQueDate.Location = new System.Drawing.Point(176, 16);
-            this.cboQueDate.Name = "cboQueDate";
-            this.cboQueDate.Size = new System.Drawing.Size(261, 42);
-            this.cboQueDate.TabIndex = 26;
-            this.cboQueDate.Tag = null;
-            // 
-            // rbQueueTotal
-            // 
-            this.rbQueueTotal.Name = "rbQueueTotal";
-            this.rbQueueTotal.Text = "Label";
-            // 
-            // rbTheme
-            // 
-            this.rbTheme.Label = "theme";
-            this.rbTheme.Name = "rbTheme";
-            // 
-            // c1CheckBox1
-            // 
-            this.c1CheckBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1CheckBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1CheckBox1.Location = new System.Drawing.Point(7, 351);
-            this.c1CheckBox1.Name = "c1CheckBox1";
-            this.c1CheckBox1.Size = new System.Drawing.Size(95, 24);
-            this.c1CheckBox1.TabIndex = 27;
-            this.c1CheckBox1.Text = "ส่งคิวไปยัง";
-            this.c1CheckBox1.UseVisualStyleBackColor = true;
-            this.c1CheckBox1.Value = null;
-            // 
             // FrmQueueNext
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -302,12 +287,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboQueDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueVoid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueSend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQueNext)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboQueDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1CheckBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -335,6 +319,5 @@
         private C1.Win.C1Input.C1ComboBox cboQueDate;
         private C1.Win.C1Ribbon.RibbonLabel rbQueueTotal;
         private C1.Win.C1Ribbon.RibbonComboBox rbTheme;
-        private C1.Win.C1Input.C1CheckBox c1CheckBox1;
     }
 }

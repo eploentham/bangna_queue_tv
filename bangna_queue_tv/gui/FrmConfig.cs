@@ -1,9 +1,12 @@
 ﻿using bangna_queue_tv.control;
+using bangna_queue_tv.object1;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -22,7 +25,11 @@ namespace bangna_queue_tv.gui
         string CommandString;
         List<String> arrPlay = new List<string>();
         SoundPlayer soundInvite, soundKa, soundSlot;
+        WaveOutEvent outputDevice;
+        AudioFileReader audioFile;
+
         Timer time;
+        int timecnt = 0;
         private static StringBuilder tmpBuffer = new StringBuilder("0", 256);
         [DllImport("winmm.dll")]
         private static extern int waveOutSetVolume(IntPtr uDeviceID, uint dwVolume);
@@ -69,11 +76,18 @@ namespace bangna_queue_tv.gui
         private void Time_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (arrPlay.Count > 0)
+            if (arrPlay.Count > 0 && timecnt < 20)
             {
                 StringBuilder str = new StringBuilder(128);
                 mciSendString("status MediaFile mode", str, 128, 0);
                 c1Button5.Text = str.ToString();
+                c1Button8.Text += "a";
+                timecnt++;
+            }
+            else if (timecnt >= 20)
+            {
+                mciSendString("close media", null, 0, 0);
+                c1Button8.Text = "";
             }
             else
             {
@@ -108,6 +122,60 @@ namespace bangna_queue_tv.gui
             soundSlot = new SoundPlayer(pathfile + "\\sound\\at_slot.mp3");
 
         }
+        private void c1Button8_Click(object sender, EventArgs e)
+        {
+            //listBox1_SelectedIndexChanged(object sender, EventArgs e){
+            //    mciSendString("close MediaFile"           , null IntPtr.Zero);
+            //    mciSendString("open \"" + listBox1.Items[listBox1.SelectedIndex].ToString() + "\" type mpegvideo alias MediaFile", null, 0, IntPtr.Zero);
+            //    mciSendString("play MediaFile" , null , 0, IntPtr.Zero);
+            //    timer1.Enabled = true;
+
+            //}
+            String pathfile = "";
+            pathfile = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            string tmpFilename = pathfile + "\\sound\\sample.mp3";
+            arrPlay.Clear();
+            tmpFilename = pathfile + "\\sound\\invite_number.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\a.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\1.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\at_slot.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\4.mp3";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\ka.mp3";
+            arrPlay.Add(tmpFilename);
+            bqc.CombineFile(arrPlay, pathfile+ "\\sound\\soundattend.mp3");
+
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(pathfile + "\\sound\\soundattend.mp3");
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Play();
+        }
+        private void OutputDevice_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            outputDevice.Dispose();
+            outputDevice = null;
+            audioFile.Dispose();
+            audioFile = null;
+        }
+
         private void c1Button6_Click(object sender, EventArgs e)
         {
             if (ofd.FileName == "")
@@ -123,7 +191,6 @@ namespace bangna_queue_tv.gui
                     //timer1.Enabled = true;
                 }
             }
-
             else
             {
                 mciSendString("close media", null, 0, 0);
@@ -135,7 +202,40 @@ namespace bangna_queue_tv.gui
         }
         private void c1Button7_Click(object sender, EventArgs e)
         {
-            mciSendString("Close MyMp3", tmpBuffer, 0, 0);
+            //mciSendString("Close MyMp3", tmpBuffer, 0, 0);
+            String pathfile = "";
+            pathfile = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+
+            string tmpFilename = pathfile + "\\sound\\sample.mp3";
+
+            tmpFilename = pathfile + "\\sound\\invite_number.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\a.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\0.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\1.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\at_slot.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\4.wav";
+            arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\ka.wav";
+            arrPlay.Add(tmpFilename);
+            WaveIO wa = new WaveIO();
+            wa.Merge(arrPlay, pathfile+"\\sound\\sound.wav");
+            //MemoryStream sound  wa.MergetoStream(arrPlay);
+
+            //MemoryStream stream = bqc.CombineFileStrean(arrPlay);
+            //stream.Position = 0;
+            //SoundPlayer sound = new SoundPlayer(stream);
+            SoundPlayer sound1 = new SoundPlayer(pathfile + "\\sound\\sound.wav");
+            sound1.Play();
+            sound1.Dispose();
         }
         private void C1Button5_Click(object sender, EventArgs e)
         {
@@ -169,20 +269,34 @@ namespace bangna_queue_tv.gui
             arrPlay.Add(tmpFilename);
             tmpFilename = pathfile + "\\sound\\at_slot.mp3";
             arrPlay.Add(tmpFilename);
+            tmpFilename = pathfile + "\\sound\\4.mp3";
+            arrPlay.Add(tmpFilename);
             tmpFilename = pathfile + "\\sound\\ka.mp3";
             arrPlay.Add(tmpFilename);
 
-            string command = "open \"" + arrPlay[0] + "\" type MPEGVideo alias MyMp3";
-            time.Enabled = true;
+            Combine(arrPlay, pathfile+"\\sound\\attend.mp3");
+
+            string command = "open \"" + pathfile + "\\sound\\attend.mp3" + "\" type MPEGVideo alias MyMp3";
             //time.Start();
             mciSendString(command, null, 0, 0);
             command = "play  MyMp3";
             mciSendString(command, null, 0, 0);
+            time.Enabled = true;
             //
             //mciSendString("Open " + tmpFilename + " Alias SND", tmpBuffer, 0, 0);
             //mciSendString("Play SND", tmpBuffer, 0, 0);
         }
-
+        private void Combine(List<String> mp3Files, string mp3OuputFile)
+        {
+            if (File.Exists(mp3OuputFile))
+            {
+                File.Delete(mp3OuputFile);
+            }
+            using (var w = new BinaryWriter(File.Create(mp3OuputFile)))
+            {
+                new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
+            }
+        }
         private void ChkUnPrintQue_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
