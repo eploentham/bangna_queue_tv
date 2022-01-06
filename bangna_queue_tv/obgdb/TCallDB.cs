@@ -1,6 +1,7 @@
 ﻿using bangna_queue_tv.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -104,6 +105,17 @@ namespace bangna_queue_tv.obgdb
             }
 
             return re;
+        }
+        public DataTable selectAll()
+        {
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select tcall.*,b_queue.queue_name   " +
+                "From " + tcall.table + " tcall " +
+                "Left join b_queue on b_queue.queue_id = tcall.queue_id " +                
+                "Order By tcall." + tcall.call_id + " asc";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
         }
     }
 }

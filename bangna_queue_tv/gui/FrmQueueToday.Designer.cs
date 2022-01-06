@@ -50,6 +50,7 @@ namespace bangna_queue_tv.gui
             this.label1 = new System.Windows.Forms.Label();
             this.txtDate = new C1.Win.C1Input.C1DateEdit();
             this.pnQueToday = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.btnQueUpdate = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
@@ -63,6 +64,7 @@ namespace bangna_queue_tv.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQueName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueUpdate)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -114,6 +116,7 @@ namespace bangna_queue_tv.gui
             // pnQueAdd
             // 
             this.pnQueAdd.Collapsible = true;
+            this.pnQueAdd.Controls.Add(this.btnQueUpdate);
             this.pnQueAdd.Controls.Add(this.txtQuePrefix);
             this.pnQueAdd.Controls.Add(this.txtQueCode);
             this.pnQueAdd.Controls.Add(this.label5);
@@ -304,6 +307,18 @@ namespace bangna_queue_tv.gui
             this.pnQueToday.Text = "Queue Today";
             this.pnQueToday.Width = 296;
             // 
+            // btnQueUpdate
+            // 
+            this.btnQueUpdate.Image = global::bangna_queue_tv.Properties.Resources.maintenance24;
+            this.btnQueUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQueUpdate.Location = new System.Drawing.Point(254, 221);
+            this.btnQueUpdate.Name = "btnQueUpdate";
+            this.btnQueUpdate.Size = new System.Drawing.Size(93, 37);
+            this.btnQueUpdate.TabIndex = 16;
+            this.btnQueUpdate.Text = "แก้ไข คิว";
+            this.btnQueUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnQueUpdate.UseVisualStyleBackColor = true;
+            // 
             // FrmQueueToday
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -329,6 +344,7 @@ namespace bangna_queue_tv.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnQueAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQueName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueUpdate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -357,5 +373,6 @@ namespace bangna_queue_tv.gui
         private System.Windows.Forms.Label label5;
         private C1.Win.C1Input.C1TextBox txtQuePrefix;
         private C1.Win.C1Input.C1TextBox txtQueCode;
+        private C1.Win.C1Input.C1Button btnQueUpdate;
     }
 }

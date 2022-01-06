@@ -205,7 +205,6 @@ namespace bangna_queue_tv.obgdb
                 "," + tque.user_cancel + "='" + userId.Replace("'", "''") + "' " +
                 "Where " + tque.b_queue_date_id + "='" + que_date_id + "'"
                 ;
-
             try
             {
                 re = conn.ExecuteNonQuery(conn.conn, sql);
@@ -214,7 +213,6 @@ namespace bangna_queue_tv.obgdb
             {
                 sql = ex.Message + " " + ex.InnerException;
             }
-
             return re;
         }
         public String FinishAndNewQueue(String t_que_id, String que_date_id, String user_id, String queue_call_id)

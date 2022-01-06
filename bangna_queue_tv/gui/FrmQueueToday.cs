@@ -45,6 +45,7 @@ namespace bangna_queue_tv.gui
             que = new BQueue();
             btnQueAdd.Click += BtnQueAdd_Click;
             btnQueDel.Click += BtnQueDel_Click;
+            btnQueUpdate.Click += BtnQueUpdate_Click;
 
             initGrfQue();
             setGrfQueue();
@@ -62,6 +63,12 @@ namespace bangna_queue_tv.gui
             rbStatus.Text = "";
             lbStatus.Text = "";
             pageLoad = false;
+        }
+
+        private void BtnQueUpdate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void BtnQueDel_Click(object sender, EventArgs e)

@@ -29,7 +29,7 @@ namespace bangna_queue_tv.gui
         RibbonLabel lbStatus;
         RibbonButton btnStatus;
 
-        int colRowNo = 1, colQueName = 2, colQuePrefix = 3, colQueCode=4, colQueStart=5, colQueId = 6, colQueSave=7;
+        int colRowNo = 1, colQueName = 2, colQuePrefix = 3, colQueCode=4, colQueStart=5, colQueId = 6, colEveryDay=7, colQueSave=8;
         Boolean pageLoad = false;
         public FrmQueueAdd1(BangnaQueueControl bqc)
         {
@@ -192,7 +192,7 @@ namespace bangna_queue_tv.gui
             grfQue.DataSource = null;
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
-            grfQue.Cols.Count = 8;
+            grfQue.Cols.Count = 9;
 
             grfQue.Cols[colRowNo].Width = 250;
             grfQue.Cols[colQueName].Width = 250;
@@ -200,9 +200,10 @@ namespace bangna_queue_tv.gui
             grfQue.Cols[colQueId].Width = 100;
             grfQue.Cols[colQueSave].Width = 80;
             grfQue.Cols[colQueCode].Width = 100;
+            grfQue.Cols[colEveryDay].Width = 100;
             //CellStyle cs = grfQue.Styles.Add("btn");
-            //cs.DataType = typeof(Button);
-            //grfQue.Cols[colQueSave].Style = cs;
+            //cs.DataType = typeof(CheckBox);
+            //grfQue.Cols[colEveryDay].Style = cs;
             //Column largeTextCol = grfQue.Cols[colQueSave];
             //largeTextCol.Style = cs;
             grfQue.ShowCursor = true;

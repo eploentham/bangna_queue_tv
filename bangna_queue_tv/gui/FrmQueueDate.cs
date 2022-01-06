@@ -52,30 +52,21 @@ namespace bangna_queue_tv.gui
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterParent;
             //this.StartPosition = FormStartPosition.CenterParent;
-            pn1 = new Panel();
-            pn1.Dock = DockStyle.Fill;
-            this.Controls.Add(pn1);
+            
 
             timer = new Timer();
             timer.Interval = bqc.timerImgScanNew;
             timer.Enabled = false;
             timer.Tick += Timer_Tick;
 
-            sB1 = new C1StatusBar();
-            sB1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
-            sB1.Location = new System.Drawing.Point(0, 428);
-            sB1.Name = "c1StatusBar1";
-            sB1.Size = new System.Drawing.Size(800, 22);
-            lbStatus = new RibbonLabel();
-            btnStatus = new RibbonButton();
-            sB1.LeftPaneItems.Add(lbStatus);
-            sB1.RightPaneItems.Add(btnStatus);
-            lbStatus.Text = "";
-            btnStatus.Text = "config";
-            btnStatus.SmallImage = Resources.setting1;
+            
 
             initGrfQueToday();
             setGrfQueToday();
+            theme1.SetTheme(pn1, bqc.iniC.themeApplication);
+            theme1.SetTheme(sB1, bqc.iniC.themeApplication);
+            //this.ResumeLayout(false);
+            //this.PerformLayout();
 
             this.StartPosition = FormStartPosition.CenterScreen;
             btnStatus.Click += BtnStatus_Click;
@@ -86,11 +77,32 @@ namespace bangna_queue_tv.gui
             // 
             // FrmQueueDate
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            //this.ClientSize = new System.Drawing.Size(284, 261);
+            sB1 = new C1StatusBar();
+            sB1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
+            sB1.Location = new System.Drawing.Point(0, 428);
+            sB1.Name = "c1StatusBar1";
+            sB1.Size = new System.Drawing.Size(800, 22);
+            lbStatus = new RibbonLabel();
+            btnStatus = new RibbonButton();
+            sB1.Dock = DockStyle.Bottom;
+            sB1.LeftPaneItems.Add(lbStatus);
+            sB1.RightPaneItems.Add(btnStatus);
+            lbStatus.Text = "";
+            btnStatus.Text = "config";
+            btnStatus.SmallImage = Resources.setting1;
+
+            pn1 = new Panel();
+            pn1.Dock = DockStyle.Fill;
+            //pn1.Height = this.Height - sB1.Height - 25;
+            
+            this.Controls.Add(pn1);
+            this.Controls.Add(sB1);
+
             this.Name = "FrmQueueDate";
             this.Load += new System.EventHandler(this.FrmQueueDate_Load);
             this.ResumeLayout(false);
-
+            this.PerformLayout();
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -267,7 +279,7 @@ namespace bangna_queue_tv.gui
             grfQueToday.Dock = System.Windows.Forms.DockStyle.Fill;
             grfQueToday.Location = new System.Drawing.Point(0, 0);
 
-            theme1.SetTheme(sB1, "Office2016DarkGray");
+            
             grfQueToday.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None;
             //FilterRow fr = new FilterRow(grfExpn);
 
@@ -283,29 +295,51 @@ namespace bangna_queue_tv.gui
             pn1.Controls.Add(grfQueToday);
             grfQueToday.AllowSorting = AllowSortingEnum.None;
 
-            this.Controls.Add(sB1);
-
-            theme1.SetTheme(grfQueToday, "Office2007Blue");
+            theme1.SetTheme(grfQueToday, bqc.iniC.themeApplication);
         }
 
         private void GrfQueToday_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             if (grfQueToday.Row <= 0) return;
-            DataTable dt = new DataTable();
-            String date = "";
-            date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
-
-            String id = "", name = "", num = "", todayid = "";
-            todayid = grfQueToday[grfQueToday.Row, colTodayId] != null ? grfQueToday[grfQueToday.Row, colTodayId].ToString() : "";
-            id = grfQueToday[grfQueToday.Row, colTodayqueid] != null ? grfQueToday[grfQueToday.Row, colTodayqueid].ToString() : "";
-            name = grfQueToday[grfQueToday.Row, colTodayQueName] != null ? grfQueToday[grfQueToday.Row, colTodayQueName].ToString() : "";
-            num = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
-            String re = bqc.bquDB.queDateDB.QueuetNext(id, date, todayid);
-            setGrfQueToday1();
-            if (bqc.iniC.statusPrintQue.Equals("1"))
+            if (grfQueToday.Col <= 0) return;
+            try
             {
-                printQueue();
+                bool chk = false;
+                if(bqc.iniC.statusQueueNameHide.Equals("0") && (grfQueToday.Col == colQueName))
+                {
+                    chk = true;
+                }
+                else if (bqc.iniC.statusQueueNameHide.Equals("1") && (grfQueToday.Col == colTodayQue))
+                {
+                    chk = true;
+                }
+                else
+                {
+                    chk = false;
+                }
+                if (chk)
+                {
+                    DataTable dt = new DataTable();
+                    String date = "";
+                    date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
+                    lbStatus.Text = grfQueToday.Col.ToString();
+                    String id = "", name = "", num = "", todayid = "";
+                    todayid = grfQueToday[grfQueToday.Row, colTodayId] != null ? grfQueToday[grfQueToday.Row, colTodayId].ToString() : "";
+                    id = grfQueToday[grfQueToday.Row, colTodayqueid] != null ? grfQueToday[grfQueToday.Row, colTodayqueid].ToString() : "";
+                    name = grfQueToday[grfQueToday.Row, colTodayQueName] != null ? grfQueToday[grfQueToday.Row, colTodayQueName].ToString() : "";
+                    num = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
+                    String re = bqc.bquDB.queDateDB.QueuetNext(id, date, todayid);
+                    setGrfQueToday1();
+                    if (bqc.iniC.statusPrintQue.Equals("1"))
+                    {
+                        printQueue();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
         }
         private void setGrfQueToday1()
@@ -334,6 +368,7 @@ namespace bangna_queue_tv.gui
         }
         private void setGrfQueToday()
         {
+            int collect = 450;
             pageLoad = true;
             timer.Enabled = false;
             grfQueToday.DataSource = null;
@@ -341,9 +376,9 @@ namespace bangna_queue_tv.gui
             //grfQue.Rows.Count = 200;
             grfQueToday.Cols.Count = 9;
             //Screen.PrimaryScreen.WorkingArea;
-            
+            collect = bqc.iniC.statusQueueNameHide.Equals("0") ? 450 : 700;
             grfQueToday.Cols[colTodayrowno].Width = 250;
-            grfQueToday.Cols[colTodayQueName].Width = this.Width -420;
+            grfQueToday.Cols[colTodayQueName].Width = this.Width - collect;
             grfQueToday.Cols[colTodayQuCurr].Width = 200;//ตอนนี้ ถึงคิว ที่เท่าไร จะได้รู้ว่าต้องรอ อีกกี่คิว
             grfQueToday.Cols[colTodayQue].Width = 200;//คิวที่กดได้ เลขที่คิว
             grfQueToday.Cols[colTodayId].Width = 100;

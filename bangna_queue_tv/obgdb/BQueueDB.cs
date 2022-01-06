@@ -35,7 +35,7 @@ namespace bangna_queue_tv.obgdb
             que.user_cancel = "user_cancel";
             que.queue_prefix = "queue_prefix";
             que.queue_start = "queue_start";
-            //que.date_begin = "date_begin";
+            que.status_everyday = "status_everyday";
             //que.date_finish = "date_finish";
             //que.queue = "queue";
 
@@ -66,6 +66,7 @@ namespace bangna_queue_tv.obgdb
             p.date_finish = p.date_finish == null ? "" : p.date_finish;
             p.queue_start = p.queue_start == null ? "" : p.queue_start;
             p.queue = p.queue == null ? "" : p.queue;
+            p.status_everyday = p.status_everyday == null ? "0" : p.status_everyday;
 
             //p.staff_id = long.TryParse(p.staff_id, out chk) ? chk.ToString() : "0";
 
@@ -86,7 +87,7 @@ namespace bangna_queue_tv.obgdb
                 " " + que.active + "='1' " +
                 "," + que.queue_start + "='" + p.queue_start.Replace("'", "''") + "' " +
                 //"," + que.status_queue + "='1' " +
-                //"," + que.queue_prefix + "='" + p.queue_prefix.Replace("'", "''") + "' " +
+                "," + que.status_everyday + "='" + p.status_everyday.Replace("'", "''") + "' " +
                 "," + que.date_create + "= now() " +
                 "," + que.user_create + "='" + userId.Replace("'", "''") + "' " +
                 "," + que.queue_prefix + "='" + p.queue_prefix.Replace("'", "''") + "' " +
@@ -119,7 +120,7 @@ namespace bangna_queue_tv.obgdb
                 "," + que.user_modi + "='" + userId.Replace("'", "''") + "' " +
                 "," + que.queue_prefix + "='" + p.queue_prefix.Replace("'", "''") + "' " +
                 "," + que.queue_start + "='" + p.queue_start.Replace("'", "''") + "' " +
-                //"," + que.queue + "='" + p.queue.Replace("'", "''") + "' " +
+                "," + que.status_everyday + "='" + p.status_everyday.Replace("'", "''") + "' " +
                 "," + que.queue_code + "='" + p.queue_code.Replace("'", "''") + "' " +
                 "," + que.queue_name + "='" + p.queue_name.Replace("'", "''") + "' " +
                 "Where " + que.pkField + "='" + p.b_queue_id + "'"
@@ -288,6 +289,7 @@ namespace bangna_queue_tv.obgdb
                 stf1.queue_prefix = row[que.queue_prefix].ToString();
                 stf1.queue_code = row[que.queue_code].ToString();
                 stf1.queue_start = row[que.queue_start].ToString();
+                stf1.status_everyday = row[que.status_everyday].ToString();
                 lStf.Add(stf1);
             }
         }
@@ -332,7 +334,7 @@ namespace bangna_queue_tv.obgdb
                 stf1.user_cancel = dt.Rows[0][que.user_cancel].ToString();
                 stf1.queue_prefix = dt.Rows[0][que.queue_prefix].ToString();
                 stf1.active = dt.Rows[0][que.active].ToString();
-                //stf1.status_queue = dt.Rows[0][que.status_queue].ToString();
+                stf1.status_everyday = dt.Rows[0][que.status_everyday].ToString();
                 //stf1.staff_name = dt.Rows[0][que.staff_name].ToString();
                 //stf1.date_begin = dt.Rows[0][que.date_begin].ToString();
                 //stf1.date_finish = dt.Rows[0][que.date_finish].ToString();
@@ -359,6 +361,7 @@ namespace bangna_queue_tv.obgdb
             stf1.queue = "";
             stf1.queue_prefix = "";
             stf1.queue_start = "";
+            stf1.status_everyday = "";
             return stf1;
         }
     }

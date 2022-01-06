@@ -23,29 +23,52 @@ namespace bangna_queue_tv.gui
         Boolean pageLoad = false;
         Panel pnQue;
         NotifyIcon notifyIcon1;
+        ContextMenu menuGw;
 
-        ContextMenuStrip contextMenuStrip1;
-        ToolStripMenuItem menuShow;
-        ToolStripMenuItem menuExit;
+        System.ComponentModel.IContainer components;
+        ContextMenu contextMenu1;
+        MenuItem menuShow;
+        MenuItem menuExit;
+        int colCalId = 1, colCalQue = 2, colCalQueName = 3;
         public FrmCall(BangnaQueueControl bqc)
         {
             this.bqc = bqc;
             initConfig();
-            setGrfQueue();
         }
         private void initConfig()
         {
             pageLoad = true;
+            theme1 = new C1ThemeController();
+            menuGw = new ContextMenu();
+            notifyIcon1 = new NotifyIcon();
+            this.components = new System.ComponentModel.Container();
+            contextMenu1 = new System.Windows.Forms.ContextMenu();
 
-            ContextMenu menuGw = new ContextMenu();
+            setControl();
+
+            initGrfQue();
+            setGrfQueue();
+
+            setTheme();
+            this.Size = new Size(800, 600);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Resize += FrmCall_Resize;
+
+            pageLoad = false;
+        }
+        private void setControl()
+        {
+            menuShow = new MenuItem();
+            menuExit = new MenuItem();
             //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));Office2016DarkGray
+            this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] { this.menuShow });
             this.ContextMenu = menuGw;
             pnQue = new Panel();
             pnQue.Dock = DockStyle.Fill;
             this.Controls.Add(pnQue);
-            notifyIcon1 = new NotifyIcon();
+            
             //MessageBox.Show("FrmLabLIS 111.1 ", "");
             notifyIcon1.Icon = Resources.backup_restore;
             //MessageBox.Show("FrmLabLIS 111.2 ", "");
@@ -53,29 +76,37 @@ namespace bangna_queue_tv.gui
             notifyIcon1.BalloonTipTitle = "LIS";
             notifyIcon1.Visible = true;
             notifyIcon1.MouseDoubleClick += NotifyIcon1_MouseDoubleClick;
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
-            this.menuShow = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuShow,
-            this.menuExit});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(104, 48);
+
             this.menuShow.Name = "menuShow";
-            this.menuShow.Size = new System.Drawing.Size(103, 22);
             this.menuShow.Text = "Show";
+            menuShow.Click += MenuShow_Click;
             // 
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(103, 22);
             this.menuExit.Text = "Exit";
+            menuExit.Click += MenuExit_Click;
 
-            setTheme();
-            this.Size = new Size(800, 600);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Resize += FrmCall_Resize;
-            pageLoad = false;
+        }
+
+        private void MenuExit_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            this.Close();
+        }
+        protected override void Dispose(bool disposing)
+        {
+            // Clean up any components being used.
+            if (disposing)
+                if (components != null)
+                    components.Dispose();
+
+            base.Dispose(disposing);
+        }
+        private void MenuShow_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -128,30 +159,24 @@ namespace bangna_queue_tv.gui
             grf.DataSource = null;
             grf.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
-            grf.Cols.Count = 7;
+            grf.Cols.Count = 4;
 
-            grf.Cols[colRowNo].Width = 250;
-            grf.Cols[colQueName].Width = 250;
-            grf.Cols[colQueNum].Width = 100;
-            grf.Cols[colQueId].Width = 100;
+            grf.Cols[colCalId].Width = 250;
+            grf.Cols[colCalQue].Width = 250;
+            grf.Cols[colCalQueName].Width = 100;
+            //grf.Cols[colQueId].Width = 100;
 
             grf.ShowCursor = true;
             //grdFlex.Cols[colID].Caption = "no";
             //grfDept.Cols[colCode].Caption = "รหัส";
 
-            grf.Cols[colRowNo].Caption = " ";
-            grf.Cols[colQueName].Caption = "queue name";
-            grf.Cols[colQueNum].Caption = "queue";
-            grf.Cols[colQueId].Caption = "id";
-            grf.Cols[colQueCode].Caption = "ตัวย่อ";
-            grf.Cols[colQuePrefix].Caption = "Prefix";
+            grf.Cols[colCalId].Caption = " ";
+            grf.Cols[colCalQue].Caption = "queue ";
+            grf.Cols[colCalQueName].Caption = "queue name";            
 
             DataTable dt = new DataTable();
-            DateTime dtToday = new DateTime();
-            DateTime.TryParse(txtDate.Text, out dtToday);
-            String date = "";
-            date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
-            dt = bqc.bquDB.queDB.selectAllNotinToday(date);
+            
+            dt = bqc.bquDB.tcallDB.selectAll();
             //dttoday = bqc.bquDB.queDateDB.selectBQueDate1(date);
             grf.Rows.Count = dt.Rows.Count + 1;
             if (dt.Rows.Count == 0)
@@ -159,37 +184,20 @@ namespace bangna_queue_tv.gui
             int i = 1;
             foreach (DataRow drow in dt.Rows)
             {
-                //Boolean chk = false;
-                //foreach (DataRow drowtoday in dttoday.Rows)
-                //{
-                //    if (drowtoday["queue_id"].ToString().Equals(drow["queue_id"].ToString()))
-                //    {
-                //        chk = true;
-                //        continue;
-                //    }
-                //}
-                //if (chk) continue;
-                grf.Rows[i][colRowNo] = i;
+                grf.Rows[i][0] = i;
                 grf[i, 0] = i;
-                grf[i, colQueName] = drow["queue_name"].ToString();
-                grf[i, colQueNum] = drow["queue_code"].ToString();
-                grf[i, colQueId] = drow["queue_id"].ToString();
-                grf[i, colQueCode] = drow["queue_code"].ToString();
-                grf[i, colQuePrefix] = drow["queue_prefix"].ToString();
+                grf[i, colCalId] = drow["call_id"].ToString();
+                grf[i, colCalQue] = drow["queue"].ToString();
+                grf[i, colCalQueName] = drow["queue_name"].ToString();
                 i++;
             }
             //grfQue.Rows[0].Visible = false;
-            grf.Cols[colQueId].Visible = false;
-            grf.Cols[colRowNo].Visible = false;
-
-            //grfImg.Cols[colPathPic].Visible = false;
-            grf.Cols[colRowNo].AllowEditing = false;
-            grf.Cols[colQueName].AllowEditing = false;
-            grf.Cols[colQueNum].AllowEditing = false;
-            grf.Cols[colQueId].AllowEditing = false;
+            grf.Cols[colCalId].Visible = false;
+                        
+            grf.Cols[colCalQue].AllowEditing = false;
+            grf.Cols[colCalQueName].AllowEditing = false;
 
             //grfImg.AutoSizeCols();
-            grf.AutoSizeRows();
             pageLoad = false;
             //theme1.SetTheme(grfQue, "Office2016Colorful");
 

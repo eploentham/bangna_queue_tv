@@ -19,5 +19,6 @@ namespace bangna_queue_tv.object1
         public String date_begin { get; set; }
         public String date_finish { get; set; }
         public String queue { get; set; }
+        public String status_everyday { get; set; }
     }
 }
