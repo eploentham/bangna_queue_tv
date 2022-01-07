@@ -22,14 +22,22 @@ namespace bangna_queue_tv.obgdb
         }
         private void initConfig()
         {
-            stfDB = new StaffDB(conn);
-            queDateDB = new BQueueDateDB(conn);
-            queDB = new BQueueDB(conn);
-            tqueDB = new TQueueDB(conn);
-            quecDB = new BQueueCallerDB(conn);
-            tcallDB = new TCallDB(conn);
+            try
+            {
+                stfDB = new StaffDB(conn);
+                queDateDB = new BQueueDateDB(conn);
+                queDB = new BQueueDB(conn);
+                tqueDB = new TQueueDB(conn);
+                quecDB = new BQueueCallerDB(conn);
+                tcallDB = new TCallDB(conn);
 
-            queDB.getlStf();
+                queDB.getlStf();
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("d", "BangnaQueueDB initConfig "+ex.Message);
+            }
+            
         }
     }
 }

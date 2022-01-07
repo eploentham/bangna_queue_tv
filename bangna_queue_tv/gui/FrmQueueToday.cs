@@ -55,7 +55,7 @@ namespace bangna_queue_tv.gui
             String date = "";
             date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
             txtDate.Value = date;
-            this.ClientSize = new System.Drawing.Size(1200, 600);
+            this.ClientSize = new Size(1200, 600);
             txtQueNum.Value = "0";
             pnQueAdd.SizeRatio = 40;
             pnQueToday.SizeRatio = 30;
@@ -68,7 +68,16 @@ namespace bangna_queue_tv.gui
         private void BtnQueUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            String re = bqc.bquDB.queDateDB.VoidClearQue(txtQueTodayId.Text.Trim(), txtQueNum.Text.Trim(), "");
+            int chk = 0;
+            if(int.TryParse(re, out chk))
+            {
+                lbStatus.Text = "clear que และupdate เลขque ใหม่ เรียบร้อย";
+            }
+            else
+            {
+                lbStatus.Text = re;
+            }
         }
 
         private void BtnQueDel_Click(object sender, EventArgs e)

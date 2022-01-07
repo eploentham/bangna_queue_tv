@@ -189,6 +189,7 @@ namespace bangna_queue_tv.obgdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "TQueduDB voidQueue " + sql);
             }
 
             return re;
@@ -212,6 +213,7 @@ namespace bangna_queue_tv.obgdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "TQueduDB voidQueueByQueDate " + sql);
             }
             return re;
         }
@@ -249,6 +251,7 @@ namespace bangna_queue_tv.obgdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "TQueduDB FinishAndNewQueue "+ sql);
             }
             finally
             {
@@ -290,7 +293,9 @@ namespace bangna_queue_tv.obgdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("TQueueDB LockQueue " + sql);
+                //new LogWriter("TQueueDB LockQueue " + sql);
+                //new LogWriter("e", "TQueueDB LockQueue err " + sql);
+                new LogWriter("e", "TQueueDB LockQueue " + sql);
                 stf1.t_queue_id = "-1";
                 stf1.queue_name = sql;
             }

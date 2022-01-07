@@ -31,7 +31,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbQue = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.lbQueFinish = new System.Windows.Forms.Label();
+            this.lbQueCur = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lbTQueId = new System.Windows.Forms.Label();
             this.chkQueSend = new C1.Win.C1Input.C1CheckBox();
@@ -90,15 +90,15 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "คิวปัจจุบัน :";
             // 
-            // lbQueFinish
+            // lbQueCur
             // 
-            this.lbQueFinish.AutoSize = true;
-            this.lbQueFinish.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbQueFinish.Location = new System.Drawing.Point(169, 149);
-            this.lbQueFinish.Name = "lbQueFinish";
-            this.lbQueFinish.Size = new System.Drawing.Size(109, 39);
-            this.lbQueFinish.TabIndex = 13;
-            this.lbQueFinish.Text = "label4";
+            this.lbQueCur.AutoSize = true;
+            this.lbQueCur.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbQueCur.Location = new System.Drawing.Point(169, 149);
+            this.lbQueCur.Name = "lbQueCur";
+            this.lbQueCur.Size = new System.Drawing.Size(109, 39);
+            this.lbQueCur.TabIndex = 13;
+            this.lbQueCur.Text = "label4";
             // 
             // label5
             // 
@@ -106,9 +106,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label5.Location = new System.Drawing.Point(3, 149);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 39);
+            this.label5.Size = new System.Drawing.Size(175, 39);
             this.label5.TabIndex = 12;
-            this.label5.Text = "มีทั้งหมด  :";
+            this.label5.Text = "จำนวนคิว  :";
             // 
             // lbTQueId
             // 
@@ -210,7 +210,7 @@
             this.panel1.Controls.Add(this.cboQueSend);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.chkQueSend);
-            this.panel1.Controls.Add(this.lbQueFinish);
+            this.panel1.Controls.Add(this.lbQueCur);
             this.panel1.Controls.Add(this.lbTQueId);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
@@ -301,7 +301,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbQue;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lbQueFinish;
+        private System.Windows.Forms.Label lbQueCur;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbTQueId;
         private C1.Win.C1Input.C1CheckBox chkQueSend;

@@ -95,7 +95,7 @@ namespace bangna_queue_tv.gui
                 tque = new TQueue();
                 lbTQueId.Text = "";
                 lbQue.Text = "";
-                lbQueFinish.Text = "";
+                lbQueCur.Text = "";
             }
         }
 
@@ -165,7 +165,7 @@ namespace bangna_queue_tv.gui
                     tmpFilename = pathfile + "\\sound\\"+ tque.queue + ".mp3";
                     arrPlay.Add(tmpFilename);
                 }
-            }            
+            }
             //arrPlay.Add(tmpFilename);
             tmpFilename = pathfile + "\\sound\\at_slot.mp3";
             arrPlay.Add(tmpFilename);
@@ -201,6 +201,7 @@ namespace bangna_queue_tv.gui
             audioFile.Dispose();
             audioFile = null;
             lbStatus.Text = "";
+            btnQueNext.Enabled = true;
         }
 
         private void BtnQueNext_Click(object sender, EventArgs e)
@@ -219,6 +220,7 @@ namespace bangna_queue_tv.gui
                 MessageBox.Show("ไม่พบ caller", "");
                 return;
             }
+            btnQueNext.Enabled = false;
             //if (tque.t_queue_id == null)
             //{
             //    MessageBox.Show("ไม่พบเลขที่คิว", "");
@@ -245,9 +247,9 @@ namespace bangna_queue_tv.gui
                 lbStatus.Text = "OK";
             }
             code = bqc.prefixQue(tque);
-
-            lbQue.Text = code;
-            lbQueFinish.Text = tque.queue_current;
+            bqued = bqc.bquDB.queDateDB.selectByPk1(bqued.b_queue_date_id);
+            lbQue.Text = bqc.prefixQue1(bqued.queuecode, bqued.queueprefix, bqued.queue);
+            lbQueCur.Text = tque.queue_current;
             lbTQueId.Text = tque.t_queue_id;
             //lbStatus.Text = "";
             chkQueSend.Checked = false;
@@ -334,7 +336,7 @@ namespace bangna_queue_tv.gui
             stfid = bqc.getIdCombo(cboQueDate, cboQueDate.Text);
             bqued = bqc.bquDB.queDateDB.selectByPk1(stfid);
             lbQue.Text = "";
-            lbQueFinish.Text = "";
+            lbQueCur.Text = "";
             btnQueVoid.Visible = false;
             setControlQueSend(false);
             chkQueSend.Checked = false;

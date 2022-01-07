@@ -14,5 +14,8 @@ namespace bangna_queue_tv.object1
         public String queue { get; set; }//คิวที่กดได้ เลขที่คิว
         public String queuename { get; set; }
         public String queuename1 { get; set; }
+        public String queuecode { get; set; }
+        public String queueprefix { get; set; }
+        public String statuseveryday { get; set; }
     }
 }

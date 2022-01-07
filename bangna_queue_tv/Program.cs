@@ -33,6 +33,7 @@ namespace bangna_queue_tv
             {
                 MessageBox.Show("error delete log.txt", "");
             }
+            //MessageBox.Show("00000", "");
             BangnaQueueControl bqc = new BangnaQueueControl();
             //Application.Run(new Form1());
             if (bqc.iniC.FrmQueueShow.Equals("1"))
@@ -43,11 +44,13 @@ namespace bangna_queue_tv
             else if (bqc.iniC.FrmQueueShow.Equals("2"))
             {
                 //MessageBox.Show("11111", "");
+                //new LogWriter("d", "Main bqc.iniC.FrmQueueShow 2 ");
                 Application.Run(new FrmCall(bqc));
             }
             else
             {
                 //MessageBox.Show("222222", "");
+                //new LogWriter("d", "Main bqc.iniC.FrmQueueShow 0 ");
                 Application.Run(new FrmQueueDate(bqc));
             }
         }

@@ -42,34 +42,39 @@ namespace bangna_queue_tv.gui
         }
         private void initConfig()
         {
-            InitializeComponent();
-            this.Size = new System.Drawing.Size(1224, 768);
-            fEdit = new Font(bqc.iniC.grdQueTodayFontName, bqc.grdQueTodayFontSize, FontStyle.Regular);
-            fEditPrintQue = new Font(bqc.iniC.printerQueueFontName, int.Parse(bqc.iniC.printerQueueFontSize), FontStyle.Regular);
-            theme1 = new C1ThemeController();
+            try
+            {
+                InitializeComponent();
+                this.Size = new System.Drawing.Size(1224, 768);
+                fEdit = new Font(bqc.iniC.grdQueTodayFontName, bqc.grdQueTodayFontSize, FontStyle.Regular);
+                fEditPrintQue = new Font(bqc.iniC.printerQueueFontName, int.Parse(bqc.iniC.printerQueueFontSize), FontStyle.Regular);
+                theme1 = new C1ThemeController();
 
-            this.Text = "Run-time Controls";
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.StartPosition = FormStartPosition.CenterParent;
-            //this.StartPosition = FormStartPosition.CenterParent;
+                this.Text = "Run-time Controls";
+                this.FormBorderStyle = FormBorderStyle.FixedDialog;
+                this.StartPosition = FormStartPosition.CenterParent;
+                //this.StartPosition = FormStartPosition.CenterParent;
+
+                timer = new Timer();
+                timer.Interval = bqc.timerImgScanNew;
+                timer.Enabled = false;
+                timer.Tick += Timer_Tick;
+
+                initGrfQueToday();
+                setGrfQueToday();
+                theme1.SetTheme(pn1, bqc.iniC.themeApplication);
+                theme1.SetTheme(sB1, bqc.iniC.themeApplication);
+                //this.ResumeLayout(false);
+                //this.PerformLayout();
+
+                this.StartPosition = FormStartPosition.CenterScreen;
+                btnStatus.Click += BtnStatus_Click;
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "FrmQueueDate initConfig err " + ex.Message);
+            }
             
-
-            timer = new Timer();
-            timer.Interval = bqc.timerImgScanNew;
-            timer.Enabled = false;
-            timer.Tick += Timer_Tick;
-
-            
-
-            initGrfQueToday();
-            setGrfQueToday();
-            theme1.SetTheme(pn1, bqc.iniC.themeApplication);
-            theme1.SetTheme(sB1, bqc.iniC.themeApplication);
-            //this.ResumeLayout(false);
-            //this.PerformLayout();
-
-            this.StartPosition = FormStartPosition.CenterScreen;
-            btnStatus.Click += BtnStatus_Click;
         }
         private void InitializeComponent()
         {
@@ -389,7 +394,7 @@ namespace bangna_queue_tv.gui
 
             grfQueToday.Cols[colTodayrowno].Caption = " ";
             grfQueToday.Cols[colTodayQueName].Caption = "queue name";
-            grfQueToday.Cols[colTodayQuCurr].Caption = "queue current";
+            grfQueToday.Cols[colTodayQuCurr].Caption = "จำนวนคิว";
             grfQueToday.Cols[colTodayQue].Caption = "queue";
             grfQueToday.Cols[colTodayId].Caption = "id";
 

@@ -266,6 +266,43 @@ namespace bangna_queue_tv.obgdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("d", "BQueueDateDB QueuetNext "+sql);
+            }
+            finally
+            {
+                conn.conn.Close();
+            }
+            return re;
+        }
+        public String VoidClearQue(String queue_date_id1, String queue1, String user_id1)
+        {
+            String re = "", sql = "";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("void_clearque", conn.conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("?queue_date_id1", MySqlDbType.Int32));
+                cmd.Parameters.Add(new MySqlParameter("?queue1", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?user_id1", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
+
+                cmd.Parameters["?queue_date_id1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?queue_date_id1"].Value = queue_date_id1;
+                cmd.Parameters["?queue1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?queue1"].Value = queue1;
+                cmd.Parameters["?user_id1"].Direction = ParameterDirection.Input;
+                cmd.Parameters["?user_id1"].Value = "";
+                cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
+                //cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
+                conn.conn.Open();
+                cmd.ExecuteNonQuery();
+                re = ((String)cmd.Parameters["?ret"].Value).ToString();
+                //re = (string)cmd.Parameters["?ret"].Value;
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("d", "BQueueDateDB VoidClearQue "+sql);
             }
             finally
             {
@@ -338,13 +375,13 @@ namespace bangna_queue_tv.obgdb
             }
             return re;
         }
-        public String deleteQueToday(String bqueue_id)
+        public String deleteQueToday(String que_date_id)
         {
             String re = "", max = "";
             String sql = "";
             int chk = 0;            
             sql = "Delete From " + bque.table + "  " +
-                "Where " + bque.pkField + "='" + bqueue_id + "'"
+                "Where " + bque.pkField + "='" + que_date_id + "'"
                 ;
             try
             {
@@ -402,7 +439,7 @@ namespace bangna_queue_tv.obgdb
         {
             BQueueDate stf1 = new BQueueDate();
             DataTable dt = new DataTable();
-            String sql = "select qued.*, que.queue_name   " +
+            String sql = "select qued.*, que.queue_name, que.queue_code, que.queue_prefix, que.status_everyday " +
                 "From " + bque.table + " qued " +
                 "inner Join b_queue que on que.queue_id = qued.queue_id " +
                 "Where  qued." + bque.b_queue_date_id + "='" + stfid + "'";
@@ -414,7 +451,7 @@ namespace bangna_queue_tv.obgdb
         {
             BQueueDate stf1 = new BQueueDate();
             DataTable dt = new DataTable();
-            String sql = "select qued.*, que.queue_name   " +
+            String sql = "select qued.*, que.queue_name,que.queue_code,que.queue_prefix,que.status_everyday   " +
                 "From " + bque.table + " qued " +
                 "inner Join b_queue que on que.queue_id = qued.queue_id " +
                 "Where  qued.queue_date = '" + date + "' and qued." + bque.queue_id + "='"+stfid+"'";
@@ -451,7 +488,10 @@ namespace bangna_queue_tv.obgdb
                 stf1.queuename1 = dt.Rows[0]["queue_name"].ToString();
                 stf1.queue_id = dt.Rows[0][bque.queue_id].ToString();
                 stf1.queuename = dt.Rows[0]["queue_name"].ToString();
-                stf1.queue = "";
+                stf1.queue = dt.Rows[0]["queue"].ToString();
+                stf1.queuecode = dt.Rows[0]["queue_code"].ToString();
+                stf1.queueprefix = dt.Rows[0]["queue_prefix"].ToString();
+                stf1.statuseveryday = dt.Rows[0]["status_everyday"].ToString();
             }
             else
             {
@@ -468,6 +508,9 @@ namespace bangna_queue_tv.obgdb
             stf1.queuename1 = "";
             stf1.queue_id = "";
             stf1.queue = "";
+            stf1.queuecode = "";
+            stf1.queueprefix = "";
+            stf1.statuseveryday = "";
             return stf1;
         }
     }
