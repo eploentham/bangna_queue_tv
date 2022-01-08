@@ -1,6 +1,8 @@
 ﻿using bangna_queue_tv.control;
+using bangna_queue_tv.object1;
 using bangna_queue_tv.Properties;
 using C1.Win.C1FlexGrid;
+using C1.Win.C1Input;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
@@ -18,23 +20,25 @@ namespace bangna_queue_tv.gui
     public class FrmQueueDate:Form
     {
         BangnaQueueControl bqc;
-        Panel pn1;
+        Panel pn1, pnQuenewTop, pnQueNewBotton;
         Font fEdit, fEditB, fEditPrintQue;
-        C1FlexGrid grfQueToday;
+        C1FlexGrid grfQueToday, grfQueNew;
         C1SuperTooltip stt, sttHnOld;
         C1SuperErrorProvider sep;
         C1ThemeController theme1;
         C1StatusBar sB1;
         RibbonLabel lbStatus;
         RibbonButton btnStatus;
+        C1Button btnQueNewOK;
 
         Bitmap img;
         Image image1;
         Color color;
         int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId=4;
         int colTodayrowno = 1, colTodayQueName = 2, colTodayqueid = 3,colTodayQue=4, colTodayQuCurr = 5, colTodayId = 6, colTodayQueCode=7, colTodayPrefix=8;
-        Boolean pageLoad = false;
+        Boolean pageLoad = false, statusNewDay = false;
         Timer timer;
+        Form frmQueNew;
         public FrmQueueDate(BangnaQueueControl bqc)
         {
             this.bqc = bqc;
@@ -74,7 +78,6 @@ namespace bangna_queue_tv.gui
             {
                 new LogWriter("e", "FrmQueueDate initConfig err " + ex.Message);
             }
-            
         }
         private void InitializeComponent()
         {
@@ -283,8 +286,7 @@ namespace bangna_queue_tv.gui
             grfQueToday.Font = fEdit;
             grfQueToday.Dock = System.Windows.Forms.DockStyle.Fill;
             grfQueToday.Location = new System.Drawing.Point(0, 0);
-
-            
+                        
             grfQueToday.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None;
             //FilterRow fr = new FilterRow(grfExpn);
 
@@ -403,7 +405,8 @@ namespace bangna_queue_tv.gui
             date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
             dt = bqc.bquDB.queDateDB.selectBQueDate1(date);
             grfQueToday.Rows.Count = dt.Rows.Count + 1;
-            
+            // check ว่าเป็นวันใหม่หรือเปล่า
+            statusNewDay = dt.Rows.Count == 0 ? true : false;
             int i = 1;
             foreach (DataRow drow in dt.Rows)
             {
@@ -444,12 +447,152 @@ namespace bangna_queue_tv.gui
             pageLoad = false;
             timer.Enabled = true;
         }
+        private void initGrfQueNew()
+        {
+            grfQueNew = new C1FlexGrid();
+            grfQueNew.Font = fEdit;
+            grfQueNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfQueNew.Location = new System.Drawing.Point(0, 0);
+
+            grfQueToday.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfVs.AfterRowColChange += GrfImg_AfterRowColChange;
+            //grfVs.MouseDown += GrfImg_MouseDown;
+            //grfQueToday.Click += GrfQueToday_Click;
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));Office2016DarkGray
+            //grfQueToday.ContextMenu = menuGw;
+            pnQuenewTop.Controls.Add(grfQueNew);
+            grfQueNew.AllowSorting = AllowSortingEnum.None;
+
+            theme1.SetTheme(grfQueNew, bqc.iniC.themeApplication);
+        }
+        private void showFrmNewDay()
+        {
+            frmQueNew = new Form();
+            frmQueNew.Size = new System.Drawing.Size(800, 600);
+            frmQueNew.WindowState = FormWindowState.Normal;
+            frmQueNew.FormBorderStyle = FormBorderStyle.FixedDialog;
+            frmQueNew.StartPosition = FormStartPosition.CenterScreen;
+            pnQueNewBotton = new Panel();
+            pnQuenewTop = new Panel();
+            pnQueNewBotton.Dock = DockStyle.Bottom;
+            pnQuenewTop.Dock = DockStyle.Fill;
+            
+            btnQueNewOK = new C1Button();
+            bqc.setControlC1Button(ref btnQueNewOK, fEdit, "SAVE", "btnQueNewOK", pnQueNewBotton.Width - btnQueNewOK.Width - 20,20);
+            //btnQueNewOK.Width = 
+            btnQueNewOK.Click += BtnQueNewOK_Click;
+            initGrfQueNew();
+            frmQueNew.Controls.Add(pnQuenewTop);
+            frmQueNew.Controls.Add(pnQueNewBotton);
+            pnQueNewBotton.Controls.Add(btnQueNewOK);
+
+            String date = "";
+            date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
+            DataTable dt = new DataTable();
+            dt = bqc.bquDB.queDB.selectAllStatusEveryDay();
+            foreach (DataRow drow in dt.Rows)
+            {
+                BQueueDate quetoday = new BQueueDate();
+                quetoday.b_queue_date_id = "";
+                quetoday.queue_id = drow["queue_id"].ToString();
+                quetoday.queue_current = "0";
+                quetoday.queue_date = date;
+                quetoday.queue = "0";
+                String re = bqc.bquDB.queDateDB.insertBQueue(quetoday, "");
+                int chk = 0;
+                if (int.TryParse(re, out chk))
+                {
+                    
+                    //setGrfQueue();
+                    lbStatus.Text = "Save success ";
+                }
+            }
+            setGrfQueueToday();
+            frmQueNew.ShowDialog(this);
+        }
+        private void setGrfQueueToday()
+        {
+            //grfQue.Clear();
+            pageLoad = true;
+            grfQueNew.DataSource = null;
+            grfQueNew.Rows.Count = 1;
+            //grfQue.Rows.Count = 200;
+            grfQueNew.Cols.Count = 7;
+
+            grfQueNew.Cols[colTodayrowno].Width = 250;
+            grfQueNew.Cols[colTodayQueName].Width = 250;
+            grfQueNew.Cols[colTodayQuCurr].Width = 100;
+            grfQueNew.Cols[colTodayId].Width = 100;
+
+            grfQueNew.ShowCursor = true;
+            //grdFlex.Cols[colID].Caption = "no";
+            //grfDept.Cols[colCode].Caption = "รหัส";
+
+            grfQueNew.Cols[colTodayrowno].Caption = " ";
+            grfQueNew.Cols[colTodayQueName].Caption = "queue name";
+            grfQueNew.Cols[colTodayQuCurr].Caption = "queue number";
+            grfQueNew.Cols[colTodayId].Caption = "id";
+
+            DataTable dt = new DataTable();
+            //DateTime dtToday = new DateTime();
+            //DateTime.TryParse(txtDate.Text, out dtToday);
+            String date = "";
+            date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
+            dt = bqc.bquDB.queDateDB.selectBQueDate1(date);
+            grfQueNew.Rows.Count = dt.Rows.Count + 1;
+            //if (dt.Rows.Count == 0)
+            //    grfQueToday.Rows.Count++;
+            int i = 1;
+            foreach (DataRow drow in dt.Rows)
+            {
+                grfQueNew.Rows[i][colTodayrowno] = i;
+                grfQueNew[i, 0] = i;
+                grfQueNew[i, colTodayQueName] = drow["queue_name"].ToString();
+                grfQueNew[i, colTodayQuCurr] = drow["queue_current"].ToString();
+                grfQueNew[i, colTodayId] = drow["b_queue_date_id"].ToString();
+                grfQueNew[i, colTodayqueid] = drow["queue_id"].ToString();
+
+                i++;
+            }
+            //grfQue.Rows[0].Visible = false;
+            grfQueNew.Cols[colTodayId].Visible = false;
+            grfQueNew.Cols[colTodayrowno].Visible = false;
+
+            //grfImg.Cols[colPathPic].Visible = false;
+            grfQueNew.Cols[colTodayrowno].AllowEditing = false;
+            grfQueNew.Cols[colTodayQueName].AllowEditing = false;
+            grfQueNew.Cols[colTodayQuCurr].AllowEditing = false;
+            grfQueNew.Cols[colTodayqueid].AllowEditing = false;
+            grfQueNew.Cols[colTodayId].AllowEditing = false;
+
+            //grfImg.AutoSizeCols();
+            grfQueNew.AutoSizeRows();
+            pageLoad = false;
+            //theme1.SetTheme(grfQue, "Office2016Colorful");
+
+        }
+        private void BtnQueNewOK_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            frmQueNew.Dispose();
+        }
+
         private void FrmQueueDate_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterScreen;
             timer.Enabled = true;
+            if (statusNewDay)
+            {
+                showFrmNewDay();
+            }
         }
     }
 }

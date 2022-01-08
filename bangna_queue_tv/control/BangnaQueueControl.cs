@@ -3,6 +3,7 @@ using bangna_queue_tv.object1;
 using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -294,6 +295,22 @@ namespace bangna_queue_tv.control
                 new List<string>(mp3Files).ForEach(f => w.Write(File.ReadAllBytes(f)));
             }
             return steram;
+        }
+        public Size MeasureString(Control c)
+        {
+            return TextRenderer.MeasureText(c.Text, c.Font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
+        }
+        public void setControlC1Button(ref C1Button btn, Font fEdit, String text, String name, int x, int y)
+        {
+            btn = new C1Button();
+            btn.Name = name;
+            btn.Text = text;
+            btn.Font = fEdit;
+            btn.Location = new System.Drawing.Point(x, y);
+            btn.Size = new Size(MeasureString(btn).Width + 50, fEdit.Height+5);
+            btn.ImageAlign = ContentAlignment.MiddleLeft;
+            btn.TextAlign = ContentAlignment.MiddleRight;
+            btn.Font = fEdit;
         }
     }
 }

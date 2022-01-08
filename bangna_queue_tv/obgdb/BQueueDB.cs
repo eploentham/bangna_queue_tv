@@ -261,6 +261,18 @@ namespace bangna_queue_tv.obgdb
             dt = conn.selectData(conn.conn, sql);
             return dt;
         }
+        public DataTable selectAllStatusEveryDay()
+        {
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select que.*   " +
+                "From " + que.table + " que " +
+                " " +
+                "Where  que.active = '1' and status_everyday ='1'  " +
+                "Order By que." + que.b_queue_id + " asc";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
         public BQueue selectQueByStfQueDate(String stfid, String date)
         {
             BQueue stf1 = new BQueue();
