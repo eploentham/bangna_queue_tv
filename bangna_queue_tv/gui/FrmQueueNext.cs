@@ -209,7 +209,11 @@ namespace bangna_queue_tv.gui
             //throw new NotImplementedException();
             String stfid = "", queid = "", prefix = "", code = "";
             //stfid = bqc.getIdCombo(cboStf, cboStf.Text);
-
+            if (queCaller == null)
+            {
+                MessageBox.Show("ไม่พบ caller", "");
+                return;
+            }
             if (queCaller.queue_call_id.Length<=0)
             {
                 MessageBox.Show("ไม่พบ caller", "");
