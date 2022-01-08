@@ -29,7 +29,7 @@ namespace bangna_queue_tv.gui
         RibbonLabel lbStatus;
         RibbonButton btnStatus;
 
-        int colRowNo = 1, colQueName = 2, colQuePrefix = 3, colQueCode=4, colQueStart=5, colQueId = 6, colEveryDay=7, colQueSave=8;
+        int colRowNo = 1, colQueName = 2, colQuePrefix = 3, colQueCode=4, colQueStart=5, colQueId = 6, colEveryDay = 7, colEveryDayImage=8, colQueSave=9;
         Boolean pageLoad = false;
         public FrmQueueAdd1(BangnaQueueControl bqc)
         {
@@ -154,25 +154,48 @@ namespace bangna_queue_tv.gui
 
                 }
                 pageLoad = false;
+            }else if (grfQue.Col == colEveryDayImage)
+            {
+                try
+                {
+                    if(grfQue[grfQue.Row, colEveryDay] != null)
+                    {
+                        if (grfQue[grfQue.Row, colEveryDay].ToString().Equals("1"))
+                        {
+                            grfQue[grfQue.Row, colEveryDayImage] = Resources.trafficlight_red16;
+                            grfQue[grfQue.Row, colEveryDay] = "0";
+                        }
+                        else
+                        {
+                            grfQue[grfQue.Row, colEveryDayImage] = Resources.trafficlight_green16;
+                            grfQue[grfQue.Row, colEveryDay] = "1";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
         private Boolean saveBQueue()
         {
             Boolean chk = false;
             BQueue que = new BQueue();
-            String id = "", name = "", num = "", code="", prefix="", start="";
+            String id = "", name = "", num = "", code="", prefix="", start="", everyday="";
             id = grfQue[grfQue.Row, colQueId] != null ? grfQue[grfQue.Row, colQueId].ToString():"";
             name = grfQue[grfQue.Row, colQueName] != null ? grfQue[grfQue.Row, colQueName].ToString() : "";
             prefix = grfQue[grfQue.Row, colQuePrefix] != null ? grfQue[grfQue.Row, colQuePrefix].ToString() : "";
             code = grfQue[grfQue.Row, colQueCode] != null ? grfQue[grfQue.Row, colQueCode].ToString() : "";
             start = grfQue[grfQue.Row, colQueStart] != null ? grfQue[grfQue.Row, colQueStart].ToString() : "";
-            //start = grfQue[grfQue.Row, colQueStart] != null ? grfQue[grfQue.Row, colQueStart].ToString() : "";
+            everyday = grfQue[grfQue.Row, colEveryDay] != null ? grfQue[grfQue.Row, colEveryDay].ToString() : "";
             que.b_queue_id = id;
             que.queue_name = name.Trim();
             que.queue = num;
             que.queue_code = code.Trim();
             que.queue_prefix = prefix.Trim();
             que.queue_start = start;
+            que.status_everyday = everyday;
             String re = bqc.bquDB.queDB.insertQueue(que, "");
             int chk1 = 0;
             if(int.TryParse(re, out chk1))
@@ -192,7 +215,7 @@ namespace bangna_queue_tv.gui
             grfQue.DataSource = null;
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
-            grfQue.Cols.Count = 9;
+            grfQue.Cols.Count = 10;
 
             grfQue.Cols[colRowNo].Width = 250;
             grfQue.Cols[colQueName].Width = 250;
@@ -201,11 +224,14 @@ namespace bangna_queue_tv.gui
             grfQue.Cols[colQueSave].Width = 80;
             grfQue.Cols[colQueCode].Width = 100;
             grfQue.Cols[colEveryDay].Width = 100;
-            //CellStyle cs = grfQue.Styles.Add("btn");
-            //cs.DataType = typeof(CheckBox);
-            //grfQue.Cols[colEveryDay].Style = cs;
-            //Column largeTextCol = grfQue.Cols[colQueSave];
-            //largeTextCol.Style = cs;
+
+            Column imageCol = grfQue.Cols[colEveryDayImage];
+            imageCol.Caption = "Images";
+            imageCol.DataType = typeof(Image);
+            imageCol.ImageAlign = ImageAlignEnum.CenterCenter;
+            //imageCol.Editor = new ImagePicker();
+            imageCol.Width = 75;
+
             grfQue.ShowCursor = true;
             //grdFlex.Cols[colID].Caption = "no";
             //grfDept.Cols[colCode].Caption = "รหัส";
@@ -217,6 +243,7 @@ namespace bangna_queue_tv.gui
             grfQue.Cols[colQueSave].Caption = "save";
             grfQue.Cols[colQueCode].Caption = "XXXX";   //XXXX
             grfQue.Cols[colQueStart].Caption = "คิวเริ่มต้น";   //XXXX
+            grfQue.Cols[colEveryDayImage].Caption = "status";   //XXXX
             DataTable dt = new DataTable();
 
             dt = bqc.bquDB.queDB.selectAll();
@@ -233,14 +260,18 @@ namespace bangna_queue_tv.gui
                 grfQue[i, colQueId] = drow["queue_id"].ToString();
                 grfQue[i, colQueCode] = drow["queue_code"].ToString();
                 grfQue[i, colQueStart] = drow["queue_start"].ToString();
+                grfQue[i, colEveryDay] = drow["status_everyday"] != null ? drow["status_everyday"].ToString().Equals("") ? "0": drow["status_everyday"].ToString():"0";
+                grfQue[i, colEveryDayImage] = drow["status_everyday"].ToString().Equals("1") ? Resources.trafficlight_green16 : Resources.trafficlight_red16;
                 grfQue[i, colQueSave] = "";
                 i++;
             }
             //grfQue.Rows[0].Visible = false;
             grfQue.Cols[colQueId].Visible = false;
             grfQue.Cols[colRowNo].Visible = false;
+            grfQue.Cols[colEveryDay].Visible = false;
 
-            //grfImg.Cols[colPathPic].Visible = false;
+            //grfQue.Cols[colEveryDay].Visible = false;
+            grfQue.Cols[colEveryDayImage].AllowEditing = false;
             grfQue.Cols[colRowNo].AllowEditing = true;
             grfQue.Cols[colQueName].AllowEditing = true;
             grfQue.Cols[colQuePrefix].AllowEditing = true;
