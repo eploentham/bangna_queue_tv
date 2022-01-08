@@ -543,6 +543,46 @@ namespace bangna_queue_tv.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pin_green16 {
+            get {
+                object obj = ResourceManager.GetObject("pin_green16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pin_green48 {
+            get {
+                object obj = ResourceManager.GetObject("pin_green48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pin_red16 {
+            get {
+                object obj = ResourceManager.GetObject("pin_red16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pin_red48 {
+            get {
+                object obj = ResourceManager.GetObject("pin_red48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap plus {
             get {
                 object obj = ResourceManager.GetObject("plus", resourceCulture);
@@ -566,6 +606,66 @@ namespace bangna_queue_tv.Properties {
         internal static System.Drawing.Bitmap plus_transparent_40 {
             get {
                 object obj = ResourceManager.GetObject("plus_transparent_40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer_blue16 {
+            get {
+                object obj = ResourceManager.GetObject("printer_blue16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer_blue48 {
+            get {
+                object obj = ResourceManager.GetObject("printer_blue48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer_green16 {
+            get {
+                object obj = ResourceManager.GetObject("printer_green16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer_green48 {
+            get {
+                object obj = ResourceManager.GetObject("printer_green48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer_orange16 {
+            get {
+                object obj = ResourceManager.GetObject("printer_orange16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer_orange48 {
+            get {
+                object obj = ResourceManager.GetObject("printer_orange48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -803,6 +903,26 @@ namespace bangna_queue_tv.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap tennis16 {
+            get {
+                object obj = ResourceManager.GetObject("tennis16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tennis48 {
+            get {
+                object obj = ResourceManager.GetObject("tennis48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tests24 {
             get {
                 object obj = ResourceManager.GetObject("tests24", resourceCulture);
@@ -833,6 +953,46 @@ namespace bangna_queue_tv.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap trafficlight_green16 {
+            get {
+                object obj = ResourceManager.GetObject("trafficlight_green16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trafficlight_green48 {
+            get {
+                object obj = ResourceManager.GetObject("trafficlight_green48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trafficlight_red16 {
+            get {
+                object obj = ResourceManager.GetObject("trafficlight_red16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trafficlight_red48 {
+            get {
+                object obj = ResourceManager.GetObject("trafficlight_red48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TV24 {
             get {
                 object obj = ResourceManager.GetObject("TV24", resourceCulture);
@@ -856,6 +1016,26 @@ namespace bangna_queue_tv.Properties {
         internal static System.Drawing.Bitmap unlocked48 {
             get {
                 object obj = ResourceManager.GetObject("unlocked48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap US_dollar16 {
+            get {
+                object obj = ResourceManager.GetObject("US_dollar16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap US_dollar48 {
+            get {
+                object obj = ResourceManager.GetObject("US_dollar48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -996,6 +1176,26 @@ namespace bangna_queue_tv.Properties {
         internal static System.Drawing.Bitmap users48 {
             get {
                 object obj = ResourceManager.GetObject("users48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap volleyball16 {
+            get {
+                object obj = ResourceManager.GetObject("volleyball16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap volleyball48 {
+            get {
+                object obj = ResourceManager.GetObject("volleyball48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

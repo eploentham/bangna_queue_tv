@@ -580,5 +580,65 @@
   <ItemGroup>
     <None Include="Resources\phonebook48.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trafficlight-red16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tennis16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trafficlight-green16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trafficlight-red48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tennis48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trafficlight-green48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\volleyball48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\volleyball16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin-red48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\US-dollar16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\US-dollar48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin-green16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin-green48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin-red16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer-orange48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer-blue16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer-blue48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer-green16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer-green48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer-orange16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
