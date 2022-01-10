@@ -18,6 +18,7 @@ namespace bangna_queue_tv
         String filename = "";
         public IniFile(String filename)
         {
+            new LogWriter("d", "IniFile filename " + filename);
             parser = new FileIniDataParser();
             parser.Parser.Configuration.CommentString = "#";
             if (File.Exists(filename))

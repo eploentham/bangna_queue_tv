@@ -74,7 +74,7 @@
             // 
             this.lbQue.AutoSize = true;
             this.lbQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbQue.Location = new System.Drawing.Point(169, 78);
+            this.lbQue.Location = new System.Drawing.Point(175, 78);
             this.lbQue.Name = "lbQue";
             this.lbQue.Size = new System.Drawing.Size(109, 39);
             this.lbQue.TabIndex = 11;
@@ -84,7 +84,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(3, 78);
+            this.label4.Location = new System.Drawing.Point(5, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(152, 37);
             this.label4.TabIndex = 10;
@@ -94,7 +94,7 @@
             // 
             this.lbQueCur.AutoSize = true;
             this.lbQueCur.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbQueCur.Location = new System.Drawing.Point(169, 149);
+            this.lbQueCur.Location = new System.Drawing.Point(175, 149);
             this.lbQueCur.Name = "lbQueCur";
             this.lbQueCur.Size = new System.Drawing.Size(109, 39);
             this.lbQueCur.TabIndex = 13;
@@ -104,7 +104,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(3, 149);
+            this.label5.Location = new System.Drawing.Point(5, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(175, 39);
             this.label5.TabIndex = 12;
@@ -220,6 +220,7 @@
             // cboQueDate
             // 
             this.cboQueDate.AllowSpinLoop = false;
+            this.cboQueDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.cboQueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboQueDate.GapHeight = 0;
             this.cboQueDate.ImagePadding = new System.Windows.Forms.Padding(0);
@@ -227,7 +228,7 @@
             this.cboQueDate.ItemsValueMember = "";
             this.cboQueDate.Location = new System.Drawing.Point(176, 16);
             this.cboQueDate.Name = "cboQueDate";
-            this.cboQueDate.Size = new System.Drawing.Size(261, 42);
+            this.cboQueDate.Size = new System.Drawing.Size(261, 37);
             this.cboQueDate.TabIndex = 26;
             this.cboQueDate.Tag = null;
             // 

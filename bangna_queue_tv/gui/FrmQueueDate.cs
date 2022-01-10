@@ -351,27 +351,37 @@ namespace bangna_queue_tv.gui
         }
         private void setGrfQueToday1()
         {
-            timer.Enabled = false;
-            DataTable dt = new DataTable();
-            String date = "";
-            date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
-            dt = bqc.bquDB.queDateDB.selectBQueDate1(date);
-            grfQueToday.Rows.Count = dt.Rows.Count + 1;
-            int i = 1;
-            foreach (DataRow drow in dt.Rows)
+            try
             {
-                grfQueToday.Rows[i][colTodayrowno] = i;
-                grfQueToday[i, 0] = i;
-                grfQueToday[i, colTodayQueName] = drow["queue_name"].ToString();
-                grfQueToday[i, colTodayQuCurr] = drow["queue_current"].ToString();
-                grfQueToday[i, colTodayId] = drow["b_queue_date_id"].ToString();
-                grfQueToday[i, colTodayqueid] = drow["queue_id"].ToString();
-                grfQueToday[i, colTodayQue] = bqc.prefixQue1(drow["queue_code"].ToString(), drow["queue_prefix"].ToString(), drow["queue"].ToString());
-                grfQueToday.Rows[i].Height = 120;
-                //grfQueToday.Rows[i].HeightDisplay = 1500;
-                i++;
+                timer.Enabled = false;
+                DataTable dt = new DataTable();
+                String date = "";
+                date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
+                dt = bqc.bquDB.queDateDB.selectBQueDate1(date);
+                grfQueToday.Rows.Count = dt.Rows.Count + 1;
+                int i = 1;
+                foreach (DataRow drow in dt.Rows)
+                {
+                    grfQueToday.Rows[i][colTodayrowno] = i;
+                    grfQueToday[i, 0] = i;
+                    grfQueToday[i, colTodayQueName] = drow["queue_name"].ToString();
+                    grfQueToday[i, colTodayQuCurr] = drow["queue_current"].ToString();
+                    grfQueToday[i, colTodayId] = drow["b_queue_date_id"].ToString();
+                    grfQueToday[i, colTodayqueid] = drow["queue_id"].ToString();
+                    grfQueToday[i, colTodayQue] = bqc.prefixQue1(drow["queue_code"].ToString(), drow["queue_prefix"].ToString(), drow["queue"].ToString());
+                    grfQueToday.Rows[i].Height = 120;
+                    //grfQueToday.Rows[i].HeightDisplay = 1500;
+                    i++;
+                }
             }
-            timer.Enabled = true;
+            catch(Exception ex)
+            {
+                new LogWriter("e", "FrmQueueDate setGrfQueToday1 ");
+            }
+            finally
+            {
+                timer.Enabled = true;
+            }
         }
         private void setGrfQueToday()
         {

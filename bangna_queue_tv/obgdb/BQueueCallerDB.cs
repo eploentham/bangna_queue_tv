@@ -165,6 +165,26 @@ namespace bangna_queue_tv.obgdb
 
             return re;
         }
+        public String delete(String callerid, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Delete from " + quec.table + "  " +
+                "Where " + quec.pkField + "='" + callerid + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
         public String voiQueueCaller(String queuecallerid, String userId)
         {
             String re = "";

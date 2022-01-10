@@ -24,6 +24,7 @@ namespace bangna_queue_tv.obgdb
         {
             try
             {
+                //new LogWriter("d", "BangnaQueueDB initConfig ");
                 stfDB = new StaffDB(conn);
                 queDateDB = new BQueueDateDB(conn);
                 queDB = new BQueueDB(conn);
@@ -35,9 +36,8 @@ namespace bangna_queue_tv.obgdb
             }
             catch(Exception ex)
             {
-                new LogWriter("d", "BangnaQueueDB initConfig "+ex.Message);
+                new LogWriter("e", "BangnaQueueDB initConfig "+ex.Message);
             }
-            
         }
     }
 }

@@ -36,28 +36,35 @@ namespace bangna_queue_tv.control
         }
         private void initConfig()
         {
-            String appName = "";
-            appName = System.AppDomain.CurrentDomain.FriendlyName;
-            appName = appName.ToLower().Replace(".exe", "");
-            if (System.IO.File.Exists(Environment.CurrentDirectory + "\\" + appName + ".ini"))
+            try
             {
-                appName = Environment.CurrentDirectory + "\\" + appName + ".ini";
+                //new LogWriter("d", "BangnaQueueControl initConfig ");
+                String appName = "";
+                appName = System.AppDomain.CurrentDomain.FriendlyName;
+                appName = appName.ToLower().Replace(".exe", "");
+                if (System.IO.File.Exists(Environment.CurrentDirectory + "\\" + appName + ".ini"))
+                {
+                    appName = Environment.CurrentDirectory + "\\" + appName + ".ini";
+                }
+                else
+                {
+                    appName = Environment.CurrentDirectory + "\\" + Application.ProductName + ".ini";
+                }
+                StartupPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                iniF = new IniFile(appName);
+                iniC = new InitConfig();
+                user = new Staff();
+
+                cop = new Company();
+                logw = new LogWriter();
+                GetConfig();
+                conn = new ConnectDB(iniC);
+                bquDB = new BangnaQueueDB(conn);
             }
-            else
+            catch(Exception ex)
             {
-                appName = Environment.CurrentDirectory + "\\" + Application.ProductName + ".ini";
+                new LogWriter("e", "BangnaQueueControl initConfig "+ ex.Message);
             }
-            StartupPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            iniF = new IniFile(appName);
-            iniC = new InitConfig();
-            user = new Staff();
-
-            cop = new Company();
-            logw = new LogWriter();
-            GetConfig();
-            conn = new ConnectDB(iniC);
-            bquDB = new BangnaQueueDB(conn);
-
         }
         public void GetConfig()
         {

@@ -46,7 +46,7 @@ namespace bangna_queue_tv
         public String pathSSO = "";
         public ConnectDB(InitConfig initc)
         {
-            iniFile = new IniFile("bangna_queue_tv.ini");
+            //iniFile = new IniFile("bangna_queue_tv.ini");
 
             conn = new MySqlConnection();
             connIm = new MySqlConnection();
