@@ -7,7 +7,7 @@
     <ProjectGuid>{2D0B7865-BA55-48FC-88F5-BEDEF5E83828}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_queue_tv</RootNamespace>
-    <AssemblyName>bangna_queue_tv_call</AssemblyName>
+    <AssemblyName>bangna_queue_tv_next</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,7 +36,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\backup-restore.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="C1.C1Excel.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />

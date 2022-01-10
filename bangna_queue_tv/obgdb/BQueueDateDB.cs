@@ -249,7 +249,7 @@ namespace bangna_queue_tv.obgdb
                 cmd.Parameters.Add(new MySqlParameter("?queue_date1", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?user_id1", MySqlDbType.VarChar));
                 cmd.Parameters.Add(new MySqlParameter("?b_queue_date_id1", MySqlDbType.Int32));
-                //cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.VarChar));
+                cmd.Parameters.Add(new MySqlParameter("?ret", MySqlDbType.Int32));
                 cmd.Parameters["?queue_id1"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?queue_id1"].Value = bqueue_id;
                 cmd.Parameters["?queue_date1"].Direction = ParameterDirection.Input;
@@ -258,10 +258,10 @@ namespace bangna_queue_tv.obgdb
                 cmd.Parameters["?user_id1"].Value = "";
                 cmd.Parameters["?b_queue_date_id1"].Direction = ParameterDirection.Input;
                 cmd.Parameters["?b_queue_date_id1"].Value = queue_date_id;
-                //cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
+                cmd.Parameters["?ret"].Direction = ParameterDirection.Output;
                 conn.conn.Open();
                 cmd.ExecuteNonQuery();
-                //re = (string)cmd.Parameters["?ret"].Value;
+                re = cmd.Parameters["?ret"].Value.ToString();
             }
             catch (Exception ex)
             {

@@ -305,6 +305,22 @@ namespace bangna_queue_tv.obgdb
             }
             return stf1;
         }
+        public TQueue selectByPk1(String tqueid)
+        {
+            String re = "0";
+            int chk = 0;
+            TQueue stf1 = new TQueue();
+            DataTable dt = new DataTable();
+            String sql = "select tque.* ,que.queue_code, que.queue_prefix  " +
+                "From " + tque.table + " tque " +
+                "Inner Join b_queue que on tque.queue_id = que.queue_id " +
+                "Where  tque." + tque.pkField + " = '" + tqueid + "'  " +
+                "Order By " + tque.pkField + " asc limit 0,1";
+            dt = conn.selectData(conn.conn, sql);
+            stf1 = setQueue(dt);
+
+            return stf1;
+        }
         public TQueue selectByPk(String tqueid)
         {
             String re = "0";
@@ -355,26 +371,40 @@ namespace bangna_queue_tv.obgdb
             TQueue stf1 = new TQueue();
             if (dt.Rows.Count > 0)
             {
-                stf1.t_queue_id = dt.Rows[0][tque.t_queue_id].ToString();
-                stf1.queue_id = dt.Rows[0][tque.queue_id].ToString();
-                stf1.queue_date = dt.Rows[0][tque.queue_date].ToString();
-                stf1.row_1 = dt.Rows[0][tque.row_1].ToString();
-                stf1.queue_active = dt.Rows[0][tque.queue_active].ToString();
-                stf1.date_create = dt.Rows[0][tque.date_create].ToString();
-                stf1.date_modi = dt.Rows[0][tque.date_modi].ToString();
-                stf1.date_cancel = dt.Rows[0][tque.date_cancel].ToString();
-                stf1.user_create = dt.Rows[0][tque.user_create].ToString();
-                stf1.user_modi = dt.Rows[0][tque.user_modi].ToString();
-                stf1.user_cancel = dt.Rows[0][tque.user_cancel].ToString();
-                stf1.status_queue = dt.Rows[0][tque.status_queue].ToString();
-                stf1.active = dt.Rows[0][tque.active].ToString();
-                stf1.queue_name = dt.Rows[0][tque.queue_name].ToString();
-                stf1.date_begin = dt.Rows[0][tque.date_begin].ToString();
-                stf1.date_finish = dt.Rows[0][tque.date_finish].ToString();
-                stf1.queue_current = dt.Rows[0][tque.queue_current].ToString();
-                stf1.queue = dt.Rows[0][tque.queue].ToString();
-                stf1.b_queue_date_id = dt.Rows[0][tque.b_queue_date_id].ToString();
-                stf1.queue_call_id = dt.Rows[0][tque.queue_call_id].ToString();
+                try
+                {
+                    stf1.t_queue_id = dt.Rows[0][tque.t_queue_id].ToString();
+                    stf1.queue_id = dt.Rows[0][tque.queue_id].ToString();
+                    stf1.queue_date = dt.Rows[0][tque.queue_date].ToString();
+                    stf1.row_1 = dt.Rows[0][tque.row_1].ToString();
+                    stf1.queue_active = dt.Rows[0][tque.queue_active].ToString();
+                    stf1.date_create = dt.Rows[0][tque.date_create].ToString();
+                    stf1.date_modi = dt.Rows[0][tque.date_modi].ToString();
+                    stf1.date_cancel = dt.Rows[0][tque.date_cancel].ToString();
+                    stf1.user_create = dt.Rows[0][tque.user_create].ToString();
+                    stf1.user_modi = dt.Rows[0][tque.user_modi].ToString();
+                    stf1.user_cancel = dt.Rows[0][tque.user_cancel].ToString();
+                    stf1.status_queue = dt.Rows[0][tque.status_queue].ToString();
+                    stf1.active = dt.Rows[0][tque.active].ToString();
+                    stf1.queue_name = dt.Rows[0][tque.queue_name].ToString();
+                    stf1.date_begin = dt.Rows[0][tque.date_begin].ToString();
+                    stf1.date_finish = dt.Rows[0][tque.date_finish].ToString();
+                    stf1.queue_current = dt.Rows[0][tque.queue_current].ToString();
+                    stf1.queue = dt.Rows[0][tque.queue].ToString();
+                    stf1.b_queue_date_id = dt.Rows[0][tque.b_queue_date_id].ToString();
+                    stf1.queue_call_id = dt.Rows[0][tque.queue_call_id].ToString();
+                    stf1.prefix = dt.Rows[0]["queue_prefix"].ToString();
+                    stf1.code = dt.Rows[0]["queue_code"].ToString();
+                }
+                catch(Exception ex)
+                {
+
+                }
+                finally
+                {
+
+                }
+                
             }
             else
             {
@@ -404,6 +434,8 @@ namespace bangna_queue_tv.obgdb
             stf1.queue = "";
             stf1.b_queue_date_id = "";
             stf1.queue_call_id = "";
+            stf1.prefix = "";
+            stf1.code = "";
             return stf1;
         }
     }

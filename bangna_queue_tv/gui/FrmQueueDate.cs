@@ -30,6 +30,7 @@ namespace bangna_queue_tv.gui
         RibbonLabel lbStatus;
         RibbonButton btnStatus;
         C1Button btnQueNewOK;
+        TQueue tque;
 
         Bitmap img;
         Image image1;
@@ -37,6 +38,7 @@ namespace bangna_queue_tv.gui
         int colRowNo = 1, colQueName = 2, colQueNum = 3, colQueId=4;
         int colTodayrowno = 1, colTodayQueName = 2, colTodayqueid = 3,colTodayQue=4, colTodayQuCurr = 5, colTodayId = 6, colTodayQueCode=7, colTodayPrefix=8;
         Boolean pageLoad = false, statusNewDay = false;
+        String tqueid = "";
         Timer timer;
         Form frmQueNew;
         public FrmQueueDate(BangnaQueueControl bqc)
@@ -53,6 +55,7 @@ namespace bangna_queue_tv.gui
                 fEdit = new Font(bqc.iniC.grdQueTodayFontName, bqc.grdQueTodayFontSize, FontStyle.Regular);
                 fEditPrintQue = new Font(bqc.iniC.printerQueueFontName, int.Parse(bqc.iniC.printerQueueFontSize), FontStyle.Regular);
                 theme1 = new C1ThemeController();
+                tque = new TQueue();
 
                 this.Text = "Run-time Controls";
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -184,8 +187,9 @@ namespace bangna_queue_tv.gui
             //stringToPrint += "คิว " + quename + Environment.NewLine;
             //stringToPrint += Environment.NewLine;
             //stringToPrint += "คิวปัจจุบัน " + qurcurr + Environment.NewLine;
+            
             stringToPrint += Environment.NewLine;
-            stringToPrint += "คิวที่ " + que + Environment.NewLine;
+            stringToPrint += "คิวที่ " + bqc.prefixQue1(tque.code, tque.prefix, tque.queue) + Environment.NewLine;
             stringToPrint += Environment.NewLine;
             //stringToPrint += "โต๊ะ   " + txtDesk.Text + Environment.NewLine;
             //Makes the file to print and sets the look of it
@@ -249,7 +253,7 @@ namespace bangna_queue_tv.gui
             //stringToPrint += printText;
             //stringToPrint += Environment.NewLine;
             //stringToPrint += "         จำนวนเงิน " + amt1.ToString("0.00") + Environment.NewLine;
-            g.DrawString(stringToPrint, new Font("arial", 16), Brush, 10, 10);
+            g.DrawString(stringToPrint, new Font(bqc.iniC.printerQueueFontName, bqc.printerQueueFontSize), Brush, 10, 10);
             StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
             float marginR = e.MarginBounds.Right;
             float avg = marginR / 2;
@@ -332,11 +336,16 @@ namespace bangna_queue_tv.gui
                     date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
                     lbStatus.Text = grfQueToday.Col.ToString();
                     String id = "", name = "", num = "", todayid = "";
+                    tqueid = "";
                     todayid = grfQueToday[grfQueToday.Row, colTodayId] != null ? grfQueToday[grfQueToday.Row, colTodayId].ToString() : "";
                     id = grfQueToday[grfQueToday.Row, colTodayqueid] != null ? grfQueToday[grfQueToday.Row, colTodayqueid].ToString() : "";
                     name = grfQueToday[grfQueToday.Row, colTodayQueName] != null ? grfQueToday[grfQueToday.Row, colTodayQueName].ToString() : "";
                     num = grfQueToday[grfQueToday.Row, colTodayQuCurr] != null ? grfQueToday[grfQueToday.Row, colTodayQuCurr].ToString() : "";
                     String re = bqc.bquDB.queDateDB.QueuetNext(id, date, todayid);
+                    tqueid = re;
+                    tque = new TQueue();
+                    tque = bqc.bquDB.tqueDB.selectByPk1(tqueid);
+                    
                     setGrfQueToday1();
                     if (bqc.iniC.statusPrintQue.Equals("1"))
                     {

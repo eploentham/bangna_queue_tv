@@ -20,5 +20,7 @@ namespace bangna_queue_tv.object1
         public String queue_current { get; set; }
         public String b_queue_date_id { get; set; }
         public String queue_call_id { get; set; }
+        public String prefix { get; set; }
+        public String code { get; set; }
     }
 }

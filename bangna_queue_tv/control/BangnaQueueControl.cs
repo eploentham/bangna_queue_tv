@@ -23,7 +23,7 @@ namespace bangna_queue_tv.control
         public String StartupPath = "";
         public LogWriter logw;
 
-        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew=0;
+        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew=0, printerQueueFontSize=0;
         public Decimal CreditCharge = 0;
         public Boolean ftpUsePassive = false;
 
@@ -196,6 +196,7 @@ namespace bangna_queue_tv.control
             int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
             int.TryParse(iniC.grdQueTodayFontSize, out grdQueTodayFontSize);
             int.TryParse(iniC.timerImgScanNew, out timerImgScanNew);
+            int.TryParse(iniC.printerQueueFontSize, out printerQueueFontSize);
             Decimal.TryParse(iniC.creditCharge, out CreditCharge);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
         }
