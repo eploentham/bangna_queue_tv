@@ -31,6 +31,7 @@ namespace bangna_queue_tv.gui
         RibbonButton btnStatus;
         C1Button btnQueNewOK;
         TQueue tque;
+        Company comp;
 
         Bitmap img;
         Image image1;
@@ -44,6 +45,11 @@ namespace bangna_queue_tv.gui
         public FrmQueueDate(BangnaQueueControl bqc)
         {
             this.bqc = bqc;
+            if (bqc.chkAppExit)
+            {
+                //MessageBox.Show("1111", "");
+                Close();
+            }
             initConfig();
         }
         private void initConfig()
@@ -56,6 +62,7 @@ namespace bangna_queue_tv.gui
                 fEditPrintQue = new Font(bqc.iniC.printerQueueFontName, int.Parse(bqc.iniC.printerQueueFontSize), FontStyle.Regular);
                 theme1 = new C1ThemeController();
                 tque = new TQueue();
+                comp = new Company();
 
                 this.Text = "Run-time Controls";
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -67,6 +74,7 @@ namespace bangna_queue_tv.gui
                 timer.Enabled = false;
                 timer.Tick += Timer_Tick;
 
+                comp = bqc.bquDB.compDB.selectByCode1("000");
                 initGrfQueToday();
                 setGrfQueToday();
                 theme1.SetTheme(pn1, bqc.iniC.themeApplication);
@@ -172,6 +180,8 @@ namespace bangna_queue_tv.gui
             //    fs.Close();
             //}
             String date = "", year = "", hhmmss = "", quename="", qurcurr="", que="", que1="", prefix="", todayque="";
+            Size proposedSize = new Size(100, 100);
+            Size textSize = TextRenderer.MeasureText(quename, fEditPrintQue, proposedSize, TextFormatFlags.RightToLeft);
             year = (DateTime.Now.Year + 543).ToString();
             hhmmss = DateTime.Now.ToString("hh:mm:ss");
             date = DateTime.Now.ToString("dd/MM/") + year + " " + hhmmss;
@@ -182,15 +192,32 @@ namespace bangna_queue_tv.gui
             quename = grfQueToday[grfQueToday.Row, colTodayQueName] != null ? grfQueToday[grfQueToday.Row, colTodayQueName].ToString() : "";
             que = grfQueToday[grfQueToday.Row, colTodayQue] != null ? bqc.prefixQue1(que1, prefix, todayque) : "";
             //stringToPrint = mposC.mposDB.copDB.genQueue1Doc() + Environment.NewLine;
-            stringToPrint += "เวลา " + date + Environment.NewLine;
+            //stringToPrint += bqc.iniC.hostname + Environment.NewLine;
+            //stringToPrint += "เวลา " + date + Environment.NewLine;
+            //byte[] bytes = Encoding.Default.GetBytes(bqc.iniC.hostname);
+            Font fonth = new Font(bqc.iniC.printerQueueFontName, bqc.printerQueueFontSize-20, FontStyle.Regular);
+            Font fontB = new Font(bqc.iniC.printerQueueFontName, bqc.printerQueueFontSize, FontStyle.Bold);
+            textSize = TextRenderer.MeasureText(comp.comp_name_t, fonth, proposedSize, TextFormatFlags.RightToLeft);
+            g.DrawString(comp.comp_name_t, fonth, Brush, 10, 10);
+            textSize = TextRenderer.MeasureText("เวลา " + date, fonth, proposedSize, TextFormatFlags.RightToLeft);
+            yPos = textSize.Height + 10;
+            g.DrawString("เวลา " + date, fonth, Brush, 10, yPos);
+            stringToPrint = "";
             stringToPrint += Environment.NewLine;
             //stringToPrint += "คิว " + quename + Environment.NewLine;
             //stringToPrint += Environment.NewLine;
             //stringToPrint += "คิวปัจจุบัน " + qurcurr + Environment.NewLine;
-            
-            stringToPrint += Environment.NewLine;
-            stringToPrint += "คิวที่ " + bqc.prefixQue1(tque.code, tque.prefix, tque.queue) + Environment.NewLine;
-            stringToPrint += Environment.NewLine;
+            //new LogWriter("d", "FrmQueueDate printDocument1_PrintQueue "+ tque.code+" "+ tque.prefix+" "+ tque.queue);
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            float marginR = e.MarginBounds.Right;
+            float avg = marginR / 2;
+
+            //stringToPrint += Environment.NewLine;
+            //stringToPrint += "คิวที่ " + bqc.prefixQue1(tque.code, tque.prefix, tque.queue) + Environment.NewLine;
+            //stringToPrint += Environment.NewLine;
+            textSize = TextRenderer.MeasureText(bqc.prefixQue1(tque.code, tque.prefix, tque.queue), fontB, proposedSize, TextFormatFlags.RightToLeft);
+            yPos += textSize.Height + 30;
+            e.Graphics.DrawString(bqc.prefixQue1(tque.code, tque.prefix, tque.queue), fontB, Brushes.Black, avg - (textSize.Width / 2) + 50, yPos, flags);
             //stringToPrint += "โต๊ะ   " + txtDesk.Text + Environment.NewLine;
             //Makes the file to print and sets the look of it
             //int i = 1;
@@ -253,16 +280,16 @@ namespace bangna_queue_tv.gui
             //stringToPrint += printText;
             //stringToPrint += Environment.NewLine;
             //stringToPrint += "         จำนวนเงิน " + amt1.ToString("0.00") + Environment.NewLine;
-            g.DrawString(stringToPrint, new Font(bqc.iniC.printerQueueFontName, bqc.printerQueueFontSize), Brush, 10, 10);
-            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
-            float marginR = e.MarginBounds.Right;
-            float avg = marginR / 2;
-            Size proposedSize = new Size(100, 100);
-            Size textSize = TextRenderer.MeasureText(quename, fEditPrintQue, proposedSize, TextFormatFlags.RightToLeft);
+            g.DrawString(stringToPrint, new Font(bqc.iniC.printerQueueFontName, bqc.printerQueueFontSize), Brush, 10, 60);
+            flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            marginR = e.MarginBounds.Right;
+            avg = marginR / 2;
+            proposedSize = new Size(100, 100);
+            textSize = TextRenderer.MeasureText(quename, fontB, proposedSize, TextFormatFlags.RightToLeft);
             //textSize = TextRenderer.MeasureText(lbQue.Text, fEditPrintQue, proposedSize, TextFormatFlags.RightToLeft);
             //yPos = topMargin + (count * fEdit.GetHeight(e.Graphics) + gap);
-            yPos = 200;
-            e.Graphics.DrawString(quename, fEditPrintQue, Brushes.Black, avg - (textSize.Width / 2) + 50, yPos, flags);
+            yPos += textSize.Height + 30;
+            e.Graphics.DrawString(quename, fontB, Brushes.Black, avg - (textSize.Width / 2) + 50, yPos, flags);
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -344,6 +371,7 @@ namespace bangna_queue_tv.gui
                     String re = bqc.bquDB.queDateDB.QueuetNext(id, date, todayid);
                     tqueid = re;
                     tque = new TQueue();
+                    //new LogWriter("d", "FrmQueueDate printDocument1_PrintQueue tqueid " + tqueid);
                     tque = bqc.bquDB.tqueDB.selectByPk1(tqueid);
                     
                     setGrfQueToday1();
@@ -355,7 +383,7 @@ namespace bangna_queue_tv.gui
             }
             catch(Exception ex)
             {
-
+                new LogWriter("d", "FrmQueueDate GrfQueToday_Click  " +ex.Message);
             }
         }
         private void setGrfQueToday1()
@@ -607,6 +635,7 @@ namespace bangna_queue_tv.gui
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = "Run-time Controls 21-01-65";
             timer.Enabled = true;
             if (statusNewDay)
             {

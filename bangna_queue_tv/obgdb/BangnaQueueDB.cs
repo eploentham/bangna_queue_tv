@@ -15,6 +15,7 @@ namespace bangna_queue_tv.obgdb
         public TQueueDB tqueDB;
         public BQueueCallerDB quecDB;
         public TCallDB tcallDB;
+        public CompanyDB compDB;
         public BangnaQueueDB(ConnectDB c)
         {
             conn = c;
@@ -31,6 +32,7 @@ namespace bangna_queue_tv.obgdb
                 tqueDB = new TQueueDB(conn);
                 quecDB = new BQueueCallerDB(conn);
                 tcallDB = new TCallDB(conn);
+                compDB = new CompanyDB(conn);
 
                 queDB.getlStf();
             }

@@ -40,6 +40,10 @@ namespace bangna_queue_tv.gui
         public FrmCall(BangnaQueueControl bqc)
         {
             this.bqc = bqc;
+            if (bqc.chkAppExit)
+            {
+                Close();
+            }
             initConfig();
         }
         private void initConfig()

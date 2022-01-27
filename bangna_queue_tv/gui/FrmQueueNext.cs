@@ -38,6 +38,10 @@ namespace bangna_queue_tv.gui
         {
             InitializeComponent();
             this.bqc = bqc;
+            if (bqc.chkAppExit)
+            {
+                Close();
+            }
             initConfig();
         }
         private void initConfig()

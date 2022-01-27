@@ -3,9 +3,11 @@ using bangna_queue_tv.object1;
 using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -25,10 +27,11 @@ namespace bangna_queue_tv.control
 
         public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew=0, printerQueueFontSize=0;
         public Decimal CreditCharge = 0;
-        public Boolean ftpUsePassive = false;
+        public Boolean ftpUsePassive = false, chkAppExit=false;
 
         public BangnaQueueDB bquDB;
-
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
         public BangnaQueueControl()
         {
             initConfig();
@@ -137,6 +140,8 @@ namespace bangna_queue_tv.control
             iniC.printerAppointment = iniF.getIni("app", "printerAppointment");
             iniC.pathSaveExcelAppointment = iniF.getIni("app", "pathSaveExcelAppointment");
             iniC.printerA4 = iniF.getIni("app", "printerA4");
+            iniC.hostname = iniF.getIni("app", "hostname");
+            iniC.hostnamee = iniF.getIni("app", "hostnamee");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -169,6 +174,8 @@ namespace bangna_queue_tv.control
 
             iniC.statusPrintQue = iniC.statusPrintQue.Equals("") ? "0" : iniC.statusPrintQue;
             iniC.statusQueueNameHide = iniC.statusQueueNameHide.Equals("") ? "1" : iniC.statusQueueNameHide;
+            iniC.hostname = iniC.hostname.Equals("") ? "" : iniC.hostname;
+            iniC.hostnamee = iniC.hostnamee.Equals("") ? "" : iniC.hostnamee;
 
             iniC.hostFTP = iniC.hostFTP == null ? "" : iniC.hostFTP;
             iniC.userFTP = iniC.userFTP == null ? "" : iniC.userFTP;
@@ -319,6 +326,59 @@ namespace bangna_queue_tv.control
             btn.ImageAlign = ContentAlignment.MiddleLeft;
             btn.TextAlign = ContentAlignment.MiddleRight;
             btn.Font = fEdit;
+        }
+        private bool ProgramIsRunning(string FullPath)
+        {
+            string FilePath = Path.GetDirectoryName(FullPath);
+            string FileName = Path.GetFileNameWithoutExtension(FullPath).ToLower();
+            bool isRunning = false;
+
+            Process[] pList = Process.GetProcessesByName(FileName);
+
+            foreach (Process p in pList)
+            {
+                if (p.MainModule.FileName.StartsWith(FilePath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    isRunning = true;
+                    break;
+                }
+            }
+            return isRunning;
+        }
+        public int getProcessId()
+        {
+            int proc = 0;
+            Process[] processes = Process.GetProcessesByName(System.AppDomain.CurrentDomain.FriendlyName);
+            if (processes.Length == 0)
+            {
+                MessageBox.Show("111", "");
+                Console.WriteLine("Not running");
+            }
+            else
+            {
+                MessageBox.Show("222", "");
+                Console.WriteLine("Running");
+                BringWindowToFront();
+            }
+            return proc;
+        }
+        public Boolean BringWindowToFront()
+        {
+            Boolean chk = false;
+            var currentProcess = Process.GetCurrentProcess();
+            var processes = Process.GetProcessesByName(currentProcess.ProcessName);
+            var process = processes.FirstOrDefault(p => p.Id != currentProcess.Id);
+            if (process == null) chk=true;
+            var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
+            if (exists)
+            {
+                chk = true;
+                chkAppExit = true;
+                //MessageBox.Show("222", "");
+                SetForegroundWindow(process.MainWindowHandle);
+                Application.Exit();
+            }
+            return chk;
         }
     }
 }

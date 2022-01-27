@@ -21,6 +21,7 @@ namespace bangna_queue_tv
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
+                 
                 if (File.Exists("log.txt"))
                 {
                     long length = new System.IO.FileInfo("log.txt").Length;
@@ -35,6 +36,9 @@ namespace bangna_queue_tv
             }
             //MessageBox.Show("00000", "");
             BangnaQueueControl bqc = new BangnaQueueControl();
+            Boolean chk = bqc.BringWindowToFront();
+            
+            
             //Application.Run(new Form1());
             if (bqc.iniC.FrmQueueShow.Equals("1"))
             {
